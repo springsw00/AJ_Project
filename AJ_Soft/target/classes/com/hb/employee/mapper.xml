@@ -5,6 +5,34 @@
 <!-- 쿼리작성해서 db에 보내고 결과 까지 받는 장소 -->
 <mapper namespace="employee">
 
+	<insert id="insertEmployee" parameterType="com.hb.EmployeeVO">
+		insert into EMPLOYEE values(
+		#{id},#{password},#{name},#{email},#{address},
+		#{departmentID},#{position},#{cellPhone},#{phone},#{birth},#{profile})
+	</insert>
+	
+	<update id="updateEmployee" parameterType="com.hb.EmployeeVO">
+		update EMPLOYEE 
+		set password = #{password}, email=#{email}, address = #{address}, departmentID = #{departmentID}, 
+			name =#{name}, position=#{position}, cellPhone=#{cellPhone}, phone=${phone}, birth =#{birth}, profile=#{profile}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteEmployee" parameterType="String">
+		delete from EMPLOYEE where id = #{id} 
+	</delete>
+	
+	<insert id="insertAR" parameterType="com.hb.AttendanceRecordVO">
+		insert into AttendanceRecord values(AR_SEQ.nextval, #{id}, SYSDATE, to_char(SYSDATE, 'HH24:MI:SS'), 00:00:00, 0)
+	</insert>
+	
+	<update id="updateAR" parameterType="com.hb.AttendanceRecordVO">
+		update AttendanceRecord
+		set startTime = #{startTime}, endTime = #{endTime}, workTime = #{workTime}, ip = #{ip}
+		where ar_No = #{ar_No}
+	</update>
+	
+
 
 </mapper>
 

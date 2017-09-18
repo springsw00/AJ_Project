@@ -3,7 +3,7 @@ package com.hb.employee;
 import com.hb.interfaces.VO;
 
 public class EmployeeVO implements VO{
-	private String id, password, name, email, address, cellPhone, posision, phone, profile;
+	private String id, password, name, email, address, cellPhone, position, phone, profile;
 	private int departmentID, birth;
 
 	public String getId() {
@@ -55,11 +55,11 @@ public class EmployeeVO implements VO{
 	}
 
 	public String getPosision() {
-		return posision;
+		return position;
 	}
 
 	public void setPosision(String posision) {
-		this.posision = posision;
+		this.position = posision;
 	}
 
 	public String getPhone() {
