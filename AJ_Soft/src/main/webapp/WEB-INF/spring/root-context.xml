@@ -25,5 +25,41 @@
 	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="factoryBean"/>
 	</bean>
+	
+	<!-- 스프링 트랜잭션 관리자 호출 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	
+	<!-- DAO 설정 -->
+	<bean id="communityDao" class="com.hb.board.CommunityDAO">
+		<property name="template" ref="template" />
+		<property name="transactionManager"  ref="transactionManager"/>
+	</bean>
+	
+	<bean id="noticeDao" class="com.hb.board.NoticeDAO">
+		<property name="template" ref="template" />
+		<property name="transactionManager"  ref="transactionManager"/>
+	</bean>
+	
+	<bean id="calendarDao" class="com.hb.calendar.CalendarDAO">
+		<property name="template" ref="template" />
+		<property name="transactionManager"  ref="transactionManager"/>
+	</bean>
+	<bean id="contactlistDao" class="com.hb.contactlist.ContactListDAO">
+		<property name="template" ref="template" />
+		<property name="transactionManager"  ref="transactionManager"/>
+	</bean>
+	<bean id="arDao" class="com.hb.employee.AttendanceRecordDAO">
+		<property name="template" ref="template" />
+		<property name="transactionManager"  ref="transactionManager"/>
+	</bean>
+	
+	<bean id="employeeDao" class="com.hb.employee.EmployeeDAO">
+		<property name="template" ref="template" />
+		<property name="transactionManager"  ref="transactionManager"/>
+	</bean>
+	
 		
 </beans>

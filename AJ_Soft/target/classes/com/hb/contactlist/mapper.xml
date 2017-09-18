@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 쿼리작성해서 db에 보내고 결과 까지 받는 장소 -->
+<mapper namespace="contactlist">
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
