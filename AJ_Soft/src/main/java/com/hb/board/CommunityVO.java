@@ -1,6 +1,8 @@
 package com.hb.board;
 
-public class CommunityVO {
+import com.hb.interfaces.VO;
+
+public class CommunityVO implements VO {
 	
 	int community_no, groupID;
 	String title, content, writer, writeDate;

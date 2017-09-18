@@ -1,6 +1,8 @@
 package com.hb.employee;
 
-public class EmployeeVO {
+import com.hb.interfaces.VO;
+
+public class EmployeeVO implements VO{
 	private String id, password, name, email, address, cellPhone, posision, phone, profile;
 	private int departmentID, birth;
 

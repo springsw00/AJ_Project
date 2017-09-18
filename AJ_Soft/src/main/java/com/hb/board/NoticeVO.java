@@ -1,6 +1,8 @@
 package com.hb.board;
 
-public class NoticeVO {
+import com.hb.interfaces.VO;
+
+public class NoticeVO implements VO {
 	private int poll_No, importanceLevel;
 	private String title, content, writeDate;
 

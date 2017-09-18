@@ -1,4 +1,4 @@
-package com.hb.aj;
+package com.hb.ajcontroller;
 
 import java.text.DateFormat;
 import java.util.Date;

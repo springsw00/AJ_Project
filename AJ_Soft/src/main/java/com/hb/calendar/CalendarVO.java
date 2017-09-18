@@ -1,6 +1,8 @@
 package com.hb.calendar;
 
-public class CalendarVO {
+import com.hb.interfaces.VO;
+
+public class CalendarVO implements VO {
 	private String id, title, content, location, startDate, endDate;
 	private int calendar_No, category;
 	

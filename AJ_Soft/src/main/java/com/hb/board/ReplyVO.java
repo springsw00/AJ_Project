@@ -1,6 +1,8 @@
 package com.hb.board;
 
-public class ReplyVO {
+import com.hb.interfaces.VO;
+
+public class ReplyVO implements VO {
 	private int reply_No, board_Category, board_no;
 	private String id, reply_date, content;
 	

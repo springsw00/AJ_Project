@@ -30,5 +30,26 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 한글 처리 -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>
+            org.springframework.web.filter.CharacterEncodingFilter
+    </filter-class>
+    <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+	<!-- 첫페이지 지정 -->
+	<welcome-file-list>
+		<welcome-file>/WEB-INF/views/home.jsp</welcome-file>
+	</welcome-file-list>
+	
 
 </web-app>

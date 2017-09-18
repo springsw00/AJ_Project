@@ -1,6 +1,8 @@
 package com.hb.employee;
 
-public class AttendanceRecordVO {
+import com.hb.interfaces.VO;
+
+public class AttendanceRecordVO implements VO {
 	private int ar_No ;
 	private String id, ar_Date, startTime, endTime, workTime, ip;
 	public int getAr_No() {

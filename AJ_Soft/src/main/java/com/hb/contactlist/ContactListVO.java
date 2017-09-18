@@ -1,6 +1,8 @@
 package com.hb.contactlist;
 
-public class ContactListVO {
+import com.hb.interfaces.VO;
+
+public class ContactListVO implements VO {
 	private int contactList_No, group;
 	private String id, name, cellPhone, phone, departmentID, companyName, email;
 
