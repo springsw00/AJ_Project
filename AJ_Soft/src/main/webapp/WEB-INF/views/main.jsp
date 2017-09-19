@@ -8,8 +8,8 @@
 <style type="text/css">
 @font-face {
 	font-family: 'NanumBarungothic';
-	src: url('/resources/NanumBarunGothic.eot') format('embedded-opentype'),
-		 url('/resources/NANUMBARUNGOTHIC.woff') format('woff');
+	src: url('${pageContext.request.contextPath}/resources/fonts/NanumBarunGothic.eot') format('embedded-opentype'),
+		 url('${pageContext.request.contextPath}/resources/fonts/NANUMBARUNGOTHIC.woff') format('woff');
 }
 
 
