@@ -5,6 +5,9 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.hb.interfaces.DAO;
 import com.hb.interfaces.VO;
@@ -53,7 +56,7 @@ public class EmployeeDAO implements DAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+ 
 	@Override
 	public int modify(VO vo) {
 		// TODO Auto-generated method stub
@@ -66,10 +69,9 @@ public class EmployeeDAO implements DAO {
 		return 0;
 	}
 	
-	// 이 때 VO에서 아이디와 비밀번호 정보만 저장해서 사용 
 	public VO loginCheck(VO vo) {
+		return template.selectOne("employee.loginCheck", vo);
 		
-		return null;
 	}
 
 }

@@ -64,7 +64,7 @@
 </script>
 </head>
 <body>
-	<form method="get" id="frm">
+	<form method="post" id="frm">
 
 		<table>
 			<tbody>
@@ -106,7 +106,7 @@
 				</tr>
 				<tr>
 					<td>직위</td>
-					<td><select>
+					<td><select name="position">
 							<option>팀장</option>
 							<option>사원</option>
 					</select></td>

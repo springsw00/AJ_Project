@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,6 +61,7 @@ public class ARController {
 	@RequestMapping("/addPictureAjax.do")
 	public void goAddPicture(MultipartHttpServletRequest mReq,
 			HttpServletRequest req, HttpServletResponse res) {
+		String randomUUID = UUID.randomUUID().toString().replaceAll("-", "");
 		
 		String path = req.getSession().getServletContext().getRealPath("/resources/personImage");
 		
@@ -69,15 +71,15 @@ public class ARController {
 			MultipartFile mFile = mReq.getFile(iter.next());
 			String fName = mFile.getOriginalFilename();
 			
-			String imgPath = path +"/"+ fName;
+			String imgPath = path +"/"+ fName +"_"+randomUUID;
 			File originImg = new File(imgPath);
 			
 			try {
 				mFile.transferTo(originImg);
 				
-				System.out.println(path);
+				
 				PrintWriter out = res.getWriter();
-				out.println(path);
+				out.println(imgPath);
 				
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
@@ -97,7 +99,7 @@ public class ARController {
 	
 	//////////////////////////////////////////////////////////////////// Employee 관련 처리
 	// VO로 받으면 input 값이 없으면 받지 못한다.. 설정하지 않은 값은 null값이라도 넣어주어야한다.
-	@RequestMapping(value="/addEmployee.do", method=RequestMethod.GET )
+	@RequestMapping(value="/addEmployee.do", method=RequestMethod.POST )
 	public ModelAndView addEmployee(EmployeeVO vo, HttpServletRequest req) {
 		
 		String id = req.getParameter("id");
@@ -109,6 +111,8 @@ public class ARController {
 		
 		return null;
 	}
+	
+	
 	
 
 }

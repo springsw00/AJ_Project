@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,6 @@
 	src: url('${pageContext.request.contextPath}/resources/fonts/NanumBarunGothic.eot') format('embedded-opentype'),
 		 url('${pageContext.request.contextPath}/resources/fonts/NANUMBARUNGOTHIC.woff') format('woff');
 }
-
 
 #main_form {
 	font-family: NanumBarungothic;
@@ -91,27 +91,7 @@
 </head>
 <body>
 	<form id="main_form">
-		<div id="left">
-			<img id="logo" src="" />
-			<fieldset id="log">
-				<img id="ID_picture" src="" /> 출근한 시간 : <br>
-				<br> <input id="logout" type="button" value="퇴근" />
-			</fieldset>
-			<div id="mini_calendar">
-				<!-- 미니 달력 -->
-			</div>
-		</div>
-		<div id="menu">
-			<ul class="tab">
-				<li data-tab="tab1"><a href="#">근태관리</a></li>
-				<li data-tab="tab2"><a href="#">주소록</a></li>
-				<li data-tab="tab3"><a href="#">캘린더</a></li>
-				<li data-tab="tab4"><a href="#">커뮤니티</a></li>
-				<li data-tab="tab5"><a href="#">공지게시판</a></li>
-				<li data-tab="tab6"><a href="#">마이페이지</a></li>
-				<li data-tab="tab7"><a href="#">사원관리</a></li>
-			</ul>
-		</div>
+	<jsp:include page="layout.jsp" />
 		<div id="main_board">
 			<div>
 				<h2>공지 게시판</h2>

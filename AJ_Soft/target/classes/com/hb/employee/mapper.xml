@@ -22,7 +22,7 @@
 		delete from EMPLOYEE where id = #{id} 
 	</delete>
 	
-	<select id="checkLogin" parameterType="com.hb.employee.EmployeeVO">
+	<select id="loginCheck" parameterType="com.hb.employee.EmployeeVO" resultType="com.hb.employee.EmployeeVO">
 		select * from EMPLOYEE where id = #{id} and password =#{password}
 	</select>
 	
@@ -42,7 +42,6 @@
 		where ar_No = #{ar_No}
 	</update>
 	
-
 
 </mapper>
 
