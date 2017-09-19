@@ -28,6 +28,6 @@
 		<beans:property name="maxUploadSize" value="10485760" />
 	</beans:bean>
 	
-	<resources location="/resources/fonts/**" mapping="/fonts/**"></resources>
+	<resources location="/resources/fonts/" mapping="/fonts/**"></resources>
 	
 </beans:beans>

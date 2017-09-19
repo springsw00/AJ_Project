@@ -3,8 +3,8 @@ package com.hb.employee;
 import com.hb.interfaces.VO;
 
 public class EmployeeVO implements VO{
-	private String id, password, name, email, address, cellPhone, position, phone, profile;
-	private int departmentID, birth;
+	private String id, password, name, email, address, cellPhone, position, phone, profile, departmentID;
+	private int birth;
 
 	public String getId() {
 		return id;
@@ -78,11 +78,20 @@ public class EmployeeVO implements VO{
 		this.profile = profile;
 	}
 
-	public int getDepartmentID() {
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getDepartmentID() {
 		return departmentID;
 	}
 
-	public void setDepartmentID(int departmentID) {
+	public void setDepartmentID(String departmentID) {
 		this.departmentID = departmentID;
 	}
 

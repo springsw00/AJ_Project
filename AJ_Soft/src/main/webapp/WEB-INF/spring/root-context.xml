@@ -16,7 +16,7 @@
 	<!-- SqlSessionTemplate를 생성하기 위해서 SqlSessionFactoryBean객체 생성 -->
 	<bean id="factoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath*:com/hb/mybatis/mapper.xml" />
+		<property name="mapperLocations" value="classpath*:com/hb/*/mapper.xml" />
 	</bean>
 
 
