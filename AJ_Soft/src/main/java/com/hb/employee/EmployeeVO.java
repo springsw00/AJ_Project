@@ -103,4 +103,13 @@ public class EmployeeVO implements VO{
 		this.birth = birth;
 	}
 
+	@Override
+	public String toString() {
+		return "EmployeeVO [id=" + id + ", password=" + password + ", name=" + name + ", email=" + email + ", address="
+				+ address + ", \ncellPhone=" + cellPhone + ", position=" + position + ", phone=" + phone + ", profile="
+				+ profile + ", departmentID=" + departmentID + ", birth=" + birth + "]";
+	}
+	
+	
+
 }
