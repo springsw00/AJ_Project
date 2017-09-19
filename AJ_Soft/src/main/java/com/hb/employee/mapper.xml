@@ -22,6 +22,16 @@
 		delete from EMPLOYEE where id = #{id} 
 	</delete>
 	
+	<select id="checkLogin" parameterType="com.hb.EmployeeVO">
+		select * from EMPLOYEE where id = #{id} and password =#{password}
+	</select>
+	
+	
+	
+	<!-- 
+		//////////////////////////////////////////////////////////////////////////////////
+	 -->
+	
 	<insert id="insertAR" parameterType="com.hb.AttendanceRecordVO">
 		insert into AttendanceRecord values(AR_SEQ.nextval, #{id}, SYSDATE, to_char(SYSDATE, 'HH24:MI:SS'), 00:00:00, 0)
 	</insert>

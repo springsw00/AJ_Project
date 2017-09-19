@@ -65,5 +65,11 @@ public class EmployeeDAO implements DAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	// 이 때 VO에서 아이디와 비밀번호 정보만 저장해서 사용 
+	public VO loginCheck(VO vo) {
+		
+		return null;
+	}
 
 }
