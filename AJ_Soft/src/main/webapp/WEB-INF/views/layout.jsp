@@ -6,12 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	@font-face{
-		font-family:"NanumBarunpen";
-		src:url('fonts/NanumBarunpen.eot');
-		src:url('fonts/NanumBarunpen.eot?#iefix') format('embedded-opentype'),
-		url('fonts/NanumBarunpen.woff') format('woff');
-	}
+	
 
 	#main_form{
 		width: 1300px; 

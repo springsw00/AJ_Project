@@ -7,14 +7,14 @@
 <title>Insert title here</title>
 <style type="text/css">
 @font-face {
-	font-family: 'NanumBarunpen';
-	src: url('./fonts/NanumBarunpen.eot');
-	src: url('./fonts/NanumBarunpen.woff') format('woff');
+	font-family: 'NanumBarungothic';
+	src: url('/resources/NanumBarunGothic.eot') format('embedded-opentype'),
+		 url('/resources/NANUMBARUNGOTHIC.woff') format('woff');
 }
 
 
 #main_form {
-	font-family: NanumBarunpen;
+	font-family: NanumBarungothic;
 	width: 1300px;
 	height: 680px;
 	margin: auto;
@@ -120,6 +120,7 @@
 			</div>
 			<div>
 				<h2>설문 조사</h2>
+				
 				<!-- 설문조사 내용목록 -->
 			</div>
 		</div>

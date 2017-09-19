@@ -5,8 +5,7 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!--오라클 연결(DB연결) -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@10.10.10.111:1521:xe" />
 		<property name="username" value="JYAR" />
