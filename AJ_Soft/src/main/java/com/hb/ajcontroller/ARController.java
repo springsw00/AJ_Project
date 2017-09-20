@@ -90,9 +90,6 @@ public class ARController {
 			}
 		}
 		
-		
-		
-		//ModelAndView mv = new ModelAndView(".");
 	}
 	
 	

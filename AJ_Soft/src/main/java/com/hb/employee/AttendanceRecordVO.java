@@ -5,6 +5,19 @@ import com.hb.interfaces.VO;
 public class AttendanceRecordVO implements VO {
 	private int ar_No ;
 	private String id, ar_Date, startTime, endTime, workTime, ip;
+	
+	
+	
+	/*
+	 * 최초 로그인 시 사용하는 생성자
+	 */
+	public AttendanceRecordVO(String id, String startTime, String ip) {
+		super();
+		this.id = id;
+		this.startTime = startTime;
+		this.ip = ip;
+	}
+	
 	public int getAr_No() {
 		return ar_No;
 	}

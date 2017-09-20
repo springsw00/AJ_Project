@@ -6,12 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.align-center {
+text-align: center;
+}
+</style>
 </head>
 <body>
 	<div id="left">
 		<img id="logo" src="" />
-		<fieldset id="log">
-			<img id="ID_picture" src="" /> 출근한 시간 : <br>
+		<fieldset id="log" class="align-center">
+			<img id="ID_picture" src="" /><br>
+			${empID}(${empName})
+			<br>
+			/ ${empPosition}, ${empDeptName} /		 
 			<br> <input id="logout" type="button" value="퇴근" />
 		</fieldset>
 		<div id="mini_calendar">
@@ -26,7 +34,7 @@
 			<li data-tab="tab4"><a href="#">커뮤니티</a></li>
 			<li data-tab="tab5"><a href="#">공지게시판</a></li>
 			<li data-tab="tab6"><a href="#">마이페이지</a></li>
-			<c:if test="${empvo.departmentID == 'PRMT' }">
+			<c:if test="${empDeptID == 'PRMT' }">
 				<li data-tab="tab7"><a href="emp_admin.do">사원관리</a></li>
 			</c:if>
 		</ul>

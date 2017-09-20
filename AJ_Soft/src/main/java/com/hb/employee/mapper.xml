@@ -22,8 +22,12 @@
 		delete from EMPLOYEE where id = #{id} 
 	</delete>
 	
-	<select id="loginCheck" parameterType="com.hb.employee.EmployeeVO" resultType="com.hb.employee.EmployeeVO">
+	<!-- <select id="loginCheck" parameterType="com.hb.employee.EmployeeVO" resultType="com.hb.employee.EmployeeVO">
 		select * from EMPLOYEE where id = #{id} and password =#{password}
+	</select> -->
+	
+	<select id="loginCheck" parameterType="com.hb.employee.EmployeeVO" resultType="com.hb.employee.EmpViewVO">
+		select * from emp_view where id=#{id} and password = #{password}
 	</select>
 	
 	

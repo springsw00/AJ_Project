@@ -54,13 +54,6 @@ public class EmployeeVO implements VO{
 		this.cellPhone = cellPhone;
 	}
 
-	public String getPosision() {
-		return position;
-	}
-
-	public void setPosision(String posision) {
-		this.position = posision;
-	}
 
 	public String getPhone() {
 		return phone;
