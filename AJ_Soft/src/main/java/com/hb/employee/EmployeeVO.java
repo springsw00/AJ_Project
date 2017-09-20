@@ -2,10 +2,19 @@ package com.hb.employee;
 
 import com.hb.interfaces.VO;
 
-public class EmployeeVO implements VO{
-	private String id, password, name, email, address, cellPhone, position, phone, profile, departmentID;
+public class EmployeeVO implements VO {
+	private String id, password, name, email, address, cellPhone, position, phone, profile, departmentID, hired_date;
 	private int birth;
 
+	public String getHired_date() {
+		return hired_date;
+	}
+
+	public void setHired_date(String hired_date) {
+		this.hired_date = hired_date;
+	}
+
+	
 	public String getId() {
 		return id;
 	}
@@ -54,7 +63,6 @@ public class EmployeeVO implements VO{
 		this.cellPhone = cellPhone;
 	}
 
-
 	public String getPhone() {
 		return phone;
 	}
@@ -70,7 +78,6 @@ public class EmployeeVO implements VO{
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-
 
 	public String getPosition() {
 		return position;
@@ -102,7 +109,5 @@ public class EmployeeVO implements VO{
 				+ address + ", \ncellPhone=" + cellPhone + ", position=" + position + ", phone=" + phone + ", profile="
 				+ profile + ", departmentID=" + departmentID + ", birth=" + birth + "]";
 	}
-	
-	
 
 }

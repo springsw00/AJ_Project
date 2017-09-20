@@ -8,16 +8,13 @@ public class AttendanceRecordVO implements VO {
 	
 	
 	
-	/*
-	 * 최초 로그인 시 사용하는 생성자
-	 */
-	public AttendanceRecordVO(String id, String startTime, String ip) {
-		super();
-		this.id = id;
-		this.startTime = startTime;
-		this.ip = ip;
+
+	@Override
+	public String toString() {
+		return "AttendanceRecordVO [ar_No=" + ar_No + ", id=" + id + ", ar_Date=" + ar_Date + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", workTime=" + workTime + ", ip=" + ip + "]";
 	}
-	
+
 	public int getAr_No() {
 		return ar_No;
 	}

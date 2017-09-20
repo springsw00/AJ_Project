@@ -47,23 +47,27 @@ public class AttendanceRecordDAO implements DAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public int insert(VO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.insert("insertAR", vo);
 	}
 
 	@Override
 	public int modify(VO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.update("updateAR", vo);
 	}
 
 	@Override
 	public int delete(VO vo) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public VO getOneItem(VO vo) {
+		return template.selectOne("checkTodayRecord", vo);
 	}
 
 }

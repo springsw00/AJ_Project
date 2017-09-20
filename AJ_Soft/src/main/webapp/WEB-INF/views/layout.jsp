@@ -4,13 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-.align-center {
-text-align: center;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
+
 </head>
 <body>
 	<div id="left">
@@ -20,7 +19,9 @@ text-align: center;
 			${empID}(${empName})
 			<br>
 			/ ${empPosition}, ${empDeptName} /		 
-			<br> <input id="logout" type="button" value="퇴근" />
+			<br>
+			<a href="getOff.do">퇴근</a> 
+			<!-- <input id="logout" type="button" value="퇴근" /> -->
 		</fieldset>
 		<div id="mini_calendar">
 			<!-- 미니 달력 -->
@@ -28,7 +29,7 @@ text-align: center;
 	</div>
 	<div id="menu">
 		<ul class="tab">
-			<li data-tab="tab1"><a href="#">근태관리</a></li>
+			<li data-tab="tab1"><a href="go_myAr.do">근태관리</a></li>
 			<li data-tab="tab2"><a href="#">주소록</a></li>
 			<li data-tab="tab3"><a href="#">캘린더</a></li>
 			<li data-tab="tab4"><a href="#">커뮤니티</a></li>

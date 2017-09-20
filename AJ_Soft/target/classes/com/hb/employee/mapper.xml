@@ -7,8 +7,8 @@
 
 	<insert id="insertEmployee" parameterType="com.hb.employee.EmployeeVO">
 		insert into EMPLOYEE values(
-		#{id},#{password},#{name},#{email},#{address},
-		#{departmentID},#{position},#{cellPhone},#{phone},#{birth},#{profile})
+		#{id},#{password},#{name},#{email},#{address},#{departmentID},
+		#{position},#{cellPhone},#{phone},#{birth},#{profile},SYSDATE)
 	</insert>
 	
 	<update id="updateEmployee" parameterType="com.hb.employee.EmployeeVO">
@@ -30,14 +30,16 @@
 		select * from emp_view where id=#{id} and password = #{password}
 	</select>
 	
-	
+	<select id="insert_idCheck" parameterType="String" resultType="int">
+		select count(id) from EMPLOYEE where id = #{id} 
+	</select>
 	
 	<!-- 
 		//////////////////////////////////////////////////////////////////////////////////
 	 -->
 	
 	<insert id="insertAR" parameterType="com.hb.employee.AttendanceRecordVO">
-		insert into AttendanceRecord values(AR_SEQ.nextval, #{id}, SYSDATE, to_char(SYSDATE, 'HH24:MI:SS'), 00:00:00, 0)
+		insert into AttendanceRecord values(AR_SEQ.nextval, #{id}, #{ar_Date}, to_char(SYSDATE, 'HH24:MI:SS'), '00:00:00',null, #{ip})
 	</insert>
 	
 	<update id="updateAR" parameterType="com.hb.employee.AttendanceRecordVO">
@@ -45,6 +47,10 @@
 		set startTime = #{startTime}, endTime = #{endTime}, workTime = #{workTime}, ip = #{ip}
 		where ar_No = #{ar_No}
 	</update>
+	
+	<select id="checkTodayRecord" parameterType="com.hb.employee.AttendanceRecordVO" resultType="com.hb.employee.AttendanceRecordVO">
+		select * from AttendanceRecord where id =#{id} and ar_Date=#{ar_Date}
+	</select>
 	
 
 </mapper>

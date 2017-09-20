@@ -53,8 +53,7 @@ public class EmployeeDAO implements DAO {
 
 	@Override
 	public int insert(VO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.insert("employee.insertEmployee", vo);
 	}
  
 	@Override
@@ -72,6 +71,10 @@ public class EmployeeDAO implements DAO {
 	public VO loginCheck(VO vo) {
 		return template.selectOne("employee.loginCheck", vo);
 		
+	}
+	public int idCheck_ajax(String id) {
+		int res = template.selectOne("employee.insert_idCheck", id);
+		return res;
 	}
 
 }
