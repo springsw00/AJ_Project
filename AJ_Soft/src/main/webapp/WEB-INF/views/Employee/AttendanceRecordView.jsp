@@ -35,54 +35,64 @@
 	height: 30px;
 }
 </style>
+<script type="text/javascript">
+	$(function(){
+		var id = '${id}';
+		if(id != ""){
+			//alert(id);
+			$("#receiveID").val(id);
+		}
+	});
+</script>
 
 	
 </head>
 <body>
-				<table id="ar_table">
-					<thead>
-						<tr>
-							<th>날짜</th>
-							<th>출근</th>
-							<th>퇴근</th>
-							<th>IP</th>
-							<th>근무시간</th>
-						</tr>
-					</thead>
-					<tbody>
-						
-						<c:forEach var="vo" items="${arList }">
-							<tr>
-								<td>20${vo.ar_Date }</td>
-								<td>
-									<c:choose>
-										<c:when test="${empty vo.startTime }">-</c:when>
-										<c:otherwise> ${vo.startTime }</c:otherwise>
-									</c:choose>
-								</td>
-								<td>
-									<c:choose>
-											<c:when test="${empty vo.endTime }">-</c:when>
-											<c:otherwise> ${vo.endTime }</c:otherwise>
-									</c:choose>
-								</td>
-								<td>
-									<c:choose>
-											<c:when test="${empty vo.ip }">-</c:when>
-											<c:otherwise> ${vo.ip }</c:otherwise>
-									</c:choose>
-								</td>
-								<td>
-									<c:choose>
-											<c:when test="${empty vo.workTime }">-</c:when>
-											<c:otherwise> ${vo.workTime }</c:otherwise>
-									</c:choose>
-								</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-					<tfoot></tfoot>
-				</table>
+	<input type="hidden" id="receiveID">
+	<table id="ar_table">
+		<thead>
+			<tr>
+				<th>날짜</th>
+				<th>출근</th>
+				<th>퇴근</th>
+				<th>IP</th>
+				<th>근무시간</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<c:forEach var="vo" items="${arList }">
+				<tr>
+					<td>20${vo.ar_Date }</td>
+					<td>
+						<c:choose>
+							<c:when test="${empty vo.startTime }">-</c:when>
+							<c:otherwise> ${vo.startTime }</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+								<c:when test="${empty vo.endTime }">-</c:when>
+								<c:otherwise> ${vo.endTime }</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+								<c:when test="${empty vo.ip }">-</c:when>
+								<c:otherwise> ${vo.ip }</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+								<c:when test="${empty vo.workTime }">-</c:when>
+								<c:otherwise> ${vo.workTime }</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+		<tfoot></tfoot>
+	</table>
 			
 </body>
 </html>

@@ -63,7 +63,7 @@
 		$("#arView").load('goARView2.do');
 		
 		$(".inDept").click(function(){
-			alert($(this).attr("id"));
+			//alert($(this).attr("id"));
 			
 			$("#arView").load('goARView2.do', {id:$(this).attr("id")}, function(){});
 
@@ -95,8 +95,9 @@
 	
 	function showSelectdate(){		
 		//alert($("#y_opt").val()+'/'+$("#m_opt").val());
+		//var id = ;
 		
-		$("#arView").load('goARView2.do', {year:$("#y_opt").val(), month:$("#m_opt").val()}, function(){});
+		$("#arView").load('goARView2.do', {year:$("#y_opt").val(), month:$("#m_opt").val(), id:$("#receiveID").val()}, function(){});
 	}
 	
 	function showSelectdateDept(){
@@ -122,6 +123,11 @@
 						&nbsp;&nbsp;&nbsp;<a href="#" class="inDept" id="${k.id}"> - ${k.name}</a><br>										
 					</c:forEach>
 					<input type="hidden" name="" id="selectedID">
+					<hr>
+				</c:if>
+				<c:if test="${empDeptID == 'PRMT' } ">
+				<!-- 인사관리팀이면 보여줄 페이지 -->
+					<a href="#" onclick="showDeptAR()">전 사원 근태 현황</a>
 				</c:if>
 			</div>
 			<div class="float_left use-scroll" >
