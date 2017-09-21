@@ -31,15 +31,24 @@ public class AttendanceRecordDAO implements DAO {
 	}
 
 	@Override
-	public List<VO> getList() {
+	public List<? extends VO> getList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<VO> getList(Map<String, Integer> map) {
+	public List<? extends VO> getList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return null;
+		return template.selectList("selectListUseDate", map);
+	}
+	
+	/**
+	 * 해당 날짜에 해당 부서의 모든 사원 근태확인
+	 * map에 들어갈 key - departmentid, date
+	 */
+	public List<? extends VO> getARListDept(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return template.selectList("selectListDeptAR", map);
 	}
 
 	@Override
@@ -68,6 +77,15 @@ public class AttendanceRecordDAO implements DAO {
 	
 	public VO getOneItem(VO vo) {
 		return template.selectOne("checkTodayRecord", vo);
+	}
+	
+	public int CheckDeptSuper(String id){
+		
+		return template.selectOne("CheckDeptSuper",id);
+	}
+	
+	public List<? extends VO> getEmpListUseDept(String deptID){
+		return template.selectList("SelectListUseDept", deptID);
 	}
 
 }

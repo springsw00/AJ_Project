@@ -35,14 +35,13 @@
 	height: 30px;
 }
 </style>
-
-	
 </head>
 <body>
+
 				<table id="ar_table">
 					<thead>
 						<tr>
-							<th>날짜</th>
+							<th>이름</th>
 							<th>출근</th>
 							<th>퇴근</th>
 							<th>IP</th>
@@ -51,9 +50,11 @@
 					</thead>
 					<tbody>
 						
-						<c:forEach var="vo" items="${arList }">
+						<c:forEach var="vo" items="${list }">
 							<tr>
-								<td>20${vo.ar_Date }</td>
+								<td>
+									${vo.name}
+								</td>
 								<td>
 									<c:choose>
 										<c:when test="${empty vo.startTime }">-</c:when>
@@ -79,10 +80,10 @@
 									</c:choose>
 								</td>
 							</tr>
-						</c:forEach>
+						</c:forEach> 
 					</tbody>
 					<tfoot></tfoot>
 				</table>
-			
+
 </body>
 </html>

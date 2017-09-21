@@ -34,6 +34,15 @@
 		select count(id) from EMPLOYEE where id = #{id} 
 	</select>
 	
+	<select id="SelectListUseDept" parameterType="com.hb.employee.EmployeeVO" resultType="com.hb.employee.EmployeeVO">
+		select emp.name, emp.id
+		from employee emp
+		where emp.departmentid = #{departmentid}
+		order by emp.HIRED_DATE asc
+	</select>
+	
+	
+	
 	<!-- 
 		//////////////////////////////////////////////////////////////////////////////////
 	 -->
@@ -52,6 +61,22 @@
 		select * from AttendanceRecord where id =#{id} and ar_Date=#{ar_Date}
 	</select>
 	
+	<select id="selectListUseDate" parameterType="map" resultType="com.hb.employee.AttendanceRecordVO">
+		select * from AttendanceRecord where id = #{id} and AR_Date like #{date} order by ar_Date ASC
+	</select>
+	
+	
+	<select id="CheckDeptSuper" resultType="int" parameterType="String">
+		select count(*) from department where DEPARTMENTSUPERID = #{id}
+	</select>
+	
+	<select id="selectListDeptAR" resultType="com.hb.employee.AttendanceRecordVO" parameterType="map">
+		select ar.*, emp.name
+		from attendanceRecord ar, employee emp 
+		where ar.id = emp.id and emp.departmentid = #{departmentid}
+		        and ar_date = #{date}
+		order by emp.name asc
+	</select>
 
 </mapper>
 

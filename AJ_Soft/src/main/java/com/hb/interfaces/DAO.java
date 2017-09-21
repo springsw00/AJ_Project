@@ -9,22 +9,22 @@ public interface DAO {
 	
 
 	
-	// ╦П╣Г╣╔юлем ╟║а╝©ю╠Б
-	public List<VO> getList();
+	// О©╫О©╫Г╣╔О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+	public List<? extends VO> getList();
 	
-	// фДюлб║ цЁ╦╝ ╦╝╫╨ф╝
-	public List<VO> getList(Map<String, Integer> map);
+	// О©╫О©╫О©╫О©╫б║ цЁО©╫О©╫ О©╫О©╫О©╫О©╫ф╝
+	public List<? extends VO> getList(Map<String, Object> map);
 
-	// ╣╔юлем гоЁ╙ ╡╗Ё╩©ю╠Б
+	// О©╫О©╫О©╫О©╫О©╫О©╫ О©╫оЁО©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 	public VO getOneItem(int idx);
 
-	// ╣╔юлем ╩Пют
+	// О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
 	public int insert(VO vo);
 
-	// ╣╔юлем ╪Жа╓
+	// О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
 	public int modify(VO vo);
 
-	// ╣╔юлем ╩Ха╕
+	// О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
 	public int delete(VO vo);
 
 }

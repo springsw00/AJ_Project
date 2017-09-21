@@ -34,13 +34,13 @@ public class EmployeeDAO implements DAO {
 	}
 
 	@Override
-	public List<VO> getList() {
+	public List<? extends VO> getList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<VO> getList(Map<String, Integer> map) {
+	public List<? extends VO> getList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
 	}

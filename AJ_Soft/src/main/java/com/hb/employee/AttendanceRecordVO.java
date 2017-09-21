@@ -4,7 +4,7 @@ import com.hb.interfaces.VO;
 
 public class AttendanceRecordVO implements VO {
 	private int ar_No ;
-	private String id, ar_Date, startTime, endTime, workTime, ip;
+	private String id, ar_Date, startTime, endTime, workTime, ip, name;
 	
 	
 	
@@ -56,6 +56,14 @@ public class AttendanceRecordVO implements VO {
 	}
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

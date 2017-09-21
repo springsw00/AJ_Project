@@ -30,4 +30,6 @@
 	
 	<resources location="/resources/fonts/" mapping="/fonts/**"></resources>
 	
+	<!-- <resources location="/WEB-INF/views/Employee/" mapping="/Employee/**" /> -->
+	
 </beans:beans>

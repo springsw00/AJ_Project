@@ -5,9 +5,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -30,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.hb.employee.AttendanceRecordDAO;
 import com.hb.employee.AttendanceRecordVO;
 import com.hb.employee.EmployeeVO;
+import com.hb.interfaces.VO;
 
 @Controller
 public class ARController {
@@ -48,7 +53,7 @@ public class ARController {
 		this.arDao = arDao;
 	}
 
-	/*
+	/**
 	 * 	퇴근버튼 눌렀을 때. 로그아웃과 같다.
 	 *  세션정보 비우기
 	 *  AttendanceRecord에 퇴근정보, 총 근무시간 추가
@@ -86,33 +91,20 @@ public class ARController {
 		
 		return new ModelAndView("login");
 	}
-	/*
+	/**
 	 * 시간 형식은 HH:mm:ss
 	 */
 	public String getWorkTime(String startTime, String endTime) {
 		
 		
-		//System.out.println("퇴근시간: "+endTime+", 출근시간: "+startTime);
-		
-/*		String[] start = startTime.split(":");
-		String[] end = endTime.split(":");
-		
-		int second = Integer.parseInt(end[2]) - Integer.parseInt(start[2]);
-		int hour, min;
-		if(second < 0) {
-			min = Integer.parseInt(end[1]) - Integer.parseInt(start[1])-1;			
-		}else {
-			min = Integer.parseInt(end[1]) - Integer.parseInt(start[1]);
-		}
-		*/
 		Long start = 0L, end= 0L, hour= 0L, min= 0L, second= 0L;
 		SimpleDateFormat dformat = new SimpleDateFormat("HH:mm:ss");
 		dformat.setTimeZone(TimeZone.getTimeZone("GMT"));
 		try {
 			start = dformat.parse(startTime).getTime();
 			end = dformat.parse(endTime).getTime();
-			System.out.println(start);
-			System.out.println(end);
+			//System.out.println(start);
+			//System.out.println(end);
 			//
 			hour = (end-start)/1000/60/60;
 			min = (end-start)/1000/60%60;
@@ -130,31 +122,160 @@ public class ARController {
 	}
 	
 	@RequestMapping("/go_myAr.do")
-	public ModelAndView goARView(HttpServletRequest req) {
-		ModelAndView mv= new ModelAndView("Employee/AttendanceRecordView");
-		int year, month, lastDay;
-		String sMonth="";
-		
-		if(req.getAttribute("year") == null) {
+	public ModelAndView goARView(
+			HttpServletRequest req) {
+		ModelAndView mv= new ModelAndView("Employee/AttendanceRecordLayout");
+
+		// 현재 접속한 사람이 부서 대표인지 확인		
+		if(arDao.CheckDeptSuper((String) req.getSession().getAttribute("empID"))>0) {
+			mv.addObject("deptSuper", "check");
 			
-			// 이번달의 마지막 날을 가져오자
-			year = Calendar.getInstance().get(Calendar.YEAR);
-			month = Calendar.getInstance().get(Calendar.MONTH)+1;
-			lastDay = getLastDay(year, month);
-			
-			mv.addObject("year", year);
-			mv.addObject("month", alignIntValue(month));
-			mv.addObject("lastDay", lastDay);
-			
+			// 대표이면 부서내 이름들 전송
+			List<EmployeeVO> emplist = (List<EmployeeVO>) arDao.getEmpListUseDept((String) req.getSession().getAttribute("empDeptID"));
+			mv.addObject("empList", emplist);
 		}
-		
-		
 		
 				
 		return mv;
 	}
 	
-	public int getLastDay(int year, int month) {
+	/**
+	 *	날짜별 부서의 근태현황
+	 */
+	@RequestMapping("/goDeptARView.do")
+	public ModelAndView goDeptARView(
+			HttpServletRequest req,
+			HttpServletResponse res,
+			@RequestParam(value="inputdate", required=false)String inputdate
+			) {
+		ModelAndView mv= new ModelAndView("Employee/DeptAttendanceRecordView");
+		int year,month,day;
+		String date="";
+		
+		System.out.println(inputdate);
+		
+		// 날짜지정 안했을 경우
+		if(inputdate == null) {
+			year = Calendar.getInstance().get(Calendar.YEAR);
+			month = Calendar.getInstance().get(Calendar.MONTH)+1;
+			day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+			
+			date = String.valueOf(year).substring(2)+"/"+alignIntValue(month)+"/"+alignIntValue(day);
+			
+		}else {
+			date = inputdate.replaceAll("-", "/").substring(2);
+		}
+		System.out.println("date값 >>>>>>>>>> "+date);
+		// 동일 부서내 모든사원리스트
+		List<AttendanceRecordVO> arList = new ArrayList<>();
+		AttendanceRecordVO arVO;
+		List<EmployeeVO> empVoDept = (List<EmployeeVO>)arDao.getEmpListUseDept((String) req.getSession().getAttribute("empDeptID"));
+		Iterator<EmployeeVO> empIter = empVoDept.iterator();
+		
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("departmentid", (String) req.getSession().getAttribute("empDeptID"));
+		map.put("date", date);
+		List<AttendanceRecordVO> list = (List<AttendanceRecordVO>) arDao.getARListDept(map);
+		
+		// 가져온 데이터와 이름 일치하면 데이터 넣는다
+		Map<String , AttendanceRecordVO> arMap = listToMap(list);
+		String rspData = "";
+		while(empIter.hasNext()) {
+			arVO = new AttendanceRecordVO();
+			arVO.setName(empIter.next().getName());
+			
+			if(arMap.get(arVO.getName()) == null) {
+				arList.add(arVO);
+			}else {
+				arList.add(arMap.get(arVO.getName()));
+			}
+			
+		}
+		
+		// 데이터 확인용 코드
+		listTest(arList);
+		mv.addObject("list", arList);
+		
+		
+		return mv;
+	}
+
+	@RequestMapping("/goARView2.do")
+	public ModelAndView goARView2(HttpServletRequest req, 
+			@RequestParam(value="year", required=false)Integer year,
+			@RequestParam(value="month", required=false)Integer month,
+			@RequestParam(value="id", required=false)String id
+			) {
+		
+		ModelAndView mv= new ModelAndView("Employee/AttendanceRecordView");
+		int lastDay;
+		String sMonth="";
+		
+		
+		if(year == null) {
+			// year, month값 안보냈을 때
+			// 이번달의 마지막 날을 가져오자
+			year = Calendar.getInstance().get(Calendar.YEAR);
+			month = Calendar.getInstance().get(Calendar.MONTH)+1;
+			
+			
+		}else {
+			// year, month값 받았을 때
+			
+		}
+		
+		if(id == null) {
+			mv.addObject("arList",getARlist(year, month, (String) req.getSession().getAttribute("empID")));
+		}else {
+			mv.addObject("arList",getARlist(year, month, id));
+			mv.addObject("id", id);
+		}
+		
+		lastDay = getLastDay(year, month);
+		
+		// 설정된 날짜를 가지고 DB에서 데이터 가져오자
+		mv.addObject("year", year);
+		mv.addObject("month", alignIntValue(month));
+		mv.addObject("lastDay", lastDay);
+		
+		return mv;
+	}
+	
+	public List<AttendanceRecordVO> getARlist(int year, int month, String id){
+		List<AttendanceRecordVO> list;
+		
+		String subYear = String.valueOf(year).substring(2);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("date", subYear+"/"+alignIntValue(month)+"/%");
+		map.put("id", id);
+		
+		//System.out.println(map.toString());
+		
+		list = (List<AttendanceRecordVO>) arDao.getList(map);
+		AttendanceRecordVO arVO;
+		List<AttendanceRecordVO> allDateList = new ArrayList<>();
+		for(int i =1; i<getLastDay(year, month); i++) {
+			String date = subYear+"/"+alignIntValue(month)+"/"+alignIntValue(i);
+			arVO = new AttendanceRecordVO();
+			arVO.setAr_Date(date);
+			allDateList.add(i-1, arVO);
+		}
+		
+		// 해당 날짜에 데이터가 있으면 넣어준다
+		Iterator<AttendanceRecordVO> iter = list.iterator();
+		while(iter.hasNext()) {
+			AttendanceRecordVO voTmp = iter.next();
+			int date = Integer.parseInt(voTmp.getAr_Date().split("/")[2]);
+			allDateList.set(date-1, voTmp);
+		}
+		
+		
+		return allDateList;
+	}
+	
+ 	public int getLastDay(int year, int month) {
 		//System.out.println(year+"년 "+month+"월");
 		
 		Calendar cal = Calendar.getInstance();
@@ -170,18 +291,26 @@ public class ARController {
 		return val;
 	}
 	
+	public void listTest(List<?> list) {
+		Iterator<?> iterTest = list.iterator();
+		while(iterTest.hasNext()) {
+			System.out.println(iterTest.next().toString());
+		}
+	}
+	
+	public Map<String, AttendanceRecordVO> listToMap(List<AttendanceRecordVO> list){
+	
+		Map<String, AttendanceRecordVO> map = new HashMap<>();
+		Iterator<?> iter = list.iterator();
+		
+		while(iter.hasNext()) {
+			AttendanceRecordVO vo = (AttendanceRecordVO) iter.next();
+			map.put(vo.getName(), vo);
+		}
+		return map;
+	}
+	
 
-	/*
-	// VO로 받으면 input 값이 없으면 받지 못한다.. 설정하지 않은 값은 null값이라도 넣어주어야한다.
-	@RequestMapping(value = "/addEmployee.do", method = RequestMethod.POST)
-	public ModelAndView addEmployee(EmployeeVO vo, HttpServletRequest req) {
-
-		String id = req.getParameter("id");
-		System.out.println(id);
-
-		System.out.println(vo.toString());
-
-		return null;
-	}*/
+	
 
 }

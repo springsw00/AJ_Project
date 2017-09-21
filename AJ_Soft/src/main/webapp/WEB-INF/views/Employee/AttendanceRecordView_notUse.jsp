@@ -36,9 +36,10 @@
 }
 </style>
 
-	
 </head>
 <body>
+
+			<div class="float_left use-scroll">
 				<table id="ar_table">
 					<thead>
 						<tr>
@@ -83,6 +84,7 @@
 					</tbody>
 					<tfoot></tfoot>
 				</table>
-			
+			</div>
+
 </body>
 </html>
