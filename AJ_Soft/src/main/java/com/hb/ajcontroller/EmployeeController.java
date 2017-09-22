@@ -10,11 +10,13 @@ import java.util.Iterator;
 import java.util.TimeZone;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +38,9 @@ public class EmployeeController {
 	private EmployeeDAO empdao;
 	@Autowired
 	private AttendanceRecordDAO arDao;
+	
+	@Resource(name="uploadPath")
+	String uploadPath;
 
 	public EmployeeDAO getEmpdao() {
 		return empdao;
@@ -86,6 +91,7 @@ public class EmployeeController {
 			req.getSession().setAttribute("empDeptID", vo.getDepartmentID());
 			req.getSession().setAttribute("empDeptName", vo.getDepartmentName());
 			req.getSession().setAttribute("empPosition", vo.getPosition());
+			req.getSession().setAttribute("empImgPath", vo.getProfile());
 			
 			// 이미 오늘날짜에 출근정보가 있는지 확인
 			today = new SimpleDateFormat("YY/MM/dd").format(new Date());
@@ -114,10 +120,19 @@ public class EmployeeController {
 			}else {
 				System.out.println(">>>>>>>>> 이미 출근함");
 			}
+			
+			// 이미지파일 가져오기
+			
 			return new ModelAndView(rv);
 		}
 		
 	}
+	
+	@RequestMapping(value="/getImg.do")
+	private void getImageFile(String path) {
+		
+	}
+	
 	
 	@RequestMapping(value="/main.do")
 	public ModelAndView goMain() {
@@ -191,15 +206,15 @@ public class EmployeeController {
 			MultipartFile mFile = mReq.getFile(iter.next());
 			String fName = mFile.getOriginalFilename();
 			
-			String imgPath = path +"/"+ fName +"_"+randomUUID;
-			File originImg = new File(imgPath);
+			File originImg = new File(uploadPath, randomUUID+"_"+fName);
+			
 			
 			try {
-				mFile.transferTo(originImg);
+				FileCopyUtils.copy(mFile.getBytes(), originImg);
 				
 				
 				PrintWriter out = res.getWriter();
-				out.println(imgPath);
+				out.println(uploadPath+"/"+fName);
 				
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block

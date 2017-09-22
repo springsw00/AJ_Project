@@ -83,7 +83,6 @@
 	function upload() {
 		var form = $('#frm');
 
-		alert("aaa");
 		var formData = new FormData(form);
 		formData.append("fileObj", $("#imgFile")[0].files[0]);
 

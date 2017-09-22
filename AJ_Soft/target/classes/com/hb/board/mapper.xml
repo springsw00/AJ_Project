@@ -6,6 +6,18 @@
 <mapper namespace="board">
 
 
+	<insert id="insertNotice" parameterType="com.hb.board.NoticeVO">
+		insert into Notice values(notice_seq.nextval, #{title}, #{writer}, #{content}, SYSDATE, #{importanceLevel})
+	</insert>
+	<delete id="deleteNotie" parameterType="com.hb.board.NoticeVO">
+		delete from Notice where notice_no = #{notice_no}
+	</delete>
+	<update id="updateNotice" parameterType="com.hb.board.NoticeVO">
+		update Notice set title = #{title}, writer = #{writer}, content =#{content}, importanceLevel = #{importanceLevel} 
+	</update>
+	
+
+
 </mapper>
 
 

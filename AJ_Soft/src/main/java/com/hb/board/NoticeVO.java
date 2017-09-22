@@ -3,15 +3,32 @@ package com.hb.board;
 import com.hb.interfaces.VO;
 
 public class NoticeVO implements VO {
-	private int poll_No, importanceLevel;
-	private String title, content, writeDate;
+	private int notice_no, importanceLevel;
+	private String title, content, writeDate, writer;
+
+	
+	
+	
+	@Override
+	public String toString() {
+		return "NoticeVO [notice_no=" + notice_no + ", importanceLevel=" + importanceLevel + ", title=" + title
+				+ ", content=" + content + ", writeDate=" + writeDate + ", writer=" + writer + "]";
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 
 	public int getPoll_No() {
-		return poll_No;
+		return notice_no;
 	}
 
 	public void setPoll_No(int poll_No) {
-		this.poll_No = poll_No;
+		this.notice_no = poll_No;
 	}
 
 	public int getImportanceLevel() {

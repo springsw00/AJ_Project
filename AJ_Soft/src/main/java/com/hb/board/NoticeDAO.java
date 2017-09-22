@@ -52,19 +52,19 @@ public class NoticeDAO implements DAO {
 	@Override
 	public int insert(VO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.insert("insertNotice", vo);
 	}
 
 	@Override
 	public int modify(VO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.update("updateNotice", vo);
 	}
 
 	@Override
 	public int delete(VO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.delete("deleteNotie", vo);
 	}
 
 }

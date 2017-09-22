@@ -15,7 +15,7 @@
 	<div id="left">
 		<img id="logo" src="" />
 		<fieldset id="log" class="align-center">
-			<img id="ID_picture" src="" /><br>
+			<img id="ID_picture" src='<c:url value="${pageContext.request.contextPath}/resources/personImage/Leejehun.jpg" />' /><br>
 			${empID}(${empName})
 			<br>
 			/ ${empPosition}, ${empDeptName} /		 
@@ -33,7 +33,7 @@
 			<li data-tab="tab2"><a href="#">주소록</a></li>
 			<li data-tab="tab3"><a href="#">캘린더</a></li>
 			<li data-tab="tab4"><a href="#">커뮤니티</a></li>
-			<li data-tab="tab5"><a href="#">공지게시판</a></li>
+			<li data-tab="tab5"><a href="goNotice.do">공지게시판</a></li>
 			<li data-tab="tab6"><a href="#">마이페이지</a></li>
 			<c:if test="${empDeptID == 'PRMT' }">
 				<li data-tab="tab7"><a href="emp_admin.do">사원관리</a></li>
