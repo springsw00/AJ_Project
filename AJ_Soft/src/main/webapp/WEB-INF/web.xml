@@ -48,7 +48,7 @@
 
 	<!-- 첫페이지 지정 -->
 	<welcome-file-list>
-		 <welcome-file>/WEB-INF/views/login.jsp</welcome-file>
+		 <welcome-file>/WEB-INF/views/Calendar/CalendarView.jsp</welcome-file>
 		 <!-- <welcome-file>/WEB-INF/views/Employee/EmployeeAdd.jsp</welcome-file> -->
 	</welcome-file-list>
 	
