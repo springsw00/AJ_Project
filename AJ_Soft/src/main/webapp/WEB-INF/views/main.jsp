@@ -17,8 +17,7 @@
 				<input type="button" src="" onclick="">
 			</div>
 			<div>
-				<h2>설문 조사</h2>
-				
+				<h2>설문 조사  <a href="go_poll.do">+</a></h2>
 				<!-- 설문조사 내용목록 -->
 			</div>
 		</div>

@@ -44,5 +44,12 @@ public class BoardController {
 		return null;
 	}
 	
+	@RequestMapping("go_poll.do")
+	public ModelAndView goPoll() {
+		
+		
+		return new ModelAndView("Boards/pollWrite");
+		
+	}
 
 }

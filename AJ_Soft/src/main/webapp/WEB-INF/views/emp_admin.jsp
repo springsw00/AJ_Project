@@ -16,7 +16,9 @@
 	text-align: center;
 	width: 200px;
 	height: 200px;
+	border: 1px solid #fff;
 }
+
 
 .empAdmin_box a {
 	display: inline-block;
