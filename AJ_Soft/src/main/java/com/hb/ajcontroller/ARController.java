@@ -217,15 +217,16 @@ public class ARController {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 			month = Calendar.getInstance().get(Calendar.MONTH)+1;
 			
-			
 		}else {
 			// year, month값 받았을 때
-			
 		}
 		
-		if(id == null) {
+		if(id == null || id.length() == 0) {
 			mv.addObject("arList",getARlist(year, month, (String) req.getSession().getAttribute("empID")));
+			System.out.println("year:: "+ year+" month:: "+month+" id:: "+id);
 		}else {
+			System.out.println("year:: "+ year+" month:: "+month+" id:: "+id);
+			
 			mv.addObject("arList",getARlist(year, month, id));
 			mv.addObject("id", id);
 		}
