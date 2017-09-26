@@ -2,23 +2,23 @@ package com.hb.board;
 
 public class Pageing {
 	
-	int nowPage = 1;	// ÇöÀç ÆäÀÌÁö
-	int nowBlock =1;	// ÇöÀç ºí·Ï
-	int totalRecord =0;	// ÃÑ °Ô½Ã¹°ÀÇ ¼ö
+	int nowPage = 1;	// í˜„ì¬í˜ì´ì§€
+	int nowBlock =1;	// í˜„ì¬ ë¸”ë¡
+	int totalRecord =0;	// ì´ ê²Œì‹œë¬¼ì˜ ìˆ˜ (ì›ê¸€ì˜ ìˆ˜)
 
-	int numPerPage = 3;		// ÇÑ ÆäÀÌÁö¿¡ Á¸ÀçÇÏ´Â °Ô½Ã¹°ÀÇ ¼ö
-	int pagePerBlock = 2;	// ÇÑ ºí·Ï´ç ÆäÀÌÁöÀÇ ¼ö
+	int numPerPage = 7;		// í•œ í˜ì´ì§€ì— ê²Œì‹œë˜ëŠ” ì›ê¸€ì˜ ìˆ˜
+	int pagePerBlock = 2;	// ë¸”ë¡ë‹¹ í‘œí˜„ë˜ëŠ” í˜ì´ì§€ì˜ ìˆ˜
 	
-	int totalPage = 0;	// ÀüÃ¼ ÆäÀÌÁöÀÇ ¼ö
-	int totalBlock =0;	// ÀüÃ¼ ºí·ÏÀÇ ¼ö
+	int totalPage = 0;	// ì „ì²´ í˜ì´ì§€ì˜ ìˆ˜
+	int totalBlock =0;	// ì „ì²´ ë¸”ë¡ì˜ ìˆ˜
 	
-	// ½ÇÁ¦ ÇÊ¿äÇÑ °Í
-	int begin = 0;		// °Ô½Ã¹° ½ÃÀÛ¹øÈ£
-	int end =0;			// °Ô½Ã¹° ³¡¹øÈ£
-	int beginPage = 0; 	// ºí·Ï ½ÃÀÛ¹øÈ£
-	int endPage =0; 	// ºí·Ï ³¡¹øÈ£
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½
+	int begin = 0;		// ì‹œì‘ë²ˆí˜¸
+	int end =0;			// ëë²ˆí˜¸
+	int beginPage = 0; 	// ì‹œì‘ ë¸”ë¡
+	int endPage =0; 	// ëë¸”ë¡
 	
-	// ÀüÃ¼ °Ô½Ã¹°ÀÇ ¼ö °¡Áö°í ÀüÃ¼ ÆäÀÌÁöÀÇ ¼ö¸¦ ±¸ÇÏÀÚ
+	//  ì „ì²´ ê²Œì‹œë¬¼ì˜ ìˆ˜ ê°€ì§€ê³  ì „ì²´ í˜ì´ì§€ì˜ ìˆ˜ë¥¼ êµ¬í•˜ì
 	public void setTotalPage() {
 		totalPage = (totalRecord/numPerPage);
 		if(totalRecord%numPerPage != 0) totalPage++;
@@ -90,6 +90,15 @@ public class Pageing {
 	}
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Pageing [nowPage=" + nowPage + ", nowBlock=" + nowBlock + ", totalRecord=" + totalRecord
+				+ ", numPerPage=" + numPerPage + ", pagePerBlock=" + pagePerBlock + ", totalPage=" + totalPage
+				+ ", totalBlock=" + totalBlock + ", begin=" + begin + ", end=" + end + ", beginPage=" + beginPage
+				+ ", endPage=" + endPage + "]";
 	}
 	
 	

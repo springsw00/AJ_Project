@@ -13,7 +13,7 @@
 	
 	<update id="updateEmployee" parameterType="com.hb.employee.EmployeeVO">
 		update EMPLOYEE 
-		set password = #{password}, email=#{email}, address = #{address}, departmentID = #{departmentID}, 
+		set password = #{password}, email=#{email}, address = #{address}, departmentID = #{departmentID}, hired_date=#{hired_date},
 			name =#{name}, position=#{position}, cellPhone=#{cellPhone}, phone=${phone}, birth =#{birth}, profile=#{profile}
 		where id = #{id}
 	</update>
@@ -34,15 +34,16 @@
 		select count(id) from EMPLOYEE where id = #{id} 
 	</select>
 	
+	<select id="selectEmployee" parameterType="String" resultType="com.hb.employee.EmployeeVO" >
+		select * from EMPLOYEE where id = #{id}
+	</select>
+	
 	<select id="SelectListUseDept" parameterType="com.hb.employee.EmployeeVO" resultType="com.hb.employee.EmployeeVO">
 		select emp.name, emp.id
 		from employee emp
 		where emp.departmentid = #{departmentid}
 		order by emp.HIRED_DATE asc
 	</select>
-	
-	
-	
 	<!-- 
 		//////////////////////////////////////////////////////////////////////////////////
 	 -->

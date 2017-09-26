@@ -34,13 +34,13 @@ public class EmployeeDAO implements DAO {
 	}
 
 	@Override
-	public List<? extends VO> getList() {
+	public List<VO> getList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<? extends VO> getList(Map<String, Object> map) {
+	public List<VO> getList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -58,14 +58,11 @@ public class EmployeeDAO implements DAO {
  
 	@Override
 	public int modify(VO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.update("employee.updateEmployee", vo);
 	}
-
 	@Override
 	public int delete(VO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.delete("employee.deleteEmployee", vo);
 	}
 	
 	public VO loginCheck(VO vo) {
@@ -76,5 +73,7 @@ public class EmployeeDAO implements DAO {
 		int res = template.selectOne("employee.insert_idCheck", id);
 		return res;
 	}
-
+	public VO getOneList(String id) {
+		return template.selectOne("employee.selectEmployee", id);
+	}
 }

@@ -23,12 +23,13 @@ public class NoticeVO implements VO {
 		this.writer = writer;
 	}
 
-	public int getPoll_No() {
+
+	public int getNotice_no() {
 		return notice_no;
 	}
 
-	public void setPoll_No(int poll_No) {
-		this.notice_no = poll_No;
+	public void setNotice_no(int notice_no) {
+		this.notice_no = notice_no;
 	}
 
 	public int getImportanceLevel() {

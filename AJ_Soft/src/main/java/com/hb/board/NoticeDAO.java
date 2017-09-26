@@ -10,7 +10,7 @@ import com.hb.interfaces.DAO;
 import com.hb.interfaces.VO;
 
 public class NoticeDAO implements DAO {
-	
+
 	private SqlSessionTemplate template;
 	PlatformTransactionManager transactionManager;
 
@@ -31,16 +31,19 @@ public class NoticeDAO implements DAO {
 		System.out.println(template.toString());
 	}
 
+	// 전체 게시물의 수
+	public int getTotalCount() {
+		return template.selectOne("totalcount");
+	}
+
 	@Override
-	public List<? extends VO> getList() {
-		// TODO Auto-generated method stub
+	public List<VO> getList() {
 		return null;
 	}
 
 	@Override
-	public List<? extends VO> getList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<VO> getList(Map<String, Object> map) {
+		return template.selectList("board.list", map);
 	}
 
 	@Override
@@ -51,20 +54,22 @@ public class NoticeDAO implements DAO {
 
 	@Override
 	public int insert(VO vo) {
-		// TODO Auto-generated method stub
-		return template.insert("insertNotice", vo);
+		return template.insert("board.insertNotice", vo);
 	}
 
 	@Override
 	public int modify(VO vo) {
 		// TODO Auto-generated method stub
-		return template.update("updateNotice", vo);
+		return 0;
 	}
 
 	@Override
 	public int delete(VO vo) {
 		// TODO Auto-generated method stub
-		return template.delete("deleteNotie", vo);
+		return 0;
+	}
+	public VO getOneList(int notice_no){
+		return template.selectOne("board.selectOne", notice_no);
 	}
 
 }

@@ -60,5 +60,7 @@
 		<property name="transactionManager"  ref="transactionManager"/>
 	</bean>
 	
+	<!-- Pageing -->
+	<bean id="page" class="com.hb.board.Pageing" />
 		
 </beans>

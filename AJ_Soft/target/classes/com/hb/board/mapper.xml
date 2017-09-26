@@ -4,20 +4,39 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 쿼리작성해서 db에 보내고 결과 까지 받는 장소 -->
 <mapper namespace="board">
+	<select id="totalcount" resultType="int">
+		select count(*) from NOTICE
+	</select>
 
+	<select id="list" resultType="com.hb.board.NoticeVO" parameterType="Map">
+		<!-- select * from (select * from NOTICE order by notice_no desc)
+		where rownum between #{begin} and #{end} -->
+		
+		select * from (
+   		 		select  rownum r_num, a.* from(
+   		 			select * from NOTICE order by notice_no desc
+   		 			) a 
+   				) where r_num between #{begin} and #{end}
+		
+	</select>
+	
+	<select id="selectOne" resultType="com.hb.board.NoticeVO" parameterType="int">
+		select * from NOTICE where notice_no = #{notice_no}
+	</select>
 
 	<insert id="insertNotice" parameterType="com.hb.board.NoticeVO">
-		insert into Notice values(notice_seq.nextval, #{title}, #{writer}, #{content}, SYSDATE, #{importanceLevel})
+		insert into NOTICE values(notice_seq.nextval, #{title}, #{writer}, #{content}, SYSDATE, #{importanceLevel})
 	</insert>
+	
 	<delete id="deleteNotie" parameterType="com.hb.board.NoticeVO">
 		delete from Notice where notice_no = #{notice_no}
 	</delete>
+	
 	<update id="updateNotice" parameterType="com.hb.board.NoticeVO">
 		update Notice set title = #{title}, writer = #{writer}, content =#{content}, importanceLevel = #{importanceLevel} 
 	</update>
 	
-
-
+	
 </mapper>
 
 

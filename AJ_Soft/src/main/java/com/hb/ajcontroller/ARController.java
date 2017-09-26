@@ -210,8 +210,6 @@ public class ARController {
 		
 		ModelAndView mv= new ModelAndView("Employee/AttendanceRecordView");
 		int lastDay;
-		String sMonth="";
-		
 		
 		if(year == null) {
 			// year, month값 안보냈을 때

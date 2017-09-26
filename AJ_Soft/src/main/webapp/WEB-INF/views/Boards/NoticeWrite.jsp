@@ -39,11 +39,10 @@
 	$(function(){
 		$("#writeBtn").click(function(){
 			
-			
 			var editor_data = CKEDITOR.instances.editor.getData();
 			$('#content').val(editor_data);
 			
-			$("#main_form").attr('action', "/noticeWrite.do");
+			$("#main_form").attr('action', "noticeWrite.do");
 			$("#main_form").submit();
 			
 			
@@ -58,6 +57,7 @@
 	<jsp:include page="../layout.jsp" />
 		<div id="main_board" class="use-scroll">
 			<h2>공지 게시판</h2>
+			<input type="hidden" name="cPage" value="${cPage}">
 			<table id="noticeTable">
 				<thead>
 					<tr>							
@@ -84,11 +84,12 @@
 				<tfoot>
 					<tr>
 						<td colspan="4" class="align-center">
-							<a id="writeBtn" href="#" >글쓰기</a>
+							<a id="writeBtn" href="#" >공지 올리기</a>
 						</td>
 					</tr>
 				</tfoot>
 			</table>
+			
 		</div>
 	</form>
 </body>

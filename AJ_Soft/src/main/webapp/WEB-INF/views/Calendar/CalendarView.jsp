@@ -24,8 +24,6 @@
 </style>
 
 <script type="text/javascript">
-
-	
 	$(function(){
 		$('#calendar').fullCalendar({
 		       // put your options and callbacks here
@@ -53,9 +51,7 @@
 				<input type="text" id="sDate" name="startDate">
 			</div>
 			
-			
-			
-			<a class="popup-a" href="#modal-eventInsert" rel="modal:open"></a>
+			<!-- <a class="popup-a" href="#modal-eventInsert" rel="modal:open"></a> -->
 		</div>
 	</form>
 </body>

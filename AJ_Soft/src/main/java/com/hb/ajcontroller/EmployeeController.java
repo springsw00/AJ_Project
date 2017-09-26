@@ -227,6 +227,61 @@ public class EmployeeController {
 		
 	}
 		
-		
+
+	//수정화면불러오기
+	@RequestMapping(value = "/find_emp.do")
+	public ModelAndView modifyEmp(@RequestParam("modify_id") String id) {
+		System.out.println(id);
+		EmployeeVO vo = (EmployeeVO)empdao.getOneList(id);
+		ModelAndView mv = new ModelAndView();
+		if(vo == null) {
+			mv.addObject("msg", "fail");
+			mv.setViewName("emp_admin");
+		}else {
+			mv.addObject("empvo", vo);
+			mv.setViewName("EmpModify");
+		}
+		return mv;
+	}
+	//수정하기
+	@RequestMapping(value = "/modify_ok.do")
+	public ModelAndView modify_ok(EmployeeVO empvo, HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+
+		//System.out.println(empvo.toString());
+
+		int result = empdao.modify(empvo);
+		System.out.println(result);
+
+		if (result == 1) {
+			mv.setViewName("./emp_admin");
+		}
+		return mv;
+	}
+	//삭제하기
+	@RequestMapping(value = "/delete_ok.do")
+	public ModelAndView delete_ok(@RequestParam("id")String id, 
+									EmployeeVO empvo, HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+
+		//System.out.println(id);
+
+		int result = empdao.delete(empvo);
+		System.out.println(result);
+
+		if (result == 1) {
+			mv.setViewName("./emp_admin");
+		}
+		return mv;
+	}
+	//마이페이지
+	@RequestMapping(value="/myPage.do")
+	public ModelAndView MyPage_go(@RequestParam("empID")String id) {
+		ModelAndView mv = new ModelAndView("./MyPage/myPage");
+		System.out.println(id);
+		EmployeeVO vo = (EmployeeVO)empdao.getOneList(id);
+		mv.addObject("vo", vo);
+		return mv;
+	}	
 	
 }

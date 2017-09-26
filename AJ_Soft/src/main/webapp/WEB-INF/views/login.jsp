@@ -47,7 +47,7 @@
 					아이디와 비밀번호가 일치하지 않습니다.
 				</div>
 			</c:if>
-		</form>
+		</div>
 	</form>
 </body>
 </html>
