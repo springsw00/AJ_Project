@@ -8,6 +8,8 @@
 <!-- <link rel="stylesheet" href="/resources/css/avgrund.css" /> -->
 <link rel="stylesheet" href="/resources/css/jquery.modal.css" />
 
+<link rel="stylesheet" href="/resources/css/spectrum.css">
+
 <script type="text/javascript" src="/resources/fullcalendar/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/fullcalendar/moment.min.js"></script>
 <script type="text/javascript" src="/resources/fullcalendar/fullcalendar.min.js"></script>
@@ -15,11 +17,18 @@
 <!-- <script type="text/javascript" src="/resources/js/jquery.avgrund.min.js"></script> -->
 <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.8.2/jquery.modal.min.js"></script> -->
 <script type="text/javascript" src="/resources/js/jquery.modal.min.js"></script>
+
+<script src='/resources/js/spectrum.js'></script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
 .modal, .popup-a {
 	display: none;
+}
+
+.input-ul {
+	list-style: none;
 }
 </style>
 
@@ -40,9 +49,9 @@
 		       },
 		       eventClick: function(calEvent, jsEvent, view) {
 
-		           alert('Event: ' + calEvent.title);
+		           /* alert('Event: ' + calEvent.title);
 		           alert('Event - id: ' + calEvent.id);
-		           alert('Event - content: ' + calEvent.description);
+		           alert('Event - content: ' + calEvent.description); */
 		           
 		           /* alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 		           alert('View: ' + view.name); */
@@ -77,9 +86,21 @@
 
 	    ],
 	    eventRender: function(event, element) {
-	    	element.attr('description', event.description);
+	    	element.click(function(){
+	    		 alert('Event: ' + event.title);
+		           alert('Event - id: ' + event.id);
+		           alert('Event - content: ' + event.description);
+	    	});
 	    	
 	    }
+		});
+		
+		// Color picker를 위한부분
+		$(".colorpicker").spectrum({
+		    color: "#f00",
+		    change: function(color) {
+		        $("#basic-log").text("change called: " + color.toHexString());
+		    }
 		});
 	});
 </script>
@@ -91,8 +112,20 @@
 		<div id="main_board" class="use-scroll">
 			<div id='calendar'></div>
 			<div id="modal-eventInsert" class="modal">
-				<a id="pick_date">일정추가</a>
-				<input type="text" id="sDate" name="startDate">
+				<ul class="input-ul">
+					<li><a id="pick_date">일정추가</a><br>
+				시작일: <input type="text" id="sDate" name="startDate" class='datepicker-here' data-language='en' data-date-format="yyyy-mm-dd">~ 종료일: <input type='text' class='datepicker-here' data-language='en' data-date-format="yyyy-mm-dd" /></li>
+					<li>제목
+				<input type="text" name="title"></li>
+					<li>공유대상
+				<input type="text" name="title"></li>
+					<li>색상<input type='text' class="colorpicker"/><em id='basic-log'></em>
+				</li>
+					<li>설명
+				<input type="text" name="content"></li>
+				</ul>
+				
+				
 			</div>
 			
 			<!-- <a class="popup-a" href="#modal-eventInsert" rel="modal:open"></a> -->
