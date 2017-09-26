@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 .float_left_menu {
-	padding: 0px;
+	padding: 10px 10px 0 10px;
 	margin: 0px;
 	float: left;
 	border: 1px solid #aaa;
@@ -125,9 +125,10 @@
 					<input type="hidden" name="" id="selectedID">
 					<hr>
 				</c:if>
-				<c:if test="${empDeptID == 'PRMT' } ">
+				<c:if test="${empDeptID == 'PRMT' }">
 				<!-- 인사관리팀이면 보여줄 페이지 -->
-					<a href="#" onclick="showDeptAR()">전 사원 근태 현황</a>
+					<a href="#" onclick="showDeptAR()">근태 검색</a>
+					
 				</c:if>
 			</div>
 			<div class="float_left use-scroll" >

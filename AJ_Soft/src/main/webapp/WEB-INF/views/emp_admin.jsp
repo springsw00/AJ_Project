@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +28,12 @@
 }
 </style>
 <script type="text/javascript">
-	function go_findEmp(){
-		alert($("#modify_id").val());
-		//find_emp.do/?modify_id=
-	}
+	function go_findEmp(f){
+		var modify_id = $("#modify_id").val();
+		alert(modify_id);
+		f.action = "find_emp.do?modify_id="+modify_id; 
+		f.submit();
+	} 
 </script>
 </head>
 <body>
@@ -43,7 +45,12 @@
 			</div>
 			<div class="empAdmin_box">
 				<input id="modify_id" name="modify_id" type="text" /><br>
-				<a href="#" onclick="go_findEmp()">사원찾기</a>
+				<a onclick="go_findEmp($(this).closest('form')[0])">사원찾기</a>
+				<c:if test="${msg == 'fail'}">
+					<div style="color: red">
+						없는 사원입니다.
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</form>

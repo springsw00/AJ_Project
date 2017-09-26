@@ -38,9 +38,16 @@
 <script type="text/javascript">
 	$(function(){
 		var id = '${id}';
+		var year = '${year}';
+		var month = '${month}';
 		if(id != ""){
 			//alert(id);
 			$("#receiveID").val(id);
+		}
+		
+		if(year != "" && month != ""){
+			//alert(year + "/" + month);
+			$("#y_opt_${year}").attr("selected","selected");
 		}
 	});
 </script>

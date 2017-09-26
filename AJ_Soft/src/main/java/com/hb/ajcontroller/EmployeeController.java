@@ -93,6 +93,9 @@ public class EmployeeController {
 			req.getSession().setAttribute("empPosition", vo.getPosition());
 			req.getSession().setAttribute("empImgPath", vo.getProfile());
 			
+			// 세션유지시간 1시간
+			req.getSession().setMaxInactiveInterval(60*60);	
+			
 			// 이미 오늘날짜에 출근정보가 있는지 확인
 			today = new SimpleDateFormat("YY/MM/dd").format(new Date());
 			arVo = new AttendanceRecordVO();
@@ -239,7 +242,7 @@ public class EmployeeController {
 			mv.setViewName("emp_admin");
 		}else {
 			mv.addObject("empvo", vo);
-			mv.setViewName("EmpModify");
+			mv.setViewName("Employee/EmpModify");
 		}
 		return mv;
 	}
@@ -278,7 +281,7 @@ public class EmployeeController {
 	@RequestMapping(value="/myPage.do")
 	public ModelAndView MyPage_go(@RequestParam("empID")String id) {
 		ModelAndView mv = new ModelAndView("./MyPage/myPage");
-		System.out.println(id);
+		//System.out.println(id);
 		EmployeeVO vo = (EmployeeVO)empdao.getOneList(id);
 		mv.addObject("vo", vo);
 		return mv;

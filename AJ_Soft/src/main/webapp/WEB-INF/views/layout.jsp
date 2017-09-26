@@ -15,7 +15,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/layout.css">
+	href="/resources/css/layout.css?ver=2">
 <script type="text/javascript">
 	jQuery.noConflict(false);
 </script>
@@ -23,16 +23,14 @@
 <body>
 	<div id="left">
 		<a href="main.do"><img id="logo" src="" /></a>
-		<fieldset id="log" class="align-center">
+		<div id="log" class="align-center">
 			<img id="ID_picture"
 				src='<c:url value="${pageContext.request.contextPath}/resources/personImage/Leejehun.jpg" />' /><br>
 			${empID}(${empName}) <br> / ${empPosition}, ${empDeptName} / <br>
 			<a href="getOff.do">퇴근</a>
 			<!-- <input id="logout" type="button" value="퇴근" /> -->
-		</fieldset>
-		<div id="mini_calendar">
-			<div class="datepicker-here" data-language='en'></div>
 		</div>
+		<div id="mini_calendar" class="datepicker-here" data-language='en'></div>
 	</div>
 	<div id="menu">
 		<ul class="tab">
