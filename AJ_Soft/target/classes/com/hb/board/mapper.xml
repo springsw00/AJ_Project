@@ -33,7 +33,8 @@
 	</delete>
 	
 	<update id="updateNotice" parameterType="com.hb.board.NoticeVO">
-		update Notice set title = #{title}, writer = #{writer}, content =#{content}, importanceLevel = #{importanceLevel} 
+		update Notice set title = #{title}, writer = #{writer}, content =#{content}, importanceLevel = #{importanceLevel}
+		where notice_no = #{notice_no} 
 	</update>
 	
 	

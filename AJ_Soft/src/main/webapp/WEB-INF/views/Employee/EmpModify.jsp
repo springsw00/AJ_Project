@@ -47,7 +47,20 @@
 	function delete_go(f) {
 		f.action = "delete_ok.do"
 		f.submit();
-	}
+	} 
+	
+
+	$(function(){
+		var dtmID = '${empvo.departmentID}';
+		var position = '${empvo.position}';
+		
+		if(dtmID != ""){
+			$("#dtmentID_${empvo.departmentID}").attr("selected","selected");
+		}
+		if(position != ""){
+			$("#position_${empvo.position}").attr("selected","selected");
+		}
+	});
 </script>
 </head>
 <body>
@@ -98,33 +111,17 @@
 				<tr>
 					<td>부서</td>
 
-					<td><select class="departmentID" name="departmentID">
-							<!-- <c:set var="emp_dmID" value="${empvo.departmentID}" />
-							<c:if test="emp_dmID == 'PRMT'" var="result" >인사관리팀</c:if>
-							<c:if test="emp_dmID == 'PDEPT'" var="result" >전략기획팀</c:if>
-							<c:if test="emp_dmID == 'R_DT'" var="result" >개발팀</c:if> -->
-							<option value="PRMT">인사관리팀</option>
-							<option value="PDEPT">전략기획팀</option>
-							<option value="R_DT">개발팀</option>
-							<!-- <option value="${empvo.departmentID}" selected >
-							<%/* String emp_dmID = (String)pageContext.getAttribute("emp_dmID");
-								System.out.print(emp_dmID);
-								if(emp_dmID == "PRMT") {
-									out.println("인사관리팀");
-								}else if(emp_dmID == "PDEPT"){
-									out.println("전략기획팀");
-								}else if(emp_dmID == "R_DT"){
-									out.println("개발팀");
-								} 
-							*/%>
-							</option> -->
+					<td><select id="dtmentID" name="departmentID">
+							<option id="dtmentID_PRMT" value="PRMT">인사관리팀</option>
+							<option id="dtmentID_PDEPT" value="PDEPT">전략기획팀</option>
+							<option id="dtmentID_R_DT" value="R_DT">개발팀</option>
 					</select></td>
 				</tr>
 				<tr>
 					<td>직위</td>
-					<td><select name="position">
-							<option value="사원">사원</option>
-							<option value="팀장">팀장</option>
+					<td><select id="position" name="position">
+							<option id="position_사원" value="사원">사원</option>
+							<option id="position_팀장" value="팀장">팀장</option>
 					</select></td>
 				</tr>
 				<tr>

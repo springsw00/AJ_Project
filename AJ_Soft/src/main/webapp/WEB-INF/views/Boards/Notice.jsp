@@ -37,7 +37,7 @@
 					<c:forEach items="${list}" var="k" varStatus="i">
 						<tr>
 							<td>${pvo.totalRecord-((pvo.nowPage-1)*pvo.numPerPage+i.index)}</td>
-							<td><a href="view_go.do?cPage=${pvo.nowPage}&notice_no=${k.notice_no}">${k.title}</a>
+							<td><a href="goNotice_view.do?cPage=${pvo.nowPage}&notice_no=${k.notice_no}">${k.title}</a>
 							</td>
 							<td>${k.writer}</td>
 							<td>${k.writeDate.substring(0,10)}</td>

@@ -39,7 +39,7 @@ public class CalendarDAO implements DAO{
 	@Override
 	public List<? extends VO> getList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return null;
+		return template.selectList("getCalendarData", map);
 	}
 
 	@Override
@@ -51,8 +51,28 @@ public class CalendarDAO implements DAO{
 	@Override
 	public int insert(VO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		int result = template.insert("addCalendar", vo);
+		return result;
 	}
+	/*public int insert(VO vo, Map map) {
+		// TODO Auto-generated method stub
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
+		int res =0 ;
+		
+		try {
+			res = template.insert("addCalendar", vo);
+			res += template.insert("addCalCategory", map);
+			
+			transactionManager.commit(status);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			transactionManager.rollback(status);
+		}
+		
+		return res;
+	}*/
 
 	@Override
 	public int modify(VO vo) {

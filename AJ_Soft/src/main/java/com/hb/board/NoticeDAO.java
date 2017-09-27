@@ -59,8 +59,7 @@ public class NoticeDAO implements DAO {
 
 	@Override
 	public int modify(VO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.update("board.updateNotice",vo);
 	}
 
 	@Override

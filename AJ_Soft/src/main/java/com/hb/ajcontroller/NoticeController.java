@@ -91,7 +91,7 @@ public class NoticeController {
 
 		return mv;
 	}
-	
+	//게시판 리스트
 	@RequestMapping("/goNotice.do")
 	public ModelAndView goNotice(String cPage) {
 		ModelAndView mv = new ModelAndView("Boards/NoticeWrite");
@@ -99,7 +99,7 @@ public class NoticeController {
 		//System.out.println(">>>>>>>>>>>>"+cPage);
 		return mv;
 	}
-	
+	//공지 올리기
 	@RequestMapping(value="/noticeWrite.do"/*, method = RequestMethod.POST*/)
 	public ModelAndView goWrite(NoticeVO vo, HttpServletRequest req) {
 		String cPage = req.getParameter("cPage");
@@ -111,10 +111,12 @@ public class NoticeController {
 		// DB에 저장
 		int result = notidao.insert(vo);
 		System.out.println(result);
-		
-		return new ModelAndView("/Notice_go.do?cPage="+cPage);
+		ModelAndView mv = new ModelAndView("redirect:Notice_go.do");
+		mv.addObject("cPage", cPage);
+		return mv;
 	}
-	@RequestMapping("/view_go.do")
+	//공지 상세보기
+	@RequestMapping("/goNotice_view.do")
 	public ModelAndView getOneList(String cPage, @RequestParam("notice_no")int notice_no) {
 //		System.out.println(notice_no);
 //		System.out.println(cPage);
@@ -125,11 +127,38 @@ public class NoticeController {
 		return mv;
 	}
 	
-	
+	//???
 	public void listTest(List<?> list) {
 		Iterator<?> iterTest = list.iterator();
 		while(iterTest.hasNext()) {
 			System.out.println(iterTest.next().toString());
 		}
+	}
+	
+	//공지 수정화면으로 가기
+	@RequestMapping("/goNoti_modi.do")
+	public ModelAndView Notice_modi_go(NoticeVO vo, String cPage,
+			HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView("./Boards/Notice_modi");
+		//System.out.println(vo);
+		mv.addObject("vo", vo);
+		mv.addObject("cPage", cPage);
+		return mv;
+	}
+	
+	//공지 수정하기
+	@RequestMapping("/Noti_modi_ok.do")
+	public ModelAndView Notice_modi(NoticeVO vo, String cPage,
+			int notice_no,
+			HttpServletRequest req) {
+		vo.setWriter((String) req.getSession().getAttribute("empID"));
+		ModelAndView mv = new ModelAndView("redirect:goNotice_view.do");
+		System.out.println(vo);
+		int result = notidao.modify(vo);
+		
+		System.out.println(">>>>수정 성공 : "+result);
+		mv.addObject("notice_no", notice_no);
+		mv.addObject("cPage", cPage);
+		return mv;
 	}
 }

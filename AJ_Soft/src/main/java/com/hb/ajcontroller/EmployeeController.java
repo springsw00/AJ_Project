@@ -286,5 +286,26 @@ public class EmployeeController {
 		mv.addObject("vo", vo);
 		return mv;
 	}	
+	//마이페이지 수정화면으로 가기
+	@RequestMapping(value="/myPage_modi.do")
+	public ModelAndView MyPage_modify_go(EmployeeVO vo, HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView("./MyPage/myPage_modi");
+		System.out.println(vo);
+		mv.addObject("vo", vo);
+		return mv;
+	}	
+	
+	//마이페이지 수정하기
+	@RequestMapping(value="/myPage_ok.do")
+	public ModelAndView MyPage_ok(
+			EmployeeVO vo,
+			HttpServletRequest req) {
+		System.out.println(vo);
+		ModelAndView mv = new ModelAndView("redirect:myPage.do");
+		mv.addObject("empID", req.getSession().getAttribute("empID"));
+		int result = empdao.modify(vo);
+		System.out.println(">>>>수정 성공 : "+result);
+		return mv;
+	}
 	
 }

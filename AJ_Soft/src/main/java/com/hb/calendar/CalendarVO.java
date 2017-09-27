@@ -3,11 +3,21 @@ package com.hb.calendar;
 import com.hb.interfaces.VO;
 
 public class CalendarVO implements VO {
-	private String id, title, content, location, startDate, endDate;
-	private int calendar_No, category;
+	private String id, title, content, location = "", startDate, endDate, target="", category, color;
+	private int calendar_No;
 	
-	
-	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
 	public String getId() {
 		return id;
 	}
@@ -44,17 +54,23 @@ public class CalendarVO implements VO {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+	public String getTarget() {
+		return target;
+	}
+	public void setTarget(String target) {
+		this.target = target;
+	}
 	public int getCalendar_No() {
 		return calendar_No;
 	}
 	public void setCalendar_No(int calendar_No) {
 		this.calendar_No = calendar_No;
 	}
-	public int getCategory() {
-		return category;
-	}
-	public void setCategory(int category) {
-		this.category = category;
+	@Override
+	public String toString() {
+		return "CalendarVO [id=" + id + ", title=" + title + ", content=" + content + ", location=" + location
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", target=" + target + ", calendar_No="
+				+ calendar_No + "]";
 	}
 	
 	

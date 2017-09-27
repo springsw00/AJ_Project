@@ -39,7 +39,7 @@
     <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
-        </init-param>
+    </init-param>
     </filter>
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
@@ -48,9 +48,8 @@
 
 	<!-- 첫페이지 지정 -->
 	<welcome-file-list>
-		 <!-- <welcome-file>/WEB-INF/views/login.jsp</welcome-file>
-		  -->
-		  <welcome-file>/WEB-INF/views/Calendar/CalendarView.jsp</welcome-file>
+		  <welcome-file>/WEB-INF/views/login.jsp</welcome-file>
+		  <!-- <welcome-file>/WEB-INF/views/Calendar/CalendarView.jsp</welcome-file> -->
 		 <!-- <welcome-file>/WEB-INF/views/Employee/EmployeeAdd.jsp</welcome-file> -->
 	</welcome-file-list>
 	

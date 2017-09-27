@@ -5,6 +5,18 @@
 <!-- 쿼리작성해서 db에 보내고 결과 까지 받는 장소 -->
 <mapper namespace="calendar">
 
+<insert id="addCalendar" parameterType="com.hb.calendar.CalendarVO">
+	insert into Calendar values (calendar_seq.nextval, #{id}, #{title}, #{content}, #{location}, #{startDate}, #{endDate}, #{category},#{color})
+</insert>
+<!-- <insert id="addCalCategory" parameterType="map">
+	insert into cal_category values (#{id}, )
+</insert> -->
+
+<select id="getCalendarData" parameterType="map" resultType="com.hb.calendar.CalendarVO">
+	select * from (select * from calendar where ID = #{id} ) 
+	where Startdate like #{month} or enddate like #{month}
+</select>
+
 
 </mapper>
 

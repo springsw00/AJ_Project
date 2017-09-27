@@ -43,6 +43,7 @@
 			<c:if test="${empDeptID == 'PRMT' }">
 				<li data-tab="tab7"><a href="emp_admin.do">사원관리</a></li>
 			</c:if>
+				<li data-tab="tab8"><a href="go_test.do">testPage</a></li>
 		</ul>
 	</div>
 </body>

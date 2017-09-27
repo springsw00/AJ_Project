@@ -31,8 +31,17 @@ th {
 }
 </style>
 <script type="text/javascript">
+
 	function list_go(f) {
 		f.action = "/Notice_go.do";
+		f.submit();
+	}
+	function delete_go(f) {
+		f.action = "/delete_go.do";
+		f.submit();
+	}
+	function modify_go(f) {
+		f.action = "/goNoti_modi.do";
 		f.submit();
 	}
 </script>
@@ -41,28 +50,34 @@ th {
 	<form id="main_form">
 		<jsp:include page="../layout.jsp" />
 		<div id="main_board">
+		<h2>공지 게시판</h2>
 			<table>
 				<tr>
 					<th>제목</th>
-					<td>${vo.title}</td>
+					<td>${vo.title}
+					<input type="hidden" name="title" value="${vo.title}" /></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td>${vo.writer}</td>
+					<td>${vo.writer}
+					<input type="hidden" name="writer" value="${vo.writer}" /></td>
 				</tr>
 				<tr>
 					<th>작성 날짜</th>
-					<td>${vo.writeDate.substring(0,10)}</td>
+					<td>${vo.writeDate.substring(0,10)}
+					<input type="hidden" name="writeDate" value="${vo.writeDate}" /></td>
 				</tr>
 				<tr>
-					<td colspan="2">${vo.content}</td>
+					<td colspan="2"><div>${vo.content}
+					<input type="hidden" name="content" value='${vo.content}' /></div></td>
 				</tr>
 				<c:if test="${empDeptID == 'PRMT' }">
 					<tr>
 						<td colspan="2"><input type="button" value="수정" onclick="modify_go(this.form)" /> 
-							<input type="button" value="삭제" onclick="delete_go(this.form)" /> 
-							<input	type="button" value="목록" onclick="list_go(this.form)" /> 
-							<input type="hidden" name="cPage" value="${cPage}" /></td>
+							<input type="button" value="삭제" onclick="delete_go(this.form)" />
+							<input	type="button" value="목록" onclick="list_go(this.form)" />
+						<input type="hidden" name="cPage" value="${cPage}" />
+						<input type="hidden" name="notice_no" value="${vo.notice_no}" /></td>
 					</tr>
 				</c:if>
 			</table>
