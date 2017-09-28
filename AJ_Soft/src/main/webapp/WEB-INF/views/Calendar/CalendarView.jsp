@@ -65,6 +65,7 @@
 
 			locale : 'ko',
 			dayClick : function(date, jsEvent, view) {
+				clearModalData();
 				$("#modal_startDate").val(date.format());
 				
 				$("#modal_section").html('<a href="#" onclick="go_AddSchedule()">일정추가</a>');
@@ -118,8 +119,16 @@
 
 		});
 	
+	function clearModalData(){
+		$("#modal_startDate").val("");
+		$("#modal_endDate").val("");
+		$("#modal_title").val("");
+		$("#modal_content").val("");
+		$("#modal_target").val("");
+		
+	}
+	
 	function setData(event){
-		alert(event.target);
 		$("#modal_startDate").val(event.start.format());
 		$("#modal_endDate").val(event.end.format());
 		$("#modal_title").val(event.title);
