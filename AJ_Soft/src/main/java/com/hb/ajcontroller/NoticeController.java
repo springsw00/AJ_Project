@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -72,8 +73,7 @@ public class NoticeController {
 		
 		// DB처리
 		List<VO> list = notidao.getList(map);
-		
-		//listTest(list);
+		//System.out.println(list);
 		
 		mv.addObject("list", list);
 		//System.out.println(pvo.toString());
@@ -91,7 +91,7 @@ public class NoticeController {
 
 		return mv;
 	}
-	//게시판 리스트
+	//공지올리기 화면으로 가기
 	@RequestMapping("/goNotice.do")
 	public ModelAndView goNotice(String cPage) {
 		ModelAndView mv = new ModelAndView("Boards/NoticeWrite");
@@ -100,7 +100,7 @@ public class NoticeController {
 		return mv;
 	}
 	//공지 올리기
-	@RequestMapping(value="/noticeWrite.do"/*, method = RequestMethod.POST*/)
+	@RequestMapping(value="/noticeWrite.do")
 	public ModelAndView goWrite(NoticeVO vo, HttpServletRequest req) {
 		String cPage = req.getParameter("cPage");
 		//System.out.println(">>> "+cPage);
@@ -120,45 +120,63 @@ public class NoticeController {
 	public ModelAndView getOneList(String cPage, @RequestParam("notice_no")int notice_no) {
 //		System.out.println(notice_no);
 //		System.out.println(cPage);
-		ModelAndView mv = new ModelAndView("Boards/view");
+		ModelAndView mv = new ModelAndView("Boards/Notice_view");
 		NoticeVO vo = (NoticeVO) notidao.getOneList(notice_no);
+		//System.out.println(vo);
 		mv.addObject("cPage", cPage);
 		mv.addObject("vo", vo);
 		return mv;
 	}
-	
-	//???
+	 
+	//??? 
 	public void listTest(List<?> list) {
 		Iterator<?> iterTest = list.iterator();
 		while(iterTest.hasNext()) {
 			System.out.println(iterTest.next().toString());
 		}
-	}
+	} 
 	
 	//공지 수정화면으로 가기
 	@RequestMapping("/goNoti_modi.do")
 	public ModelAndView Notice_modi_go(NoticeVO vo, String cPage,
 			HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView("./Boards/Notice_modi");
-		//System.out.println(vo);
+		System.out.println(vo);
 		mv.addObject("vo", vo);
 		mv.addObject("cPage", cPage);
 		return mv;
-	}
+	} 
 	
-	//공지 수정하기
+	//공지 수정하기 
 	@RequestMapping("/Noti_modi_ok.do")
 	public ModelAndView Notice_modi(NoticeVO vo, String cPage,
 			int notice_no,
 			HttpServletRequest req) {
 		vo.setWriter((String) req.getSession().getAttribute("empID"));
 		ModelAndView mv = new ModelAndView("redirect:goNotice_view.do");
-		System.out.println(vo);
+		//System.out.println(vo);
 		int result = notidao.modify(vo);
 		
 		System.out.println(">>>>수정 성공 : "+result);
 		mv.addObject("notice_no", notice_no);
 		mv.addObject("cPage", cPage);
 		return mv;
+	}
+	//메인페이지에 5개만 보이기
+	@RequestMapping("/someNotice.do")
+	public ModelAndView someNotice(HttpServletRequest req) {
+		//System.out.println(req.getSession().getAttribute("empID"));
+		ModelAndView mv = new ModelAndView("main_gongziView");
+		List<VO> vo = (List<VO>)notidao.getList();
+		//System.out.println(vo);
+		mv.addObject("vo", vo);
+		return mv;
+	}
+	//공지삭제
+	@RequestMapping("/delete_go.do")
+	public ModelAndView deleteNotice(NoticeVO vo) {
+		int result = notidao.delete(vo);
+		System.out.println(">>>삭제 성공 : " + result);
+		return new ModelAndView("redirect:Notice_go.do");
 	}
 }

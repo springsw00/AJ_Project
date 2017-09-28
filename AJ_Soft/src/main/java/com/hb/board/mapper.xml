@@ -18,7 +18,7 @@
    		 			) a 
    				) where r_num between #{begin} and #{end}
 		
-	</select>
+	</select> 
 	
 	<select id="selectOne" resultType="com.hb.board.NoticeVO" parameterType="int">
 		select * from NOTICE where notice_no = #{notice_no}
@@ -33,10 +33,13 @@
 	</delete>
 	
 	<update id="updateNotice" parameterType="com.hb.board.NoticeVO">
-		update Notice set title = #{title}, writer = #{writer}, content =#{content}, importanceLevel = #{importanceLevel}
-		where notice_no = #{notice_no} 
+		update Notice set title = #{title}, writer = #{writer}, content =#{content}, importanceLevel = #{importanceLevel},
+		writeDate = SYSDATE where notice_no = #{notice_no} 
 	</update>
 	
+	<select id="selectList" resultType="com.hb.board.NoticeVO">
+		select * from NOTICE order by notice_no desc
+	</select>
 	
 </mapper>
 

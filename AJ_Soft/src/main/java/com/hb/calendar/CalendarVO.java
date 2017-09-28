@@ -69,9 +69,10 @@ public class CalendarVO implements VO {
 	@Override
 	public String toString() {
 		return "CalendarVO [id=" + id + ", title=" + title + ", content=" + content + ", location=" + location
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", target=" + target + ", calendar_No="
-				+ calendar_No + "]";
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", target=" + target + ", category=" + category
+				+ ", color=" + color + ", calendar_No=" + calendar_No + "]";
 	}
+	
 	
 	
 	

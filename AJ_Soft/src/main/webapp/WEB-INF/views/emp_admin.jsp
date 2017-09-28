@@ -9,7 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-
 .empAdmin_box {
 	float: left;
 	background-color: skyblue;
@@ -19,7 +18,6 @@
 	border: 1px solid #fff;
 }
 
-
 .empAdmin_box a {
 	display: inline-block;
 	color: #000;
@@ -28,29 +26,54 @@
 }
 </style>
 <script type="text/javascript">
-	function go_findEmp(f){
+	 $(function() {
+		$("#modify_id").keyup(function() {
+			///alert($(this).val().length);
+			if($(this).val().length > 4){
+				$.ajax({
+					url : 'idCheck_ajax.do',
+					type : 'get',
+					data : {id : $(this).val()},
+					dataType : 'text',
+					success : function(data) {
+						//alert(data);
+						if (data != 0) {
+							$("#id_ajax").text("있는 아이디입니다.");
+						} else {
+							$("#id_ajax").text("없는 아이디입니다.");
+							$(this).text("");
+							$(this).focus();
+						}
+					},
+					error : function() {
+						alert("error");
+					}
+	
+				})
+			}
+
+		});
+	}); 
+	 
+	function go_findEmp(f) {
 		var modify_id = $("#modify_id").val();
-		alert(modify_id);
-		f.action = "find_emp.do?modify_id="+modify_id; 
+		//alert(modify_id);
+		f.action = "find_emp.do?modify_id=" + modify_id;
 		f.submit();
-	} 
+	}
 </script>
 </head>
 <body>
 	<form id="main_form">
-	<jsp:include page="layout.jsp" />
+		<jsp:include page="layout.jsp" />
 		<div id="main_board">
 			<div class="empAdmin_box">
 				<a href="addEmp_page.do">사원추가</a>
 			</div>
 			<div class="empAdmin_box">
-				<input id="modify_id" name="modify_id" type="text" /><br>
-				<a onclick="go_findEmp($(this).closest('form')[0])">사원찾기</a>
-				<c:if test="${msg == 'fail'}">
-					<div style="color: red">
-						없는 사원입니다.
-					</div>
-				</c:if>
+				<input id="modify_id" name="modify_id" type="text" /><br> <a
+					onclick="go_findEmp($(this).closest('form')[0])">사원찾기</a> 
+				<p style="color: red" id="id_ajax"></p>
 			</div>
 		</div>
 	</form>

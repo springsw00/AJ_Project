@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,12 +15,29 @@
 	}
 	a{
 		text-decoration: none;
+		color: #000;
 	}
 	table{
 		margin: auto;
 		width: 700px;
 	}
+	#importLev.importLev{
+		background-color: yellow;
+	}
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+	/* $(function(){
+		$("#importLevel").each(function(){
+			if($(this).val() == "1"){
+				$("#importLev").addClass("importLev");
+			}else{
+				$("#importLev").removeClass("importLev");
+			}
+		});
+	});  */
+</script>
 </head>
 <body>
 	<form id="main_form">
@@ -37,7 +55,12 @@
 					<c:forEach items="${list}" var="k" varStatus="i">
 						<tr>
 							<td>${pvo.totalRecord-((pvo.nowPage-1)*pvo.numPerPage+i.index)}</td>
-							<td><a href="goNotice_view.do?cPage=${pvo.nowPage}&notice_no=${k.notice_no}">${k.title}</a>
+							<c:set var="impLev" value="${k.importanceLevel}" />
+							<c:if test="${impLev == '1' }">
+							<td id="importLev" class="importLev"></c:if>
+							<c:if test="${impLev == '0' }">
+							<td id="importLev"></c:if>
+							<a href="goNotice_view.do?cPage=${pvo.nowPage}&notice_no=${k.notice_no}">${k.title}</a>
 							</td>
 							<td>${k.writer}</td>
 							<td>${k.writeDate.substring(0,10)}</td>

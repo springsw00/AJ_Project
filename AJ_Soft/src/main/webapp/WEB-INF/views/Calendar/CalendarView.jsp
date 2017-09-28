@@ -46,78 +46,114 @@
 
 <script type="text/javascript">
 
-	
-	$(function(){
-		$('#calendar').fullCalendar({
-		       // put your options and callbacks here
-		       locale: 'ko',
-		       dayClick: function(date, jsEvent, view){
-		    	   $("#modal_startDate").val(date.format());
-		    	  /*  $(this).avgrund({
-		    		   template: $(".avgrund-popup")
-		    	   }); */
-		    	   //$('.popup-a').click();
-		    	   $("#modal-eventInsert").modal();
-		       },
-		       eventClick: function(calEvent, jsEvent, view) {
 
-		           /* alert('Event: ' + calEvent.title);
-		           alert('Event - id: ' + calEvent.id);
-		           alert('Event - content: ' + calEvent.description); */
-		           
-		           /* alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-		           alert('View: ' + view.name); */
+	$(function() {
+		function clone(obj) {
+			if (null == obj || "object" != typeof obj)
+				return obj;
+			var copy = obj.constructor();
+			for ( var attr in obj) {
+				if (obj.hasOwnProperty(attr))
+					copy[attr] = obj[attr];
+			}
+			return copy;
+		}
 
-		           // change the border color just for fun
-		           $(this).css('border-color', 'red');
-
-		       },
-				
-		eventSources: [
-			'/getCalData.do',
-
-	        // your event source
-	        /* {
-	            events: {
-	            	url: '/getCalData.do',
-	            	success : function(){
-	            		alert("su");
-	            	},
-	            	error : function(){
-	            		alert("error");
-	            	}
-	            	
-	            	
-	            }/* [ // put the array in the `events` property
-	                {
-	            		id: '11',
-	                    title  : 'event1',
-	                    start  : '2017-09-05',
-	                    description : '중요한날'
-	                },
-	                {
-	                	id: '22',
-	                    title  : 'event2',
-	                    start  : '2017-09-05',
-	                    end    : '2017-09-07'
-	                }
-	            ] */,
-	            /* color: 'black',     // an option! */
-	       // } */
-
-	        // any other event sources...
-
-	    ],
-	    eventRender: function(event, element) {
-	    	element.click(function(){
-	    		 alert('Event: ' + event.title);
-		           alert('Event - id: ' + event.id);
-		           alert('Event - content: ' + event.description);
-	    	});
-	    	
-	    }
-		});
 		
+	$('#calendar').fullCalendar({
+			// put your options and callbacks here
+
+			locale : 'ko',
+			dayClick : function(date, jsEvent, view) {
+				$("#modal_startDate").val(date.format());
+				
+				$("#modal_section").html('<a href="#" onclick="go_AddSchedule()">일정추가</a>');
+				
+				$("#modal-event").modal();
+			},
+			eventClick : function(calEvent, jsEvent, view) {
+			},
+			  /* eventSources : [
+
+			{
+				url : '/getCalData.do',
+				type: 'POST',
+				success : function(data) {
+					$(data).each(function() {
+						var endDate = new Date(this.end);
+						endDate.setDate(endDate.getDate() + 1);
+						this.end = endDate;
+					});
+				}
+
+			}
+			// any other event sources...
+
+			],   */
+			eventRender : function(event, element) {
+				
+				element.each(function(){
+					//alert(event.newColor);
+					$(this).css('background-color',event.newColor);
+				});
+
+				element.click(function() {
+					// 모달 div에 값 설정
+					setData(event);
+					
+					$("#modal_section").html('<a href="#" onclick="go_editSchedule()">수정</a> <a href="#" onclick="go_deleteSchedule()">일정삭제</a>');
+					
+					// 모달창 띄우자
+					$("#modal-event").modal();
+				});
+
+			},
+			forceRerenderToDisplay : true,
+			viewRender : function(view, element){
+				var date = $("#calendar").fullCalendar('getDate');
+				
+			  	getData(date.format("YYYY-MM"));
+			}
+
+
+		});
+	
+	function setData(event){
+		alert(event.target);
+		$("#modal_startDate").val(event.start.format());
+		$("#modal_endDate").val(event.end.format());
+		$("#modal_title").val(event.title);
+		$("#modal_content").val(event.description);
+		$("#modal_target").val(event.target);
+	}
+	
+	function getData(date){
+		
+		$.ajax({
+			url : '/getCalData.do',
+			type: 'POST',
+			data : {
+				inputdate : date
+			},
+			dataType :'json',
+			success : function(data) {
+				$(data).each(function() {
+					var endDate = new Date(this.end);
+					endDate.setDate(endDate.getDate() + 1);
+					this.end = endDate;
+				});
+				
+				$('#calendar').fullCalendar( 'removeEventSources' );
+				$('#calendar').fullCalendar('addEventSource',data);
+			},
+			error: function() {
+                alert('there was an error while fetching events!');
+            }
+		});
+	}
+	
+	
+
 	});
 </script>
 <script src="/resources/js/colorPick.min.js"></script>
@@ -135,24 +171,10 @@
 			}
 		});
 	});
+	
+	
+	
 	function go_AddSchedule(){
-		/* $.ajax({
-			url: 'go_AddSchedule.do',
-			type: 'GET',
-			data : {
-				title : $('#title').val(),
-				target : $('#target').val(),
-				startDate : $('#startDate').val(),
-				endDate : $('#endDate').val(),
-				content: $("#content").val(),
-				color : $("#selectedColor").val()
-						
-			},
-			success : function(){
-				$.modal.close();
-			}
-			
-		}); */
 		
 		$('#startDate').val($('#modal_startDate').val());
 		$('#endDate').val($('#modal_endDate').val());
@@ -161,10 +183,12 @@
 		$('#content').val($('#modal_content').val());
 		$('#category').val("My");
 		
-		
-		
 		$("#main_form").attr("action",'go_AddSchedule.do');
 		$("#main_form").submit(); 
+	}
+	
+	function go_editSchedule(){
+		
 	}
 </script>
 
@@ -182,7 +206,7 @@
 			<input type="hidden" id="color" name="color">
 			<input type="hidden" id="category" name="category">
 			
-			<div id="modal-eventInsert" class="modal">
+			<div id="modal-event" class="modal">
 				<ul class="input-ul">
 					<li><a id="pick_date">일정추가</a><br>
 				시작일: <input type="text" id="modal_startDate" class='datepicker-here' data-language='en' data-date-format="yyyy-mm-dd">~ 
@@ -197,8 +221,31 @@
 					<li>설명
 				<input type="text" id="modal_content"></li>
 				</ul>
-				<a href="#" onclick="go_AddSchedule()">일정추가</a>
+				<hr>
+				<section class="align-center" id="modal_section">
+				
+				</section>
 			</div>
+			<!-- <div id="modal-eventView" class="modal">
+				<ul class="input-ul">
+					<li><a id="pick_date">일정보기</a><br>
+				시작일: <input type="text" id="startDate_view" class='datepicker-here' data-language='en' data-date-format="yyyy-mm-dd" >~ 
+				종료일: <input type='text' id="endDate_view" class='datepicker-here' data-language='en' data-date-format="yyyy-mm-dd" /></li>
+					<li>제목
+				<input type="text" name="title" id="title_view"></li>
+					<li>공유대상
+				<input type="text" name="target" id="targer_view"></li>
+					<li>색상
+						<div class="colorPickSelector"></div>
+					</li>
+					<li>설명
+				<input type="text" id="content_view"></li>
+				</ul>
+				<hr>
+				<section class="align-center" >
+				<a href="#" onclick="go_editSchedule()">수정</a> <a href="#" onclick="go_deleteSchedule()">일정삭제</a>
+				</section>
+			</div> -->
 			<!-- <a class="popup-a" href="#modal-eventInsert" rel="modal:open"></a> -->
 		</div>
 	</form>

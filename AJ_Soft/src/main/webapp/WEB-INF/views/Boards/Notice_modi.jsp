@@ -27,7 +27,6 @@
 		line-height: auto;
 	}
 </style>
-
 <script type="text/javascript">
 	var CKEDITOR_BASEPATH = '${pageContext.request.contextPath}/resources/ckeditor/';
 	
@@ -66,7 +65,7 @@ function list_go(f) {
 
 </head>
 <body>
-	<form id="main_form">
+	<form id="main_form" method="post">
 	<jsp:include page="../layout.jsp" />
 		<div id="main_board" class="use-scroll">
 			<h2>공지 게시판</h2>
@@ -98,10 +97,10 @@ function list_go(f) {
 					<tr>
 						<td colspan="4" class="align-center">
 						<input type="button" value="수정" onclick="modify_ok(this.form)" /> 
-						<input type="button" value="목록" onclick="list_go(this.form)" /></td> 
-					<td><input type="hidden" name="cPage" value="${cPage}" /></td>
-					<td><input type="hidden" name="notice_no" value="${vo.notice_no}" /></td>
-					<td><input type="hidden" name="writeDate" value="${vo.writeDate}" /></td>
+						<input type="button" value="목록" onclick="list_go(this.form)" />
+						<input type="hidden" name="cPage" value="${cPage}" />
+						<input type="hidden" name="notice_no" value="${vo.notice_no}" />
+						<input type="hidden" name="writeDate" value="${vo.writeDate}" /></td>
 					</tr>
 				</tfoot>
 			</table>

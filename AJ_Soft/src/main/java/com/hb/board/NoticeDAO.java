@@ -38,7 +38,7 @@ public class NoticeDAO implements DAO {
 
 	@Override
 	public List<VO> getList() {
-		return null;
+		return template.selectList("board.selectList");
 	}
 
 	@Override
@@ -64,8 +64,7 @@ public class NoticeDAO implements DAO {
 
 	@Override
 	public int delete(VO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.update("board.deleteNotie",vo);
 	}
 	public VO getOneList(int notice_no){
 		return template.selectOne("board.selectOne", notice_no);

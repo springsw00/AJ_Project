@@ -16,6 +16,8 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hb.calendar.CalendarDAO;
@@ -45,12 +47,32 @@ public class CalendarController {
 		return mv;
 	}
 	
-	@RequestMapping("getCalData.do")
-	public void getCalendarData(HttpServletRequest req, HttpServletResponse res) {
+
+	
+	
+	
+	@RequestMapping(value="getCalData.do", method=RequestMethod.POST)
+	public void getCalendarData(HttpServletRequest req, HttpServletResponse res, 
+			@RequestParam(required=false,value="inputdate")String inputdate) {
+		
+		Iterator<String> itettr = req.getParameterMap().keySet().iterator();
+		while(itettr.hasNext()){
+			String tmp = itettr.next();
+			System.out.println(tmp +" : "+req.getParameterMap().get(tmp).toString());
+		}
+		
+		String date = "";
+		
+		System.out.println("inputdate>>>>>>>> "+inputdate);
+		
+		if(inputdate == null) {
+			int year = Calendar.getInstance().get(Calendar.YEAR);
+			int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+			date = year + "-" + alignIntValue(month) + "-%";
+		}else {
+			date = inputdate+ "-%";
+		}
 		// 해당 월, 이전 월 의 일정 데이터 가져와서 달력에 추가하자
-		int year = Calendar.getInstance().get(Calendar.YEAR);
-		int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-		String date = year + "-" + alignIntValue(month) + "-%";
 		String id = (String) req.getSession().getAttribute("empID");
 
 		Map<String, Object> map = new HashMap<>();
@@ -59,9 +81,10 @@ public class CalendarController {
 
 		List<CalendarVO> list = (List<CalendarVO>) calendarDao.getList(map);
 
-		// listTest(list);
+		listTest(list);
 		// 가져온 리스트데이터를 json형식으로 만들자
-		JSONArray jArray = new JSONArray();
+		JSONArray eventSourceArray = new JSONArray();
+		JSONArray eventArray = new JSONArray();
 
 		Iterator<CalendarVO> iter = list.iterator();
 		CalendarVO vo = null;
@@ -74,20 +97,32 @@ public class CalendarController {
 			jObj.put("end", vo.getEndDate());
 			jObj.put("allDay", true);
 			jObj.put("description", vo.getContent());
+			jObj.put("newColor", vo.getColor());
 
 			if (jObj != null) {
-				jArray.add(jObj);
+				eventArray.add(jObj);
 			}
 		}
+		//System.out.println(jArray.toJSONString());
+		/*JSONObject eventsObj = new JSONObject();
+		eventsObj.put("events", eventArray);
+		eventsObj.put("color", "blue");
+		
+		eventSourceArray.add(eventsObj);
+		
+		System.out.println(eventsObj.toJSONString());*/
+		
 		
 		try {
-			res.getWriter().print(jArray);
+			res.getWriter().print(eventArray);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+	}
+	@RequestMapping(value="getCalData.do", method=RequestMethod.GET)
+	public void getCalendarDataGET(HttpServletRequest req, HttpServletResponse res){
+		getCalendarData(req,res,null);
 	}
 	
 	@RequestMapping("go_test.do")
