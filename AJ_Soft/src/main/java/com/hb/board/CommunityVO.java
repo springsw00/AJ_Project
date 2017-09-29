@@ -5,7 +5,8 @@ import com.hb.interfaces.VO;
 public class CommunityVO implements VO {
 	
 	int community_no, groupID;
-	String title, content, writer, writeDate;
+	String title, content, writer, writeDate, groupName, srartDate, memberID;
+	
 	public int getCommunity_no() {
 		return community_no;
 	}
@@ -42,6 +43,31 @@ public class CommunityVO implements VO {
 	public void setWriteDate(String writeDate) {
 		this.writeDate = writeDate;
 	}
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+	public String getSrartDate() {
+		return srartDate;
+	}
+	public void setSrartDate(String srartDate) {
+		this.srartDate = srartDate;
+	}
+	public String getMemberID() {
+		return memberID;
+	}
+	public void setMemberID(String memberID) {
+		this.memberID = memberID;
+	}
+	@Override
+	public String toString() {
+		return "CommunityVO [community_no=" + community_no + ", groupID=" + groupID + ", title=" + title + ", content="
+				+ content + ", writer=" + writer + ", writeDate=" + writeDate + ", groupName=" + groupName
+				+ ", srartDate=" + srartDate + ", memberID=" + memberID + "]";
+	}
+
 	
 	
 

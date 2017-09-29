@@ -17,6 +17,12 @@
 		});
 	});
 </script>
+<style type="text/css">
+	#main_gongzi {
+		border: 1px solid #183346;
+		border-radius: 10px;
+	}
+</style>
 </head>
 <body >
 	<form id="main_form">

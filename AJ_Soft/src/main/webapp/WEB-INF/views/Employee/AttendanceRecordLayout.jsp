@@ -14,7 +14,7 @@
 	padding: 10px 10px 0 10px;
 	margin: 0px;
 	float: left;
-	border: 1px solid #aaa;
+	border-right: 1px solid #aaa;
 	width: 150px;
 	height: inherit;	
 }
@@ -28,16 +28,16 @@
 }
 
 #arView{
-	width: inherit-15;
+	width: 100%;
 	height: inherit;
 }
 
 #ar_table {
 	width: 100%;
-	border: 1px solid #aaa;
 }
 #ar_table th {
 	height: 30px;
+	background-color: #E8C77A
 }
 
 .display-none{
@@ -92,6 +92,18 @@
 		
 		
 	}
+	function searchDeptAR(){
+		/* $("#arView").load('goDeptARView.do',function(responseTxt, statusTxt, xhr){
+			if(statusTxt == "success")
+	            //alert(responseTxt);
+	        if(statusTxt == "error")
+	            alert("Error: " + xhr.status + ": " + xhr.statusText);
+		});
+		$("#date_select_div_dept").removeClass("display-none");
+		$("#date_select_div_my").addClass("display-none"); */
+		
+		
+	}
 	
 	function showSelectdate(){		
 		//alert($("#y_opt").val()+'/'+$("#m_opt").val());
@@ -105,8 +117,6 @@
 		$("#arView").load('goDeptARView.do', {inputdate:$("#input-date").val()}, function(){});
 	}
 	
-	
-
 </script>
 </head>
 <body>
@@ -127,11 +137,11 @@
 				</c:if>
 				<c:if test="${empDeptID == 'PRMT' }">
 				<!-- 인사관리팀이면 보여줄 페이지 -->
-					<a href="#" onclick="showDeptAR()">근태 검색</a>
+					<a href="#" onclick="searchDeptAR()">근태 검색</a>
 					
 				</c:if>
 			</div>
-			<div class="float_left use-scroll" >
+			<div class="float_left use-scroll" style="width: 80%">
 				<div class="align-center" id="date_select_div_my">
 					<select name="year" id="y_opt">
 						<option id="y_opt_2016" value="2016">2016</option>

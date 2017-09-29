@@ -29,19 +29,22 @@ public class CommunityDAO implements DAO {
 
 	public void setTemplate(SqlSessionTemplate template) {
 		this.template = template;
-		System.out.println(template.toString());
+		//System.out.println(template.toString());
 	}
 
+	// 전체 게시물의 수
+	public int getTotalCount() {
+		return template.selectOne("totalcount");
+	}
+	
 	@Override
 	public List<? extends VO> getList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<? extends VO> getList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		return template.selectList("board.listCommuMap", map);
 	}
 
 	@Override
@@ -60,12 +63,16 @@ public class CommunityDAO implements DAO {
 	public int modify(VO vo) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
+	} 
+  
 	@Override
 	public int delete(VO vo) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public List<? extends VO> getCommunityMenu(String empID) {
+		return template.selectList("board.selectCommuMenu", empID);
 	}
 
 }

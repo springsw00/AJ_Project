@@ -27,12 +27,24 @@
 		margin-top: 200px;
 		text-align: center;
 	}
+	body {
+		background-color: #4C5870;
+	}
 </style>
 <script type="text/javascript">
 	function login_go(f){
 		f.action = "login.do";
 		f.submit();
 	}
+	 function onEnterLogin(){
+			var keyCode = window.event.keyCode;
+
+			if (keyCode == 13) { //엔터키 이면
+
+				loginForm.action = "login.do";
+				loginForm.submit();
+			}
+		}
 </script>
 </head>
 <body>

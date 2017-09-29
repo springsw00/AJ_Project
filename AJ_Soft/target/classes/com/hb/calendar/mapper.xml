@@ -16,8 +16,8 @@
 
 <update id="updateCalendarData" parameterType="com.hb.calendar.CalendarVO" >
 	update Calendar 
-	set title = #{title}, content = #{content}, location #{location}, startDate = #{startDate}, endDate = #{endDate}, 
-		Category = #{category}, color =#{color}, target = ${target}
+	set title = #{title}, content = #{content}, location = #{location}, startDate = #{startDate}, endDate = #{endDate}, 
+		Category = #{category}, color =#{color}, target = #{target}
 	where Calendar_no = #{calendar_No}
 </update>
 

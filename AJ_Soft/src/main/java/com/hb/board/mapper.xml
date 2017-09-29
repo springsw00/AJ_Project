@@ -8,7 +8,7 @@
 		select count(*) from NOTICE
 	</select>
 
-	<select id="list" resultType="com.hb.board.NoticeVO" parameterType="Map">
+	<select id="listNoticeMap" resultType="com.hb.board.NoticeVO" parameterType="Map">
 		<!-- select * from (select * from NOTICE order by notice_no desc)
 		where rownum between #{begin} and #{end} -->
 		
@@ -20,7 +20,7 @@
 		
 	</select> 
 	
-	<select id="selectOne" resultType="com.hb.board.NoticeVO" parameterType="int">
+	<select id="oneListNotice" resultType="com.hb.board.NoticeVO" parameterType="int">
 		select * from NOTICE where notice_no = #{notice_no}
 	</select>
 
@@ -37,10 +37,26 @@
 		writeDate = SYSDATE where notice_no = #{notice_no} 
 	</update>
 	
-	<select id="selectList" resultType="com.hb.board.NoticeVO">
+	<select id="listNotice" resultType="com.hb.board.NoticeVO">
 		select * from NOTICE order by notice_no desc
+	</select> 
+	
+<!-- ///////////////////////////////////////////////////////////////////////// -->	
+	
+	<select id="selectCommuMenu" resultType="com.hb.board.CommunityVO" parameterType="String">
+		select cg.groupID, cg.groupName 
+		from COMMUNITYGROUP cg, COMMUNITYGROUPMEMBER cgm
+		where cg.groupID = cgm.groupID and cgm.memberID = #{empID}
 	</select>
 	
+	<select id="listCommuMap" resultType="com.hb.board.CommunityVO" parameterType="Map">
+		select * from (
+   		 		select  rownum r_num, a.* from(
+   		 			select * from COMMUNITY order by community_no desc
+   		 			) a 
+   				) where r_num between #{begin} and #{end}
+		
+	</select> 
 </mapper>
 
 

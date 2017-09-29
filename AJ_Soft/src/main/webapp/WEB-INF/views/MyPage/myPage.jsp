@@ -6,8 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+	th{
+		text-align: right;
+		padding-right: 20px; 
+	}
 	tr {
-		text-align: center;
 		padding: 4px 10px;
 		background-color: #F6F6F6;
 	}
@@ -73,7 +76,7 @@
 					<input type="hidden" name="birth" value="${vo.birth}"></td>
 				</tr>
 					<tr>
-						<td colspan="2">
+						<td colspan="2" style="text-align:center">
 						<input type="button" value="수정" onclick="modify_go(this.form)">
 						<input type="hidden" name="position" value="${vo.position}"> 
 						<input type="hidden" name="profile" value="${vo.profile}"> 

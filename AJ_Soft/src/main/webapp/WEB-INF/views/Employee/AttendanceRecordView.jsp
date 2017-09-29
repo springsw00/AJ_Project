@@ -7,6 +7,8 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+<script type="text/javascript" src="/resources/fullcalendar/moment.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -33,6 +35,7 @@
 }
 #ar_table th {
 	height: 30px;
+	
 }
 </style>
 <script type="text/javascript">
@@ -49,10 +52,18 @@
 			//alert(year + "/" + month);
 			$("#y_opt_${year}").attr("selected","selected");
 		}
+		
+		var firstDay = '20${arList[0].ar_Date}';
+		var weekChk = moment(firstDay).day();
+		$(".dlist").each(function(index){
+			if((weekChk +index)%7 == 0 || (weekChk +index)%7 == 6){
+				$(this).css('color','red');
+			}
+		});
 	});
-</script>
-
 	
+	
+</script>
 </head>
 <body>
 	<input type="hidden" id="receiveID">
@@ -68,8 +79,8 @@
 		</thead>
 		<tbody>
 			
-			<c:forEach var="vo" items="${arList }">
-				<tr>
+			<c:forEach var="vo" items="${arList }" varStatus="i">
+				<tr class="dlist">
 					<td>20${vo.ar_Date }</td>
 					<td>
 						<c:choose>

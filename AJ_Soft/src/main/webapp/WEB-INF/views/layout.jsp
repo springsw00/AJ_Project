@@ -37,7 +37,7 @@
 			<li data-tab="tab1"><a href="go_myAr.do">근태관리</a></li>
 			<li data-tab="tab2"><a href="#">주소록</a></li>
 			<li data-tab="tab3"><a href="goCalendar.do">캘린더</a></li>
-			<li data-tab="tab4"><a href="#">커뮤니티</a></li>
+			<li data-tab="tab4"><a href="go_community.do">커뮤니티</a></li>
 			<li data-tab="tab5"><a href="Notice_go.do">공지게시판</a></li>
 			<li data-tab="tab6"><a href="myPage.do?empID=${empID}">마이페이지</a></li>
 			<c:if test="${empDeptID == 'PRMT' }">

@@ -18,12 +18,14 @@ table {
 
 tr {
 	padding: 4px 10px;
+	background-color: #F6F6F6;
 }
 
 th {
 	text-align:left;
 	padding: 4px 10px;
-	background-color: #F6F6F6;
+	margin-right: 20px;
+    width: 100px;
 }
 </style>
 <script type="text/javascript">

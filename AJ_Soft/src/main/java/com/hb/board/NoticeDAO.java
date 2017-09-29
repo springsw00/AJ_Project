@@ -38,12 +38,12 @@ public class NoticeDAO implements DAO {
 
 	@Override
 	public List<VO> getList() {
-		return template.selectList("board.selectList");
+		return template.selectList("board.listNotice");
 	}
 
 	@Override
 	public List<VO> getList(Map<String, Object> map) {
-		return template.selectList("board.list", map);
+		return template.selectList("board.listNoticeMap", map);
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class NoticeDAO implements DAO {
 		return template.update("board.deleteNotie",vo);
 	}
 	public VO getOneList(int notice_no){
-		return template.selectOne("board.selectOne", notice_no);
+		return template.selectOne("board.oneListNotice", notice_no);
 	}
 
 }

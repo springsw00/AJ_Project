@@ -8,28 +8,28 @@
 <title>Insert title here</title>
 <style type="text/css">
 
-	tr {
+	#main-notice tr,#main-notice th {
 		text-align: center;
 		padding: 4px 10px;
 		background-color: #F6F6F6;
 	}
-	a{
+	#main-notice a{
 		text-decoration: none;
 		color: #000;
 	}
-	table{
+	#main-notice{
 		margin: auto;
-		width: 700px;
+		width: 100%;
 	}
 </style>
 </head>
 <body>
-	<table>
+	<table id="main-notice">
 		<tr>
-			<td>번호</td>
-			<td>제목</td>
-			<td>작성자</td>
-			<td>작성날짜</td>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성날짜</th>
 		</tr>
 		<c:forEach items="${vo}" var="k" begin="0" varStatus="status" end="4" >
 			<tr>
@@ -42,6 +42,6 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<h2><a href="Notice_go.do">+</a></h2>
+	
 </body>
 </html>

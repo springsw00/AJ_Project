@@ -41,9 +41,6 @@ public class CalendarController {
 		ModelAndView mv = new  ModelAndView("Calendar/CalendarView");
 		
 		
-		
-		
-		
 		return mv;
 	}
 	
@@ -98,22 +95,17 @@ public class CalendarController {
 			jObj.put("allDay", true);
 			jObj.put("description", vo.getContent());
 			jObj.put("newColor", vo.getColor());
+			jObj.put("target", vo.getTarget());
+			jObj.put("location", vo.getLocation());
 
 			if (jObj != null) {
 				eventArray.add(jObj);
 			}
 		}
-		//System.out.println(jArray.toJSONString());
-		/*JSONObject eventsObj = new JSONObject();
-		eventsObj.put("events", eventArray);
-		eventsObj.put("color", "blue");
-		
-		eventSourceArray.add(eventsObj);
-		
-		System.out.println(eventsObj.toJSONString());*/
 		
 		
 		try {
+			res.setCharacterEncoding("UTF-8");
 			res.getWriter().print(eventArray);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -129,6 +121,41 @@ public class CalendarController {
 	public ModelAndView goTest() {
 		return new ModelAndView("testPage");
 	}
+	@RequestMapping("go_deleteSchedule.do")
+	public ModelAndView deleteSchedule(String id) {
+		
+		calendarDao.delete(id);
+		
+		return new ModelAndView("redirect:/goCalendar.do");
+	}
+	
+	
+	
+	@RequestMapping(value="go_EditSchedule.do")
+	public ModelAndView editSchedule(HttpServletRequest req) {
+		
+		System.out.println("id>>>>>>>>>>>>>"+req.getParameter("id"));
+		
+
+		CalendarVO vo = new CalendarVO();
+		vo.setCalendar_No(Integer.parseInt(req.getParameter("id")));
+		vo.setStartDate(req.getParameter("startDate"));
+		vo.setEndDate(req.getParameter("endDate"));
+		vo.setTitle(req.getParameter("title"));
+		vo.setContent(req.getParameter("content"));
+		vo.setTarget(req.getParameter("target"));
+		vo.setCategory(req.getParameter("category"));
+		vo.setColor(req.getParameter("color"));
+		vo.setLocation(req.getParameter("location"));
+		
+		calendarDao.modify(vo);
+		
+		
+		
+		return new ModelAndView("redirect:/goCalendar.do?inputdate="+req.getParameter("date"));
+	}
+	
+	
 	@RequestMapping("go_AddSchedule.do")
 	public ModelAndView AddSchedule(HttpServletRequest req) {
 		
@@ -148,6 +175,7 @@ public class CalendarController {
 		vo.setId((String) req.getSession().getAttribute("empID"));
 		vo.setCategory(req.getParameter("category"));
 		vo.setColor(req.getParameter("color"));
+		vo.setLocation(req.getParameter("location"));
 		
 		System.out.println(vo.toString());
 		
@@ -155,7 +183,7 @@ public class CalendarController {
 		// DB에 저장
 		calendarDao.insert(vo);
 		
-		return new ModelAndView("redirect:/goCalendar.do");
+		return new ModelAndView("redirect:/goCalendar.do?inputdate="+req.getParameter("date"));
 	}
 	
 	public void listTest(List<?> list) {
