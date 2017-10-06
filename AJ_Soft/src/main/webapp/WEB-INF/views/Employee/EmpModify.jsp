@@ -76,7 +76,7 @@
 						<c:if test="${s.count == 2}"><c:set var="realFname" value="${s1}" /></c:if>
 					</c:forEach> -->
 					<td>사진</td>
-					<td><image src="${empvo.profile}" /></td>
+					<td><image src="\resources\personImage/${empvo.profile}" /></td>
 				</tr>
 				<tr>
 					<td>아이디</td>

@@ -18,7 +18,7 @@
 	}
 	table{
 		margin: auto;
-		width: 700px;
+		width: 100%;
 	}
 	#importLev.importLev{
 		background-color: yellow;
@@ -43,10 +43,10 @@
 				<h2>공지 게시판</h2>
 				<table>
 					<tr>
-						<td>번호</td>
-						<td>제목</td>
-						<td>작성자</td>
-						<td>작성날짜</td>
+						<th width="40px">번호</th>
+						<th>제목</th>
+						<th width="150">작성자</th>
+						<th width="150px">작성날짜</th>
 					</tr>
 					<c:forEach items="${list}" var="k" varStatus="i">
 						<tr>

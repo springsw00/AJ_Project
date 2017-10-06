@@ -24,8 +24,13 @@
 	<div id="left">
 		<a href="main.do"><img id="logo" src="" /></a>
 		<div id="log" class="align-center">
+		<%-- 
 			<img id="ID_picture"
-				src='<c:url value="${pageContext.request.contextPath}/resources/personImage/Leejehun.jpg" />' /><br>
+				src='<c:url value="${pageContext.request.contextPath}/resources/personImage/Leejehun.jpg" />' />
+		 --%>
+			<img id="ID_picture"
+				src='<c:url value="/resources/personImage/${empImgPath}" />' />
+				<br>
 			${empID}(${empName}) <br> / ${empPosition}, ${empDeptName} / <br>
 			<a href="getOff.do">퇴근</a>
 			<!-- <input id="logout" type="button" value="퇴근" /> -->

@@ -14,6 +14,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -34,6 +37,8 @@ import com.hb.employee.EmployeeVO;
 
 @Controller
 public class EmployeeController {
+	
+	
 	@Autowired
 	private EmployeeDAO empdao;
 	@Autowired
@@ -200,8 +205,28 @@ public class EmployeeController {
 	public void goAddPicture(MultipartHttpServletRequest mReq,
 			HttpServletRequest req, HttpServletResponse res) {
 		String randomUUID = UUID.randomUUID().toString().replaceAll("-", "");
+		String location = "/resources/personImage";
+		String path = req.getSession().getServletContext().getRealPath(location);
 		
-		String path = req.getSession().getServletContext().getRealPath("/resources/personImage");
+		// 이미 업로드 되어있는 이미지가 있는경우
+		String empPath = (String) req.getSession().getAttribute("empImgPath");
+				
+		if( empPath!= null 
+				&& empPath != "") {
+			System.out.println("// 이미 업로드된 이미지가 있어요." + path+"\\"+empPath);
+			String tmpPath = path+"\\"+empPath;
+			File delFile = new File(path+File.separator+empPath);
+			System.out.println(delFile.getAbsolutePath());
+			if(delFile.exists()) {
+				if(delFile.delete()) 
+					System.out.println("파일삭제완료");
+				else
+					System.out.println("파일삭제실패");
+			}else {
+				System.out.println("파일이 왜 없지: "+delFile.exists());
+			}
+		}
+		
 		
 		Iterator<String> iter = mReq.getFileNames();
 		
@@ -209,15 +234,16 @@ public class EmployeeController {
 			MultipartFile mFile = mReq.getFile(iter.next());
 			String fName = mFile.getOriginalFilename();
 			
-			File originImg = new File(uploadPath, randomUUID+"_"+fName);
+			File originImg = new File(path, randomUUID+"_"+fName);
+			System.out.println(">>>>>"+originImg.getName());
 			
 			
 			try {
 				FileCopyUtils.copy(mFile.getBytes(), originImg);
 				
-				
+				res.setCharacterEncoding("UTF-8");
 				PrintWriter out = res.getWriter();
-				out.println(uploadPath+"/"+fName);
+				out.println(originImg.getName());
 				
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
@@ -227,6 +253,10 @@ public class EmployeeController {
 				e.printStackTrace();
 			}
 		}
+		
+	}
+	
+	private void removeImage() {
 		
 	}
 		
