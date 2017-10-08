@@ -50,7 +50,7 @@
 					</tr>
 					<c:forEach items="${list}" var="k" varStatus="i">
 						<tr>
-							<td>${pvo.totalRecord-((pvo.nowPage-1)*pvo.numPerPage+i.index)}</td>
+							<td class="align-center">${pvo.totalRecord-((pvo.nowPage-1)*pvo.numPerPage+i.index)}</td>
 							<c:set var="impLev" value="${k.importanceLevel}" />
 							<c:if test="${impLev == '1' }">
 							<td id="importLev" class="importLev"></c:if>

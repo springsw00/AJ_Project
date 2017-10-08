@@ -1,5 +1,6 @@
 package com.hb.employee;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,5 +76,9 @@ public class EmployeeDAO implements DAO {
 	}
 	public VO getOneList(String id) {
 		return template.selectOne("employee.selectEmployee", id);
+	}
+	
+	public List<HashMap<String, String>> getList(String deptID){
+		return template.selectList("employee.selectForContact", deptID);
 	}
 }

@@ -5,6 +5,40 @@
 <!-- 쿼리작성해서 db에 보내고 결과 까지 받는 장소 -->
 <mapper namespace="contactlist">
 
+	<select id="getDeptList" resultType="com.hb.employee.EmpViewVO">
+		select departmentid, departmentname from department order by departmentid desc
+	</select>
+	
+	
+	<select id="getMyList" resultType="com.hb.contactlist.ContactListVO" parameterType="map">
+		select * 
+		from contactlist 
+		where id = #{id}  and contact_group = #{contact_group} 
+		order by name
+	</select>
+	
+	
+	<select id="getMyGroupList" resultType="com.hb.contactlist.ContactListVO" parameterType="String">
+		select contact_group from contactlist 
+		where id = #{id} 
+		group by contact_group 
+		order by contact_group 
+	</select>
+	
+	
+	
+	
+	
+	
+	<insert id="addContact" parameterType="com.hb.contactlist.ContactListVO">
+		insert into ContactList 
+		values( CONTACTLIST_SEQ.nextval, #{id},#{name},#{cellPhone},#{phone},
+		#{departmentID},#{companyName},#{email},#{etc},#{contact_group})
+	
+	</insert>
+
+	
+	
 
 </mapper>
 

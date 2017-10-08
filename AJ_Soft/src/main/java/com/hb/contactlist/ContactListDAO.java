@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.hb.employee.EmpViewVO;
 import com.hb.interfaces.DAO;
 import com.hb.interfaces.VO;
 
@@ -33,13 +34,17 @@ public class ContactListDAO implements DAO{
 	@Override
 	public List<? extends VO> getList() {
 		// TODO Auto-generated method stub
-		return null;
+		return template.selectList("contactlist.getAllList");
+	}
+	
+	public List<ContactListVO> getList(String id){
+		return template.selectList("getMyGroupList",id);
 	}
 
 	@Override
 	public List<? extends VO> getList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return null;
+		return template.selectList("getMyList",map);
 	}
 
 	@Override
@@ -51,7 +56,7 @@ public class ContactListDAO implements DAO{
 	@Override
 	public int insert(VO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.insert("contactlist.addContact", vo);
 	}
 
 	@Override
@@ -65,6 +70,11 @@ public class ContactListDAO implements DAO{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public List<EmpViewVO> getDepartmentList(){
+		return template.selectList("contactlist.getDeptList");
+	}
+	
 
 	
 }

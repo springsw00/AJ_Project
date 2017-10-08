@@ -66,24 +66,28 @@ public class ARController {
 		System.out.println("퇴근");
 		String today;
 		String startTime;
+		String empID = (String) req.getSession().getAttribute("empID");
 		//Long endTime = ;
 		
 		
 		// AR에 퇴근시간 저장.
 		today = new SimpleDateFormat("YY/MM/dd").format(new Date());
 		AttendanceRecordVO arVo = new AttendanceRecordVO();
-		arVo.setId(req.getSession().getAttribute("empID").toString());
-		arVo.setAr_Date(today);
 		
-		
-		arVo = (AttendanceRecordVO) arDao.getOneItem(arVo);
-		arVo.setEndTime(new SimpleDateFormat("HH:mm:ss").format(System.currentTimeMillis()));
-		
-		// StartTime과 EndTime으로 총 근무시간 구하자
-		arVo.setWorkTime(getWorkTime(arVo.getStartTime(), arVo.getEndTime()));
-		
-		arDao.modify(arVo);
-		
+		// 이미 만료된 세션일경우 그냥 통과
+		if(empID != null) {
+			arVo.setId(empID);
+			arVo.setAr_Date(today);
+			
+			
+			arVo = (AttendanceRecordVO) arDao.getOneItem(arVo);
+			arVo.setEndTime(new SimpleDateFormat("HH:mm:ss").format(System.currentTimeMillis()));
+			
+			// StartTime과 EndTime으로 총 근무시간 구하자
+			arVo.setWorkTime(getWorkTime(arVo.getStartTime(), arVo.getEndTime()));
+			
+			arDao.modify(arVo);
+		}
 		// session 비우기
 		req.getSession().invalidate();
 		

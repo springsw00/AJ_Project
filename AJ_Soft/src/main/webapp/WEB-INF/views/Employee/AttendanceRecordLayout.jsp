@@ -18,12 +18,13 @@
 	width: 150px;
 	height: inherit;	
 }
+
 .float_left {
 	padding: 0px;
 	margin: 0 0 0 10px;
 	float: left;
 	border: 1px solid #aaa;
-	width: 650px;
+	width: 710px;
 	height: inherit;	
 }
 

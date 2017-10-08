@@ -15,7 +15,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="/resources/css/layout.css?ver=2">
+	href="/resources/css/layout.css?ver=01">
 <script type="text/javascript">
 	jQuery.noConflict(false);
 </script>
@@ -40,7 +40,7 @@
 	<div id="menu">
 		<ul class="tab">
 			<li data-tab="tab1"><a href="go_myAr.do">근태관리</a></li>
-			<li data-tab="tab2"><a href="#">주소록</a></li>
+			<li data-tab="tab2"><a href="go_contact.do">주소록</a></li>
 			<li data-tab="tab3"><a href="goCalendar.do">캘린더</a></li>
 			<li data-tab="tab4"><a href="go_community.do">커뮤니티</a></li>
 			<li data-tab="tab5"><a href="Notice_go.do">공지게시판</a></li>
@@ -48,7 +48,7 @@
 			<c:if test="${empDeptID == 'PRMT' }">
 				<li data-tab="tab7"><a href="emp_admin.do">사원관리</a></li>
 			</c:if>
-				<li data-tab="tab8"><a href="go_test.do">testPage</a></li>
+			<!-- <li data-tab="tab8"><a href="go_test.do">testPage</a></li> -->
 		</ul>
 	</div>
 </body>

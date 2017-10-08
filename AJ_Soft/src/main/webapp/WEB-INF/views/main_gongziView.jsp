@@ -9,7 +9,6 @@
 <style type="text/css">
 
 	#main-notice tr,#main-notice th {
-		text-align: center;
 		padding: 4px 10px;
 		background-color: #F6F6F6;
 	}
@@ -33,12 +32,12 @@
 		</tr>
 		<c:forEach items="${vo}" var="k" begin="0" varStatus="status" end="4" >
 			<tr>
-				<td>${status.count}</td>
+				<td class="align-center">${status.count}</td>
 				<td><a
 					href="goNotice_view.do?cPage=${pvo.nowPage}&notice_no=${k.notice_no}">${k.title}</a>
 				</td>
-				<td>${k.writer}</td>
-				<td>${k.writeDate.substring(0,10)}</td>
+				<td class="align-center">${k.writer}</td>
+				<td class="align-center">${k.writeDate.substring(0,10)}</td>
 			</tr>
 		</c:forEach>
 	</table>

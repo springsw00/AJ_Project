@@ -3,8 +3,8 @@ package com.hb.contactlist;
 import com.hb.interfaces.VO;
 
 public class ContactListVO implements VO {
-	private int contactList_No, group;
-	private String id, name, cellPhone, phone, departmentID, companyName, email;
+	private int contactList_No;
+	private String id, name, cellPhone, phone, departmentID, companyName, email, contact_group, etc;
 
 	public int getContactList_No() {
 		return contactList_No;
@@ -14,12 +14,21 @@ public class ContactListVO implements VO {
 		this.contactList_No = contactList_No;
 	}
 
-	public int getGroup() {
-		return group;
+
+	public String getContact_group() {
+		return contact_group;
 	}
 
-	public void setGroup(int group) {
-		this.group = group;
+	public void setContact_group(String contact_group) {
+		this.contact_group = contact_group;
+	}
+
+	public String getEtc() {
+		return etc;
+	}
+
+	public void setEtc(String etc) {
+		this.etc = etc;
 	}
 
 	public String getId() {
@@ -76,6 +85,13 @@ public class ContactListVO implements VO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "ContactListVO [contactList_No=" + contactList_No + ", id=" + id + ", name=" + name + ", cellPhone="
+				+ cellPhone + ", phone=" + phone + ", departmentID=" + departmentID + ", companyName=" + companyName
+				+ ", email=" + email + ", contact_group=" + contact_group + ", etc=" + etc + "]";
 	}
 
 }

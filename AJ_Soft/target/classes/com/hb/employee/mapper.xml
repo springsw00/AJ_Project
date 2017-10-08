@@ -44,6 +44,12 @@
 		where emp.departmentid = #{departmentid}
 		order by emp.HIRED_DATE asc
 	</select>
+	<select id="selectForContact" parameterType="String" resultType="hashMap">
+		 select emp.name,  NVL(emp.email,'-') EMAIL, NVL(emp.cellphone,'-') CELLPHONE, NVL(emp.phone,'-') PHONE, emp.position, dept.departmentname 
+		 from employee emp, department dept 
+		 where emp.departmentid = #{deptID} and emp.departmentid=dept.departmentid  
+		 order by name asc
+	</select>
 	<!-- 
 		//////////////////////////////////////////////////////////////////////////////////
 	 -->
