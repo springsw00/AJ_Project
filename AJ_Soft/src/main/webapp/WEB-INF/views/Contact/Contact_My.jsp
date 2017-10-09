@@ -18,7 +18,14 @@
 		border-bottom: 1px solid #aaa;
 		border-spacing: 0px;
 	}
+	
+	
 </style>
+<script type="text/javascript">
+
+
+
+</script>
 <div id="ContactView">
 	<table>
 		<thead>
@@ -35,7 +42,7 @@
 		<tbody>
 			<c:if test="${!empty cList}">
 					<c:forEach items="${cList}" var="k">
-				<tr>
+				<tr id="${k.contactList_No }" class="right-click-menu">
 					<td>${k.name }</td>
 					<td>${k.cellPhone }</td>
 					<td>${k.email }</td>

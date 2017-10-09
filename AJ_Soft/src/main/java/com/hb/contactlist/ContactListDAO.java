@@ -50,7 +50,7 @@ public class ContactListDAO implements DAO{
 	@Override
 	public VO getOneItem(int idx) {
 		// TODO Auto-generated method stub
-		return null;
+		return template.selectOne("getOneContact", idx);
 	}
 
 	@Override
@@ -62,13 +62,17 @@ public class ContactListDAO implements DAO{
 	@Override
 	public int modify(VO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.update("updateContact", vo);
 	}
 
 	@Override
 	public int delete(VO vo) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public int delete(String id) {
+		// TODO Auto-generated method stub
+		return template.delete("deleteContact", id);
 	}
 	
 	public List<EmpViewVO> getDepartmentList(){

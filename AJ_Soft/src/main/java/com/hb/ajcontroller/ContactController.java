@@ -1,11 +1,13 @@
 package com.hb.ajcontroller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,6 +125,54 @@ public class ContactController {
 		contactlistDao.insert(vo);
 		
 		return new ModelAndView("redirect:/go_contact.do");
+	}
+	
+	
+	@RequestMapping("go_editContact.do")
+	public ModelAndView goEditPage(String id, ContactListVO vo,HttpServletRequest req) {
+		ModelAndView mv;
+		System.out.println("id >>>>> "+id);
+		
+		String empID = (String) req.getSession().getAttribute("empID");
+		
+		
+		if(id != null) {
+			mv = new ModelAndView("Contact/EditContact");
+			
+			ContactListVO cVo = (ContactListVO) contactlistDao.getOneItem(Integer.parseInt(id));
+			System.out.println(cVo.toString());
+			
+			mv.addObject("vo",cVo);
+			
+			if(empID != null) {
+				List<ContactListVO> gList = contactlistDao.getList(empID);
+				mv.addObject("gList",gList);
+			}
+			
+			return mv;
+			
+		}else {
+			System.out.println(vo.toString());
+			
+			contactlistDao.modify(vo);
+			
+			return new ModelAndView("redirect:/go_contact.do");
+		}
+		
+	}
+	
+	
+	@RequestMapping("deleteContact.do")
+	public void deleteContact(String id,HttpServletResponse res) {
+		
+		int result = contactlistDao.delete(id);
+		System.out.println(">>>>>> : "+result);
+		try {
+			res.getWriter().println(String.valueOf(result));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

@@ -25,7 +25,20 @@
 		order by contact_group 
 	</select>
 	
+	<select id="getOneContact" parameterType="int" resultType="com.hb.contactlist.ContactListVO">
+		select * from contactlist where contactlist_no = #{idx}
+	</select>
 	
+	<delete id="deleteContact" parameterType="string">
+		delete from contactList where contactlist_no = #{id}
+	</delete>
+	
+	<update id="updateContact" parameterType="com.hb.contactlist.ContactListVO">
+		update contactlist
+		set name = #{name}, cellPhone = #{cellPhone}, phone = #{phone}, departmentID = #{departmentID}, 
+			companyName = #{companyName}, email = #{email}, etc=#{etc}, contact_group = #{contact_group}
+		where contactList_No = #{contactList_No}
+	</update>
 	
 	
 	

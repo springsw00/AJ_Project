@@ -7,6 +7,10 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+<script src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.js" type="text/javascript"></script>
+<script src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.ui.position.min.js" type="text/javascript"></script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -44,13 +48,60 @@
 			$('#contactList').load('/go_addContactView.do');
 		});
 		
-		$("#go_cListView").click(function(){
+		$(".go_cListView").click(function(){
 			var gName = $(this).text();
 			$('#contactList').load('/getContactMy.do?gName='+gName);
 			
 		});
 		
 		
+	});
+	
+	$(function() {
+	    $.contextMenu({
+	        selector: '.right-click-menu', 
+	        callback: function(key, options) {
+	            //var m = "clicked: " + key;
+	           // window.console && console.log(m) || alert(m); 
+	           var id = $(this).attr('id');
+	           if(key == 'edit'){
+	        	   $('#contactList').load("/go_editContact.do?id="+id);
+	        	   //location.replace("go_editContacte.do?id="+id);
+	           }else if(key == 'delete'){
+	        	   //alert($(this).attr('id'));
+	        		deleteContact(id,$(this));
+	        		$(this).remove();
+	           }
+	        },
+	        items: {
+	            "edit": {name: "Edit", icon: "edit"},
+	            
+	            "delete": {name: "Delete", icon: "delete"}
+	           
+	        }
+	    });
+	    
+	    function deleteContact(id,item){
+	    	var result="";
+	    	
+	    	 $.ajax({
+					url : '/deleteContact.do',
+					type: 'POST',
+					data : {
+						id : id
+					},
+					dataType :'text',
+					success : function(data) {
+							result = data;
+					},
+					error: function() {
+		                alert('there was an error while delete contact!');
+		                result = false;
+		            }
+				});
+	    	 return result;
+	    }
+	  
 	});
 </script>
 </head>
@@ -64,7 +115,7 @@
 				
 				<c:if test="${!empty cList }">
 					<c:forEach items="${cList }" var="k">
-						<a class="indent1 btn" id="go_cListView">${k.contact_group}</a> <br>
+						<a class="indent1 btn go_cListView">${k.contact_group}</a> <br>
 					
 					</c:forEach>
 				</c:if>
