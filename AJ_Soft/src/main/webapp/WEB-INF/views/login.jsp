@@ -10,15 +10,18 @@
 	#login_form{
 		width: 1300px; 
 		height: 680px;
-		margin: auto;
-		margin-top: 100px;
-		border:1px solid black ;
+		margin: 100px auto auto auto;
+		box-sizing: border-box;
+    	-webkit-box-sizing:border-box;
+    	-moz-box-sizing: border-box;
+		/* margin-top: 200px; */
+		 border:1px solid #4C5870 ; 
 	}
 	#logo{
 		width:300px;
 		height: 120px;
 		margin-bottom: 30px;
-		border:1px solid black;
+		/* border:1px solid black; */
 	}
 	#login_page{
 		width:300px;
@@ -47,8 +50,8 @@
 		}
 </script>
 </head>
-<body>
-	<form id="login_form" method="post">
+<body onkeydown="javascript:onEnterLogin();">
+	<form id="login_form" method="post" name="loginForm">
 		<div id="login_page">
 			<img id="logo" src="" /><br>
 			아이디 : <input name="id" type="text" placeholder="아이디" /><br><br>

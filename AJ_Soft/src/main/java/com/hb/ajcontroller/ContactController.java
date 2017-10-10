@@ -92,7 +92,7 @@ public class ContactController {
 		Map<String, Object> map = null;
 		String empID = (String) req.getSession().getAttribute("empID");
 		
-		if(empID != null) {
+		if(empID != null && gName !=null) {
 			
 			map = new HashMap<>();
 			map.put("id", empID);
@@ -101,6 +101,8 @@ public class ContactController {
 			listTest(clist);
 			
 			mv.addObject("cList", clist);
+		}else {
+			System.out.println("Session 만료");
 		}
 			
 		return mv;

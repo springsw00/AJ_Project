@@ -42,6 +42,9 @@
 	</select> 
 	
 <!-- ///////////////////////////////////////////////////////////////////////// -->	
+	<select id="commuTotalcount" resultType="int">
+		select count(*) from COMMUNITY
+	</select>
 	
 	<select id="selectCommuMenu" resultType="com.hb.board.CommunityVO" parameterType="String">
 		select cg.groupID, cg.groupName 
@@ -57,6 +60,10 @@
    				) where r_num between #{begin} and #{end}
 		
 	</select> 
+	
+	<select id="CommuSelectOne" resultType="com.hb.board.CommunityVO" parameterType="int">
+		select * from COMMUNITY where community_no = #{community_no} 
+	</select>
 </mapper>
 
 

@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hb.board.CommunityDAO;
 import com.hb.board.CommunityVO;
 import com.hb.board.Pageing;
-import com.hb.interfaces.VO;
 
 
 @Controller
@@ -25,7 +25,7 @@ public class BoardController {
 	private CommunityDAO commudao;
 	@Autowired
 	private Pageing pvo;
-	
+
 	public CommunityDAO getCommudao() {
 		return commudao;
 	}
@@ -59,9 +59,10 @@ public class BoardController {
 		ModelAndView mv = new ModelAndView("/Boards/Community_Layout");
 		List<CommunityVO> list =(List<CommunityVO>) commudao.getCommunityMenu(empID);
 		
-		//listTest(list);
+		listTest(list);
 		mv.addObject("empID", empID); 
 		mv.addObject("list", list);
+		
 		return mv;
 	}
 	//로드 시킬 리스트
@@ -76,7 +77,7 @@ public class BoardController {
 			pvo.setNowPage(Integer.parseInt(cPage));
 
 		// 전체 게시물의 수 구하기(DB처리)
-		int count = commudao.getTotalCount();
+		int count = commudao.getCommuTotalCount();
 		pvo.setTotalRecord(count);
 		pvo.setTotalPage();
 
@@ -90,11 +91,13 @@ public class BoardController {
 		
 		// DB처리
 		List<CommunityVO> list = (List<CommunityVO>)commudao.getList(map);
-		/*if(groupID == ) {
 			System.out.println(list);
 			mv.addObject("list", list);
-		}*/
-		//System.out.println(pvo.toString());
+			mv.addObject("groupID", groupID);
+//			if(list. == groupID){
+//				System.out.println(list);
+//				mv.addObject("list", list);
+//			}
 		
 
 		// 해당 블록의 시작 페이지번호와 끝 페이지번호
@@ -115,5 +118,23 @@ public class BoardController {
 		while(iterTest.hasNext()) {
 			System.out.println(iterTest.next().toString());
 		}
+	}
+	
+	@RequestMapping("/detailCommu.do")
+	public ModelAndView detailCommunity(HttpServletRequest req, 
+			@RequestParam("cPage") String cPage,
+			@RequestParam("community_no") int community_no) {
+		System.out.println(community_no+","+ cPage);
+		String empID = (String)req.getSession().getAttribute("empID");
+		
+		ModelAndView mv = new ModelAndView("/Boards/detailCommunity");
+		CommunityVO vo = (CommunityVO)commudao.listOne(community_no);
+		System.out.println(vo);
+		
+		mv.addObject("vo", vo);
+		mv.addObject("cPage", cPage);
+		mv.addObject("empID", empID);
+		
+		return mv;
 	}
 }

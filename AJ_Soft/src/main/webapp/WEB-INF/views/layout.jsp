@@ -6,30 +6,30 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="${pageContext.request.contextPath}/resources/datepicker/datepicker.min.css" rel="stylesheet"
+<link href="resources/datepicker/datepicker.min.css" rel="stylesheet"
 	type="text/css">
-<script src="${pageContext.request.contextPath}/resources/datepicker/datepicker.min.js"></script>
+<script src="resources/datepicker/datepicker.min.js"></script>
 
 <!-- Include English language -->
-<script src="${pageContext.request.contextPath}/resources/datepicker/i18n/datepicker.en.js"></script>
+<script src="resources/datepicker/i18n/datepicker.en.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="/resources/css/layout.css?ver=01">
+	href="resources/css/layout.css?ver=01">
 <script type="text/javascript">
 	jQuery.noConflict(false);
 </script>
 </head>
 <body>
 	<div id="left">
-		<a href="main.do"><img id="logo" src="" /></a>
+		<a href="main.do"><img id="logo" src="resources/Image/Logo.bmp" /></a>
 		<div id="log" class="align-center">
 		<%-- 
 			<img id="ID_picture"
 				src='<c:url value="${pageContext.request.contextPath}/resources/personImage/Leejehun.jpg" />' />
 		 --%>
 			<img id="ID_picture"
-				src='<c:url value="/resources/personImage/${empImgPath}" />' />
+				src='<c:url value="resources/personImage/${empImgPath}" />' />
 				<br>
 			${empID}(${empName}) <br> / ${empPosition}, ${empDeptName} / <br>
 			<a href="getOff.do">퇴근</a>

@@ -67,7 +67,7 @@
 							<td colspan="3">
 								<!-- 이전  -->
 								 <c:if test="${pvo.beginPage > pvo.pagePerBlock}">
-									<a href="/Notice_go.do?cPage=${pvo.beginPage - pvo.pagePerBlock}"><<</a>
+									<a href="Notice_go.do?cPage=${pvo.beginPage - pvo.pagePerBlock}"><<</a>
 									&nbsp;
 								</c:if> 
 								<!-- 페이지번호 --> 
@@ -77,13 +77,13 @@
 											${k}
 										</c:when>
 										<c:otherwise>
-											<a href="/Notice_go.do?cPage=${k}"> ${k} </a>
+											<a href="Notice_go.do?cPage=${k}"> ${k} </a>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach> 
 								<!-- 이후 --> 
 								<c:if test="${pvo.endPage < pvo.totalPage}">&nbsp;
-								<a href="/Notice_go.do?cPage=${pvo.beginPage + pvo.pagePerBlock }">>></a>
+								<a href="Notice_go.do?cPage=${pvo.beginPage + pvo.pagePerBlock }">>></a>
 								</c:if>
 							</td>
 							<td>

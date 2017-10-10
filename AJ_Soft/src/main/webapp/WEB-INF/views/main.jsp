@@ -22,10 +22,24 @@
 		border: 1px solid #183346;
 		border-radius: 10px;
 	}
+	#main_div {
+	font-family: NanumBarungothic;
+	width: 1300px;
+	height: 680px;
+	margin-top: 120px;
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing: border-box;
+   	-webkit-box-sizing:border-box;
+   	-moz-box-sizing: border-box;
+	/* 
+	margin: 100px 301px 0 301px; */
+	/* border: 1px solid  #183346; */
+}
 </style>
 </head>
 <body >
-	<form id="main_form">
+	<div id="main_div">
 	<jsp:include page="layout.jsp" />
 		<div id="main_board"> 
 		<h2>공지 게시판</h2>
@@ -38,6 +52,20 @@
 				설문조사 내용목록
 			</div> -->
 		</div>
-	</form>
+	</div>
+<%-- 	<form id="main_form">
+	<jsp:include page="layout.jsp" />
+		<div id="main_board"> 
+		<h2>공지 게시판</h2>
+			<div id="main_gongzi">
+				<!-- 게시판 내용목록 -->
+				
+			</div>
+			<!-- <div>
+				<h2>설문 조사  <a href="go_poll.do">+</a></h2>
+				설문조사 내용목록
+			</div> -->
+		</div>
+	</form> --%>
 </body>
 </html>

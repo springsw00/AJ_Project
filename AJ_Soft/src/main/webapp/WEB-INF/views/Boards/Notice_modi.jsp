@@ -28,7 +28,7 @@
 	}
 </style>
 <script type="text/javascript">
-	var CKEDITOR_BASEPATH = '${pageContext.request.contextPath}/resources/ckeditor/';
+	var CKEDITOR_BASEPATH = 'resources/ckeditor/';
 	
 	window.onload = function()
 	{
@@ -45,7 +45,7 @@ $(function(){
 		
 	});
 function list_go(f) {
-		f.action = "/Notice_go.do";
+		f.action = "Notice_go.do";
 		f.submit();
 	}
 	
@@ -58,7 +58,7 @@ function list_go(f) {
 		$("#main_form").attr('action', "noticeWrite.do");
 		$("#main_form").submit();
 		
-		f.action = "/Noti_modi_ok.do";
+		f.action = "Noti_modi_ok.do";
 		f.submit();
 	}
 </script>

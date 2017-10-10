@@ -46,7 +46,7 @@
 </style>
 <script type="text/javascript">
  function selectCommunity(groupID){
-	 alert(groupID);
+	 //alert(groupID);
 	$("#cmView").load("list_community.do?groupID="+groupID);
 };
 

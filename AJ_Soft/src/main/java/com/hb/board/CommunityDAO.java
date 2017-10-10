@@ -33,8 +33,8 @@ public class CommunityDAO implements DAO {
 	}
 
 	// 전체 게시물의 수
-	public int getTotalCount() {
-		return template.selectOne("totalcount");
+	public int getCommuTotalCount() {
+		return template.selectOne("board.commuTotalcount");
 	}
 	
 	@Override
@@ -75,4 +75,7 @@ public class CommunityDAO implements DAO {
 		return template.selectList("board.selectCommuMenu", empID);
 	}
 
+	public VO listOne(int community_no) {
+		return template.selectOne("board.CommuSelectOne", community_no);
+	}
 }

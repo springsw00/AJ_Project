@@ -8,7 +8,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	
-<script type="text/javascript" src="/resources/fullcalendar/moment.min.js"></script>
+<script type="text/javascript" src="resources/fullcalendar/moment.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -37,6 +37,10 @@
 	height: 30px;
 	
 }
+.border-btm{
+	border-bottom: 1px solid #aaa;
+}
+
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -58,6 +62,9 @@
 		$(".dlist").each(function(index){
 			if((weekChk +index)%7 == 0 || (weekChk +index)%7 == 6){
 				$(this).css('color','red');
+			}
+			if((weekChk +index)%7 == 0){
+				$(this).children().css('border-bottom','1px solid #aaa');
 			}
 		});
 	});

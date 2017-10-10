@@ -3,6 +3,8 @@
 	font-family: 'NanumBarungothic';
 	src: url('/fonts/NanumBarunGothic.eot') format('embedded-opentype'),
 		 url('/fonts/NANUMBARUNGOTHIC.woff') format('woff');
+/* 	src: url('/fonts/NanumBarunGothic.eot') format('embedded-opentype'),
+		 url('/fonts/NANUMBARUNGOTHIC.woff') format('woff'); */
 }
 /* @font-face {
 	font-family: 'NanumBarungothic';
@@ -35,11 +37,13 @@ a {
 	cursor: pointer;
 }
 
+
+
 #main_form {
 	font-family: NanumBarungothic;
 	width: 1300px;
 	height: 680px;
-	margin-top: 150px;
+	margin-top: 120px;
 	margin-left: auto;
 	margin-right: auto;
 	/* 
@@ -87,7 +91,7 @@ a {
 #logo {
 	width: 250px;
 	height: 60px;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	margin: 20px 0 0 40px;
 }
 

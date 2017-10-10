@@ -102,42 +102,62 @@
 		});
 	}
 </script>
+<style>
+	#employAdd-table th {
+		width: 120px;
+		text-align: right;
+		border-right: 1px solid #aaa;
+		padding-right: 10px;
+	}
+	
+	#employAdd-table td {
+		margin: 0px;
+		padding: 4px 0 4px 10px;
+		border-spacing: 0px;
+		text-align: left;
+	}
+	
+	#employAdd-table {
+		width: 70%;
+		
+	}
+</style>
 </head>
 <body>
-	<form method="post" id="frm">
+	<form method="post" id="frm" >
 
-		<table>
+		<table id="employAdd-table">
 			<tbody>
 				<tr>
-					<td>아이디</td>
+					<th>아이디</th>
 					<td><input type="text" id="id" name="id">
 					<a style="color: red" id="id_ajax"></a></td>
 				</tr>
 
 				<tr>
-					<td>비밀번호</td>
+					<th>비밀번호</th>
 					<td><input type="password" name="password"></td>
 				</tr>
 
 				<tr>
-					<td>이름</td>
+					<th>이름</th>
 					<td><input type="text" name="name"></td>
 				</tr>
 
 				<tr>
-					<td>이메일</td>
+					<th>이메일</th>
 					<td><input type="text" name="email" value=""></td>
 				</tr>
 
 				<tr>
-					<td>주소</td>
+					<th>주소</th>
 					<td><input type="text" name="address" value=""></td>
 				</tr>
 
 				<!-- ajax로 로딩 시 DB에 저장되어있는 Department정보 가져오도록 하자 -->
 
 				<tr>
-					<td>부서</td>
+					<th>부서</th>
 					<td><select name="departmentID">
 							<option value="PRMT">인사관리팀</option>
 							<option value="PDEPT">전략기획팀</option>
@@ -145,29 +165,29 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td>직위</td>
+					<th>직위</th>
 					<td><select name="position">
 							<option value="팀장">팀장</option>
 							<option value="사원">사원</option>
 					</select></td>
 				</tr>
 				<tr>
-					<td>휴대폰번호</td>
+					<th>휴대폰번호</th>
 					<td><input type="text" placeholder="000-0000-0000 형식으로 입력"
 						name="cellPhone" value=""></td>
 				</tr>
 				<tr>
-					<td>내선번호</td>
+					<th>내선번호</th>
 					<td><input type="text" placeholder="00-000-0000형식으로 입력"
 						name="phone" value=""></td>
 				</tr>
 				<tr>
-					<td>생년월일</td>
+					<th>생년월일</th>
 					<td><input type="number" placeholder="주민등록번호앞 여섯자리"
 						name="birth" value="000000"></td>
 				</tr>
 				<tr>
-					<td>프로필사진</td>
+					<th>프로필사진</th>
 					<td><input type="text" disabled="disabled" value=""
 						id="addPicResult"> <input type="file" value="파일 선택"
 						name="imgFile" id="imgFile"> <br> <a
@@ -178,14 +198,19 @@
 
 			</tbody>
 
-			<tfoot>
+			<!-- <tfoot>
 				<tr>
 					<td colspan="2"><input type="button"
-						onclick="goSubmit(this.form)" value="추가"> <!-- <a href="#" onclick="">추가</a> -->
-						<!-- <input type="submit" value="추가"> --></td>
+						onclick="goSubmit(this.form)" value="추가"> <a href="#" onclick="">추가</a>
+						<input type="submit" value="추가"></td>
 				</tr>
-			</tfoot>
+			</tfoot> -->
 		</table>
+		
+		<hr>
+		<div class="align-center">
+		<a class="btn" id="goSubmit(this.form)"> 추가 </a>
+		</div>
 
 	</form>
 

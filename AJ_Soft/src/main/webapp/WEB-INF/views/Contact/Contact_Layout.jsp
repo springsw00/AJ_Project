@@ -23,7 +23,7 @@
 	height: inherit;	
 }
 .float_left {
-	padding: 0px;
+	padding: 10px 0px 0 0px;
 	margin: 0 0 0 10px;
 	float: left;
 	border: 1px solid #aaa;
@@ -35,6 +35,15 @@
 	height: inherit;
 	width: 100%;
 }
+#contact-ul{
+	list-style: none;
+	padding: 0;
+}
+#contact-ul li{
+	margin-left: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
 
 </style>
 <script type="text/javascript">
@@ -42,15 +51,18 @@
 		
 		$(".goDeptContact").click(function(){
 			var deptId = $(this).attr("id");
-			$('#contactList').load('/getContactDept.do?deptId='+deptId);
+			$('#contactList').empty();
+			$('#contactList').load('getContactDept.do?deptId='+deptId);
 		});
 		$("#addContact").click(function(){
-			$('#contactList').load('/go_addContactView.do');
+			$('#contactList').empty();
+			$('#contactList').load('go_addContactView.do');
 		});
 		
 		$(".go_cListView").click(function(){
-			var gName = $(this).text();
-			$('#contactList').load('/getContactMy.do?gName='+gName);
+			$('#contactList').empty();
+			var gName = $(this).attr("id");
+			$('#contactList').load('getContactMy.do?gName='+gName);
 			
 		});
 		
@@ -65,7 +77,7 @@
 	           // window.console && console.log(m) || alert(m); 
 	           var id = $(this).attr('id');
 	           if(key == 'edit'){
-	        	   $('#contactList').load("/go_editContact.do?id="+id);
+	        	   $('#contactList').load("go_editContact.do?id="+id);
 	        	   //location.replace("go_editContacte.do?id="+id);
 	           }else if(key == 'delete'){
 	        	   //alert($(this).attr('id'));
@@ -85,7 +97,7 @@
 	    	var result="";
 	    	
 	    	 $.ajax({
-					url : '/deleteContact.do',
+					url : 'deleteContact.do',
 					type: 'POST',
 					data : {
 						id : id
@@ -109,7 +121,35 @@
 	<form id="main_form">
 		<jsp:include page="../layout.jsp" />
 		<div id="main_board">
-			<div class="float_left_menu">
+			 <div class="float_left_menu">
+			
+				
+				
+				<h4>개인 주소록</h4>
+				<ul id="contact-ul" >
+					<c:if test="${!empty cList }">
+						<c:forEach items="${cList }" var="k">
+							<li class="btn go_cListView" id="${k.contact_group}"> ${k.contact_group}</li>
+						</c:forEach>
+					</c:if>
+					<li class="t-grey btn" id="addContact"> + 연락처 추가</li>
+				</ul>
+				
+				<h4>사내 주소록</h4>
+				<!-- 팀별로 공유될 주소록 -->
+				<!-- 사내 팀 목록 -->
+				
+				<ul id="contact-ul" >
+					<c:if test="${!empty deptList  }">
+						<c:forEach items="${deptList }" var="l">
+							<li id="${l.departmentID }" class="goDeptContact btn">${l.departmentName }</li>
+						</c:forEach>
+					</c:if>
+				</ul>
+				
+				
+			</div> 
+			<%-- <div class="float_left_menu">
 				
 				<h4>개인 주소록</h4>
 				
@@ -130,7 +170,7 @@
 						<a id="${l.departmentID }" href="#" class="goDeptContact indent1">${l.departmentName }</a> <br>
 					</c:forEach>
 				</c:if>
-			</div>
+			</div> --%>
 			<div class="float_left use-scroll" >
 				<div id="contactList">
 					

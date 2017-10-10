@@ -6,19 +6,25 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	th{
+	#myPage-table th{
 		text-align: right;
-		padding-right: 20px; 
+		padding: 10px 20px 10px 0;
+		width: 100px;
+		border-right: 1px solid #aaa;
 	}
+	
+	#myPage-table td{
+		padding: 0px 0px 0px 10px;
+	}
+	
 	tr {
 		padding: 4px 10px;
-		background-color: #F6F6F6;
 	}
 	a{
 		text-decoration: none;
 	}
 	table{
-		margin: auto;
+		margin-left: 30px;
 		width: 700px;
 	}
 </style>
@@ -33,8 +39,9 @@
 	<form id="main_form">
 		<jsp:include page="../layout.jsp" />
 		<div id="main_board">
-		<h2>내 정보</h2>
-			<table>
+		<h2 class="align-center">내 정보</h2>
+		<hr>
+			<table id="myPage-table">
 				<tr>
 					<th>아이디</th>
 					<td>${vo.id}
@@ -75,7 +82,7 @@
 					<td>${vo.birth}
 					<input type="hidden" name="birth" value="${vo.birth}"></td>
 				</tr>
-					<tr>
+					<tr class="align-center">
 						<td colspan="2" style="text-align:center">
 						<input type="button" value="수정" onclick="modify_go(this.form)">
 						<input type="hidden" name="position" value="${vo.position}"> 

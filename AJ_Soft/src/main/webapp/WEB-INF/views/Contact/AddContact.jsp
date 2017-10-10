@@ -70,14 +70,14 @@
 				return;
 			}
 			
-			//$('#AddContactForm').action = '/go_AddContact.do';
+			$('#AddContactForm').action = 'go_AddContact.do';
 			$('#AddContactForm').submit();
 		});
 	});
 
 </script>
 <div id="AddContactView" class="align-center">
-<form id="AddContactForm" action="/go_AddContact.do">
+<form id="AddContactForm" action="go_AddContact.do">
 	<h3>연락처 추가</h3>
 	<hr>
 	<table>

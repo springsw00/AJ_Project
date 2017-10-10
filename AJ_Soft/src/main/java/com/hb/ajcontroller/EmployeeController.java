@@ -150,13 +150,15 @@ public class EmployeeController {
 	// 추가, 찾기 페이지로 가기
 	@RequestMapping(value = "/emp_admin.do")
 	public ModelAndView empAdmin() {
-		return new ModelAndView("emp_admin");
+		//return new ModelAndView("emp_admin");
+		return new ModelAndView("Employee/EmployeeAdmin_Layout");
 	}
 
 	// 추가버튼 누르고 추가 페이지로
 	@RequestMapping(value = "/addEmp_page.do")
 	public ModelAndView addEmp_page() {
 		return new ModelAndView("Employee/EmployeeAdd");
+		
 	}
 
 	@RequestMapping(value = "/idCheck_ajax.do")
@@ -185,7 +187,7 @@ public class EmployeeController {
 		System.out.println(result);
 
 		if (result == 1) {
-			mv.setViewName("./emp_admin");
+			mv.setViewName("redirect:/emp_admin.do");
 		}
 		return mv;
 	}
@@ -205,7 +207,7 @@ public class EmployeeController {
 	public void goAddPicture(MultipartHttpServletRequest mReq,
 			HttpServletRequest req, HttpServletResponse res) {
 		String randomUUID = UUID.randomUUID().toString().replaceAll("-", "");
-		String location = "/resources/personImage";
+		String location = "resources/personImage";
 		String path = req.getSession().getServletContext().getRealPath(location);
 		
 		// 이미 업로드 되어있는 이미지가 있는경우
@@ -236,7 +238,6 @@ public class EmployeeController {
 			
 			File originImg = new File(path, randomUUID+"_"+fName);
 			System.out.println(">>>>>"+originImg.getName());
-			
 			
 			try {
 				FileCopyUtils.copy(mFile.getBytes(), originImg);
@@ -287,7 +288,8 @@ public class EmployeeController {
 		System.out.println(result);
 
 		if (result == 1) {
-			mv.setViewName("./emp_admin");
+			/*mv.setViewName("./emp_admin");*/
+			mv.setViewName("redirect:/emp_admin.do");
 		}
 		return mv;
 	}
@@ -303,7 +305,8 @@ public class EmployeeController {
 		System.out.println(result);
 
 		if (result == 1) {
-			mv.setViewName("./emp_admin");
+			//mv.setViewName("./emp_admin");
+			mv.setViewName("redirect:/emp_admin.do");
 		}
 		return mv;
 	}

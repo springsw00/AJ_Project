@@ -8,16 +8,25 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+	#myPage-modifyTable th{
+		text-align: right;
+		padding: 10px 20px 10px 0;
+		width: 100px;
+		border-right: 1px solid #aaa;
+	}
+	
+	#myPage-modifyTable td{
+		padding: 0px 0px 0px 10px;
+	}
+	
 	tr {
-		text-align: center;
 		padding: 4px 10px;
-		background-color: #F6F6F6;
 	}
 	a{
 		text-decoration: none;
 	}
 	table{
-		margin: auto;
+		margin: 30px;
 		width: 700px;
 	}
 	input{
@@ -43,8 +52,9 @@
 	<form id="main_form">
 		<jsp:include page="../layout.jsp" />
 		<div id="main_board">
-		<h2>내 정보</h2>
-			<table>
+		<h2 class="align-center">내 정보</h2>
+		<hr>
+			<table id="myPage-modifyTable">
 				<tr>
 					<th>아이디</th>
 					<td><input type="text" name="id" value="${vo.id}"></td>
@@ -78,7 +88,7 @@
 					<td><input type="number" name="birth" value="${vo.birth}"></td>
 				</tr>
 					<tr>
-						<td colspan="2">
+						<td colspan="2"  class="align-center">
 						<a id="myPage_modiBtn" href="#" >완료</a>
 						<input type="hidden" name="position" value="${vo.position}"> 
 						<input type="hidden" name="profile" value="${vo.profile}">

@@ -31,15 +31,15 @@ th {
 <script type="text/javascript">
 
 	function list_go(f) {
-		f.action = "/Notice_go.do";
+		f.action = "Notice_go.do";
 		f.submit();
 	}
 	function delete_go(f) {
-		f.action = "/delete_go.do";
+		f.action = "delete_go.do";
 		f.submit();
 	}
 	function modify_go(f) {
-		f.action = "/goNoti_modi.do";
+		f.action = "goNoti_modi.do";
 		f.submit();
 	}
 	function main_go(f) {

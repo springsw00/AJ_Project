@@ -77,7 +77,7 @@
 
 </script>
 <div id="AddContactView" class="align-center">
-<form id="AddContactForm" action="/go_editContact.do">
+<form id="AddContactForm" action="go_editContact.do">
 	<h3>연락처 수정</h3>
 	<hr>
 	<input type="hidden" name="contactList_No" value="${vo.contactList_No}">
@@ -118,6 +118,7 @@
 								
 									<option selected>${k.contact_group }</option>
 								</c:when>
+								
 								<c:otherwise>
 									<option>${k.contact_group }</option>
 								</c:otherwise>

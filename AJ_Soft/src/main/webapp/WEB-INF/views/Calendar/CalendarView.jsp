@@ -4,16 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/resources/fullcalendar/fullcalendar.css" />
-<link rel="stylesheet" href="/resources/css/jquery.modal.css" />
-<link rel="stylesheet" href="/resources/css/colorPick.min.css?ver=0" />
+<link rel="stylesheet" href="resources/fullcalendar/fullcalendar.css" />
+<link rel="stylesheet" href="resources/css/jquery.modal.css" />
+<link rel="stylesheet" href="resources/css/colorPick.min.css?ver=0" />
 
 
-<script type="text/javascript" src="/resources/fullcalendar/jquery.min.js"></script>
-<script type="text/javascript" src="/resources/fullcalendar/moment.min.js"></script>
-<script type="text/javascript" src="/resources/fullcalendar/fullcalendar.min.js" charset="euc-kr"></script>
-<script type="text/javascript" src="/resources/fullcalendar/locale-all.js"></script>
-<script type="text/javascript" src="/resources/js/jquery.modal.min.js"></script>
+<script type="text/javascript" src="resources/fullcalendar/jquery.min.js"></script>
+<script type="text/javascript" src="resources/fullcalendar/moment.min.js"></script>
+<script type="text/javascript" src="resources/fullcalendar/fullcalendar.min.js" charset="euc-kr"></script>
+<script type="text/javascript" src="resources/fullcalendar/locale-all.js"></script>
+<script type="text/javascript" src="resources/js/jquery.modal.min.js"></script>
 
 
 <meta charset="UTF-8">
@@ -163,7 +163,7 @@
 	function getData(date){
 		
 		$.ajax({
-			url : '/getCalData.do',
+			url : 'getCalData.do',
 			type: 'POST',
 			data : {
 				inputdate : date
@@ -189,7 +189,7 @@
 		
 	});
 </script>
-<script src="/resources/js/colorPick.min.js"></script>
+<script src="resources/js/colorPick.min.js"></script>
 	<script>
 	$(function(){
 		$(".colorPickSelector").colorPick({
