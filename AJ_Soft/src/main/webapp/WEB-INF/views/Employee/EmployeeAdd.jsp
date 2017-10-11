@@ -13,6 +13,7 @@
 	$(function(){
 		$("#id").keyup(function(){
 			//alert($(this).val().length);
+			var inputId = $(this);
 			if($(this).val().length > 5){
 				$.ajax({
 					url : 'idCheck_ajax.do',
@@ -21,12 +22,13 @@
 					dataType : 'text',
 					success : function(data) {
 						//alert(data);
+						var chk = $("#employAdd-table #id_ajax");
 						if (data != 0) {
-							$("#id_ajax").text("이미 있는 아이디입니다.");
-							$(this).text("");
-							$(this).focus();
+							chk.text("이미 있는 아이디입니다.");
+							inputId.val("");
+							inputId.focus();
 						} else {
-							$("#id_ajax").text("사용가능");
+							$("#employAdd-table #id_ajax").text("사용가능");
 						}
 					},
 					error : function(){
@@ -40,7 +42,7 @@
 	});
 
 	function goSubmit(f) {
-		var chk;
+		var chk = false;
 
 		$(":input").each(function(index) {
 			if ($(this).attr("name") == "imgFile") {
@@ -58,9 +60,14 @@
 					$(this).focus();
 					chk = true;
 					return false;
-				} else {
+				} else if ($(this).attr("name") == "name") {
+					alert("이름을 넣어주세요");
+					$(this).focus();
+					chk = true;
+					return false;
+				}else {
 					// 빈칸일 경우 null값 넣어준다.
-					$(this).val('null');
+					$(this).val(null);
 				}
 			}
 
@@ -69,8 +76,12 @@
 		if (chk) {
 			return;
 		}
-		f.action = "addEmployee.do";
-		f.submit();
+		alert(chk);
+		
+		$("#empAddfrm").attr('action', "addEmployee.do");
+		$('#empAddfrm').submit();
+		//f.action = "addEmployee.do";
+		//f.submit();
 	}
 	
 
@@ -81,7 +92,7 @@
 	}
 	var path = "";
 	function upload() {
-		var form = $('#frm');
+		var form = $('#empAddfrm');
 
 		var formData = new FormData(form);
 		formData.append("fileObj", $("#imgFile")[0].files[0]);
@@ -121,26 +132,28 @@
 		width: 70%;
 		
 	}
+	
 </style>
 </head>
 <body>
-	<form method="post" id="frm" >
-
+	<form method="post" id="empAddfrm" >
+		<h3 class="align-center">사원 추가</h3>
+		<hr>
 		<table id="employAdd-table">
 			<tbody>
 				<tr>
-					<th>아이디</th>
+					<th>아이디 <i class="fa fa-check-square-o color-req" ></i></th>
 					<td><input type="text" id="id" name="id">
 					<a style="color: red" id="id_ajax"></a></td>
 				</tr>
 
 				<tr>
-					<th>비밀번호</th>
+					<th>비밀번호 <i class="fa fa-check-square-o color-req" ></i></th>
 					<td><input type="password" name="password"></td>
 				</tr>
 
 				<tr>
-					<th>이름</th>
+					<th>이름 <i class="fa fa-check-square-o color-req" ></i></th>
 					<td><input type="text" name="name"></td>
 				</tr>
 
@@ -167,8 +180,8 @@
 				<tr>
 					<th>직위</th>
 					<td><select name="position">
-							<option value="팀장">팀장</option>
 							<option value="사원">사원</option>
+							<option value="팀장">팀장</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -209,7 +222,7 @@
 		
 		<hr>
 		<div class="align-center">
-		<a class="btn" id="goSubmit(this.form)"> 추가 </a>
+		<a class="btn" onclick="goSubmit(this.form)"> 추가 </a>
 		</div>
 
 	</form>

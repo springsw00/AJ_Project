@@ -40,8 +40,10 @@
 	} */
 	$(function(){
 		$("#myPage_modiBtn").click(function(){
+			// 전송전에 id의 disabled attr 삭제한다.
+			$("input[name=id]").removeAttr('disabled');
 			
-			$("#main_form").attr('action', "/myPage_ok.do");
+			$("#main_form").attr('action', "myPage_ok.do");
 			$("#main_form").submit();
 			
 		});
@@ -49,7 +51,7 @@
 </script>
 </head>
 <body>
-	<form id="main_form">
+	<form id="main_form" method="post">
 		<jsp:include page="../layout.jsp" />
 		<div id="main_board">
 		<h2 class="align-center">내 정보</h2>
@@ -57,7 +59,7 @@
 			<table id="myPage-modifyTable">
 				<tr>
 					<th>아이디</th>
-					<td><input type="text" name="id" value="${vo.id}"></td>
+					<td><input type="text" name="id" value="${vo.id}" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
@@ -93,7 +95,7 @@
 						<input type="hidden" name="position" value="${vo.position}"> 
 						<input type="hidden" name="profile" value="${vo.profile}">
 						<input type="hidden" name="departmentID" value="${vo.departmentID}">
-						<input type="hidden" name="hired_date" value="${vo.hired_date}"></td> 
+						<%-- <input type="hidden" name="hired_date" value="${vo.hired_date}"> --%></td> 
 					</tr>
 			</table>
 		</div>

@@ -14,18 +14,19 @@
 	padding: 10px 10px 0 10px;
 	margin: 0px;
 	float: left;
-	border-right: 1px solid #aaa;
+	border: 1px solid #aaa;
 	width: 150px;
 	height: inherit;	
+	border-radius: 5px;
 }
-
 .float_left {
-	padding: 0px;
+	padding: 10px 0px 0 0px;
 	margin: 0 0 0 10px;
 	float: left;
 	border: 1px solid #aaa;
 	width: 710px;
-	height: inherit;	
+	height: inherit;
+	border-radius: 5px;	
 }
 
 #arView{
@@ -142,7 +143,7 @@
 					
 				</c:if>
 			</div>
-			<div class="float_left use-scroll" style="width: 80%">
+			<div class="float_left use-scroll" >
 				<div class="align-center" id="date_select_div_my">
 					<select name="year" id="y_opt">
 						<option id="y_opt_2016" value="2016">2016</option>

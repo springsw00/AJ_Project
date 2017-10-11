@@ -1,8 +1,8 @@
 @CHARSET "UTF-8";
 @font-face {
 	font-family: 'NanumBarungothic';
-	src: url('/fonts/NanumBarunGothic.eot') format('embedded-opentype'),
-		 url('/fonts/NANUMBARUNGOTHIC.woff') format('woff');
+	src: url('../fonts/NanumBarunGothic.eot') format('embedded-opentype'),
+		 url('../fonts/NANUMBARUNGOTHIC.woff') format('woff');
 /* 	src: url('/fonts/NanumBarunGothic.eot') format('embedded-opentype'),
 		 url('/fonts/NANUMBARUNGOTHIC.woff') format('woff'); */
 }
@@ -36,16 +36,23 @@ a {
 .btn {
 	cursor: pointer;
 }
-
+.color-req {
+	color : #588E95;
+} 
 
 
 #main_form {
 	font-family: NanumBarungothic;
 	width: 1300px;
 	height: 680px;
-	margin-top: 120px;
-	margin-left: auto;
-	margin-right: auto;
+	
+	position: absolute;
+	top: calc(50% - 340px);
+	left: calc(50% - 650px);
+	
+	/* margin-top: 120px;*/
+	/* margin-left: auto;
+	margin-right: auto;  */
 	/* 
 	margin: 100px 301px 0 301px; */
 	/* border: 1px solid  #183346; */
@@ -64,6 +71,9 @@ a {
 
 #left, .left{
 	float: left;
+}
+.float-right{
+	float: right;
 }
 
 #log {

@@ -20,7 +20,7 @@
 	function upload() {
 		var form = $('#frm');
 
-		alert("aaa");
+		//alert("aaa");
 		var formData = new FormData(form);
 		formData.append("fileObj", $("#imgFile")[0].files[0]);
 
@@ -62,12 +62,34 @@
 		}
 	});
 </script>
+
+<style>
+	#empModify-table th {
+		width: 120px;
+		text-align: right;
+		border-right: 1px solid #aaa;
+		padding-right: 10px;
+	}
+	
+	#empModify-table td {
+		margin: 0px;
+		padding: 4px 0 4px 10px;
+		border-spacing: 0px;
+		text-align: left;
+	}
+	
+	#empModify-table {
+		width: 100%;
+		
+	}
+</style>
 </head>
 <body>
 
 	<form method="post" id="frm">
-
-		<table>
+	<h3 class="align-center">사원 정보 수정</h3>
+	<hr>
+		<table id="empModify-table">
 			<tbody>
 				<tr>
 				<!-- 	<c:set var="fnamePath" value="${empvo.profile}" />
@@ -75,33 +97,33 @@
 					<c:forEach var="s1" items="${fname }" varStatus="s">
 						<c:if test="${s.count == 2}"><c:set var="realFname" value="${s1}" /></c:if>
 					</c:forEach> -->
-					<td>사진</td>
+					<th>사진</th>
 					<td><img src="resources\personImage/${empvo.profile}" width="150" height="175"/></td>
 				</tr>
 				<tr>
-					<td>아이디</td>
+					<th>아이디 <i class="fa fa-check-square-o color-req" ></i></th>
 					<td><input type="text" id="id" name="id" value="${empvo.id }">
 						<a style="color: red" id="id_ajax"></a></td>
 				</tr>
 
 				<tr>
-					<td>비밀번호</td>
+					<th>비밀번호 <i class="fa fa-check-square-o color-req" ></i></th>
 					<td><input type="text" name="password"
 						value="${empvo.password }"></td>
 				</tr>
 
 				<tr>
-					<td>이름</td>
+					<th>이름 <i class="fa fa-check-square-o color-req" ></i></th>
 					<td><input type="text" name="name" value="${empvo.name }"></td>
 				</tr>
 
 				<tr>
-					<td>이메일</td>
+					<th>이메일</th>
 					<td><input type="text" name="email" value="${empvo.email }"></td>
 				</tr>
 
 				<tr>
-					<td>주소</td>
+					<th>주소</th>
 					<td><input type="text" name="address"
 						value="${empvo.address }"></td>
 				</tr>
@@ -109,7 +131,7 @@
 				<!-- ajax로 로딩 시 DB에 저장되어있는 Department정보 가져오도록 하자 -->
 
 				<tr>
-					<td>부서</td>
+					<th>부서</th>
 
 					<td><select id="dtmentID" name="departmentID">
 							<option id="dtmentID_PRMT" value="PRMT">인사관리팀</option>
@@ -118,32 +140,32 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td>직위</td>
+					<th>직위</th>
 					<td><select id="position" name="position">
 							<option id="position_사원" value="사원">사원</option>
 							<option id="position_팀장" value="팀장">팀장</option>
 					</select></td>
 				</tr>
 				<tr>
-					<td>휴대폰번호</td>
+					<th>휴대폰번호</th>
 					<td><input type="text" name="cellPhone"
 						value="${empvo.cellPhone }"></td>
 				</tr>
 				<tr>
-					<td>내선번호</td>
+					<th>내선번호</th>
 					<td><input type="text" name="phone" value="${empvo.phone }"></td>
 				</tr>
 				<tr>
-					<td>생년월일</td>
+					<th>생년월일</th>
 					<td><input type="number" name="birth" value="${empvo.birth }"></td>
 				</tr>
 				<tr>
-					<td>입사일자</td>
+					<th>입사일자</th>
 					<td><input type="text" name="hired_date"
 						value="${empvo.hired_date.substring(0,10)}"></td>
 				</tr>
 				<tr>
-					<td>프로필사진</td>
+					<th>프로필사진</th>
 					<td><input type="text" disabled="disabled" value=""id="addPicResult"> 
 						<input type="file" value="파일 선택"name="imgFile" id="imgFile"> <br> 
 						<a href="javascript:upload();">등록</a>
@@ -155,16 +177,16 @@
 			</tbody>
 
 			<tfoot>
-				<tr>
-					<td><input type="button" onclick="modify_go(this.form)"
-						value="수정"></td>
-					<td><input type="button" onclick="delete_go(this.form)"
-						value="삭제"></td>
-					<!-- <a href="#" onclick="">추가</a> -->
-					<!-- <input type="submit" value="추가"> -->
-				</tr>
 			</tfoot>
 		</table>
+		
+		<hr>
+		<div class="align-center">
+			<input type="button" onclick="modify_go(this.form)"
+						value="수정">
+			<input type="button" onclick="delete_go(this.form)"
+						value="삭제">
+		</div>
 
 	</form>
 

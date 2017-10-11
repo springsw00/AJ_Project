@@ -12,22 +12,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.float_left_menu {
-	padding: 0px;
-	margin: 0px;
-	float: left;
-	border: 1px solid #aaa;
-	width: 150px;
-	height: inherit;	
-}
-.float_left {
-	padding: 0px;
-	margin: 0 0 0 10px;
-	float: left;
-	border: 1px solid #aaa;
-	width: 650px;
-	height: inherit;	
-}
+
 
 #ar_table {
 	width: 100%;

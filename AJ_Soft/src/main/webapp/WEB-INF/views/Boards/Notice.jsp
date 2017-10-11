@@ -40,13 +40,18 @@
 		<jsp:include page="../layout.jsp" />
 		<div id="main_board">
 			<div>
-				<h2>공지 게시판</h2>
+				<h2>공지 게시판 </h2>
+				<div class="float-right" style="font-size: 1em;">
+					<c:if test="${empDeptID == 'PRMT' }">
+						<a href="goNotice.do?cPage=${pvo.nowPage}"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
+					</c:if>
+				</div>
 				<table>
 					<tr>
 						<th width="40px">번호</th>
 						<th>제목</th>
-						<th width="150">작성자</th>
-						<th width="150px">작성날짜</th>
+						<th width="100px">작성자</th>
+						<th width="100px">작성날짜</th>
 					</tr>
 					<c:forEach items="${list}" var="k" varStatus="i">
 						<tr>
@@ -64,7 +69,7 @@
 					</c:forEach>
 					<tfoot>
 						<tr>
-							<td colspan="3">
+							<td colspan="4">
 								<!-- 이전  -->
 								 <c:if test="${pvo.beginPage > pvo.pagePerBlock}">
 									<a href="Notice_go.do?cPage=${pvo.beginPage - pvo.pagePerBlock}"><<</a>
@@ -84,11 +89,6 @@
 								<!-- 이후 --> 
 								<c:if test="${pvo.endPage < pvo.totalPage}">&nbsp;
 								<a href="Notice_go.do?cPage=${pvo.beginPage + pvo.pagePerBlock }">>></a>
-								</c:if>
-							</td>
-							<td>
-								<c:if test="${empDeptID == 'PRMT' }">
-									<a href="goNotice.do?cPage=${pvo.nowPage}">공지추가하기</a>
 								</c:if>
 							</td>
 						</tr>

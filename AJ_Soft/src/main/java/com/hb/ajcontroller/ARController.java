@@ -1,8 +1,5 @@
 package com.hb.ajcontroller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,28 +10,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.LayoutStyle;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hb.employee.AttendanceRecordDAO;
 import com.hb.employee.AttendanceRecordVO;
 import com.hb.employee.EmployeeVO;
-import com.hb.interfaces.VO;
 
 @Controller
 public class ARController {
@@ -68,6 +56,9 @@ public class ARController {
 		String startTime;
 		String empID = (String) req.getSession().getAttribute("empID");
 		//Long endTime = ;
+		if(empID == null) {
+			return new ModelAndView("login");
+		}
 		
 		
 		// AR에 퇴근시간 저장.
@@ -129,9 +120,16 @@ public class ARController {
 	public ModelAndView goARView(
 			HttpServletRequest req) {
 		ModelAndView mv= new ModelAndView("Employee/AttendanceRecordLayout");
+		
+		String empID = (String) req.getSession().getAttribute("empID");
+		
+		if(empID == null) {
+			mv = new ModelAndView("login");
+			return mv;
+		}
 
 		// 현재 접속한 사람이 부서 대표인지 확인		
-		if(arDao.CheckDeptSuper((String) req.getSession().getAttribute("empID"))>0) {
+		if(arDao.CheckDeptSuper(empID)>0) {
 			mv.addObject("deptSuper", "check");
 			
 			// 대표이면 부서내 이름들 전송
@@ -139,7 +137,6 @@ public class ARController {
 			mv.addObject("empList", emplist);
 		}
 		
-				
 		return mv;
 	}
 	

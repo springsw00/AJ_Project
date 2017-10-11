@@ -11,17 +11,18 @@
 <title>Insert title here</title>
 <style type="text/css">
 
-table {
+#notice-vtable {
 	margin: auto;
-	width: 700px;
+	width: 100%;
+	
 }
 
-tr {
+#notice-vtable tr {
 	padding: 4px 10px;
 	background-color: #F6F6F6;
 }
 
-th {
+#notice-vtable th {
 	text-align:left;
 	padding: 4px 10px;
 	margin-right: 20px;
@@ -52,22 +53,22 @@ th {
 		<jsp:include page="../layout.jsp" />
 		<div id="main_board">
 		<h2>공지 게시판</h2>
-			<table>
-				<tr>
-					<th>제목</th>
-					<td>${vo.title}
-					<input type="hidden" name="title" value="${vo.title}" /></td>
-				</tr>
-				<tr>
-					<th>작성자</th>
-					<td>${vo.writer}
-					<input type="hidden" name="writer" value="${vo.writer}" /></td>
-				</tr>
-				<tr>
-					<th>작성 날짜</th>
-					<td>${vo.writeDate.substring(0,10)}
-					<input type="hidden" name="writeDate" value="${vo.writeDate}" /></td>
-				</tr>
+			<table id="notice-vtable">
+				<thead>
+					<tr>
+						<th>제목</th>
+						<td>${vo.title}
+						<input type="hidden" name="title" value="${vo.title}" /></td>
+					</tr>
+					<tr>
+						<th>작성자</th>
+						<td>${vo.writer}
+						<input type="hidden" name="writer" value="${vo.writer}" /></td>
+						<th>작성 날짜</th>
+						<td>${vo.writeDate.substring(0,10)}
+						<input type="hidden" name="writeDate" value="${vo.writeDate}" /></td>
+					</tr>
+				</thead>
 				<tr>
 					<td colspan="2"><div>${vo.content}
 					<input type="hidden" name="content" value='${vo.content}' /></div></td>

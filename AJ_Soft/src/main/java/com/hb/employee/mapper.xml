@@ -13,8 +13,12 @@
 	
 	<update id="updateEmployee" parameterType="com.hb.employee.EmployeeVO">
 		update EMPLOYEE 
-		set password = #{password}, email=#{email}, address = #{address}, departmentID = #{departmentID}, hired_date=#{hired_date},
-			name =#{name}, position=#{position}, cellPhone=#{cellPhone}, phone=${phone}, birth =#{birth}, profile=#{profile}
+		set password = #{password}, email=#{email}, address = #{address}, departmentID = #{departmentID}, 
+		
+		<if test="hired_date != null">
+			hired_date = #{hired_date},
+		</if>
+			name =#{name}, position=#{position}, cellPhone=#{cellPhone}, phone=#{phone}, birth =#{birth}, profile=#{profile}
 		where id = #{id}
 	</update>
 	

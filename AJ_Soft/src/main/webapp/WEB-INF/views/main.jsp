@@ -26,9 +26,9 @@
 	font-family: NanumBarungothic;
 	width: 1300px;
 	height: 680px;
-	margin-top: 120px;
-	margin-left: auto;
-	margin-right: auto;
+	position: absolute;
+	top: calc(50% - 340px);
+	left: calc(50% - 650px);
 	box-sizing: border-box;
    	-webkit-box-sizing:border-box;
    	-moz-box-sizing: border-box;

@@ -47,8 +47,8 @@
 
 </style>
 <script type="text/javascript">
+	var findresult = false;
 	$(function(){
-		
 		$(function() {
 			$("#modify_id").keyup(function() {
 				///alert($(this).val().length);
@@ -62,8 +62,10 @@
 							//alert(data);
 							if (data != 0) {
 								$("#id_ajax").text("있는 아이디입니다.");
+								findresult = true;
 							} else {
 								$("#id_ajax").text("없는 아이디입니다.");
+								findresult = false;
 								$(this).text("");
 								$(this).focus();
 							}
@@ -78,18 +80,16 @@
 			});
 		}); 
 		$(".goAddEmployee").click(function(){
-			
 			$('#adminView').load('addEmp_page.do');
-			
 		});
-		
-		
 		
 	});
 	
 	function go_findEmp(f) {
 		var modify_id = $("#modify_id").val();
-		$('#adminView').load("find_emp.do?modify_id=" + modify_id);
+		if(findresult){
+			$('#adminView').load("find_emp.do?modify_id=" + modify_id);
+		}
 		//alert(modify_id);
 		/* f.action = "find_emp.do?modify_id=" + modify_id;
 		f.submit(); */

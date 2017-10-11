@@ -8,6 +8,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="resources/datepicker/datepicker.min.css" rel="stylesheet"
 	type="text/css">
+	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="resources/datepicker/datepicker.min.js"></script>
 
 <!-- Include English language -->
@@ -15,19 +17,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="resources/css/layout.css?ver=01">
+	href="resources/css/layout.css?ver=03">
 <script type="text/javascript">
 	jQuery.noConflict(false);
 </script>
 </head>
 <body>
 	<div id="left">
-		<a href="main.do"><img id="logo" src="resources/Image/Logo.bmp" /></a>
+		<a href="main.do"><img id="logo" src="resources/Image/Logo.bmp" /></a> 
 		<div id="log" class="align-center">
-		<%-- 
-			<img id="ID_picture"
-				src='<c:url value="${pageContext.request.contextPath}/resources/personImage/Leejehun.jpg" />' />
-		 --%>
 			<img id="ID_picture"
 				src='<c:url value="resources/personImage/${empImgPath}" />' />
 				<br>

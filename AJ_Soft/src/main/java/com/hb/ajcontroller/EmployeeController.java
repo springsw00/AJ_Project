@@ -179,6 +179,7 @@ public class EmployeeController {
 	// VO로 받으면 input 값이 없으면 받지 못한다.. 설정하지 않은 값은 null값이라도 넣어주어야한다.
 	@RequestMapping(value = "/addEmployee.do", method = RequestMethod.POST)
 	public ModelAndView addEmployee(EmployeeVO empvo, HttpServletRequest req) {
+		
 		ModelAndView mv = new ModelAndView();
 
 		System.out.println(empvo.toString());
@@ -278,11 +279,11 @@ public class EmployeeController {
 		return mv;
 	}
 	//수정하기
-	@RequestMapping(value = "/modify_ok.do")
+	@RequestMapping(value = "/modify_ok.do", method=RequestMethod.POST)
 	public ModelAndView modify_ok(EmployeeVO empvo, HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 
-		//System.out.println(empvo.toString());
+		System.out.println(empvo.toString());
 
 		int result = empdao.modify(empvo);
 		System.out.println(result);

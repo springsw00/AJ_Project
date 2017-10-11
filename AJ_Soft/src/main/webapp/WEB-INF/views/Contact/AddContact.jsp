@@ -83,7 +83,7 @@
 	<table>
 		<tr>
 			<th>이름</th>
-			<td><input type="text" name="name"></td>
+			<td><input type="text" name="name"> <i class="fa fa-check-square-o color-req" ></td>
 		</tr>
 		<tr>
 			<th>휴대폰</th>
