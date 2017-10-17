@@ -1,76 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
-	tr {
-		padding: 4px 10px;
-		background-color: #F6F6F6;
+	
+	#CommuView, #CommuView a{
+		color: black;
 	}
-	a{
-		text-decoration: none;
-		color: #000;
+	#CommuView th {
+		background-color: #CFD8DC;
 	}
-	table{
-		margin: auto;
-		width: 650px;
+	
+	#CommuView table {
+		width: 100%;
+		
+		/* border: 1px solid #aaa;	 */
 	}
-	#importLev{
-		width: 350px;
+	#CommuView table td {
+		margin: 0px;
+		padding: 0px;
+		border-bottom: 1px solid #aaa;
+		border-spacing: 0px;
 	}
-	tfoot{
-		text-align: center;
-	}
-	.display-none{
-		display: none;
-	}
-	th {
-		text-align:left;
-		padding: 4px 10px;
-		margin-right: 20px;
-	    width: 150px;
+	#paging_commu, .commuView_num{
+		text-align:center;
 	}
 </style>
 <script type="text/javascript">
- function detailCommunity(cPage, community_no){
-	 //alert(cPage+","+ community_no);
-	$("#Community_detail").load("detailCommu.do?cPage="+cPage+"&community_no="+community_no);
-
-	$("#Community_list").addClass("display-none");
- };
-
 </script>
-</head>
 <body>
-	<form>
-		<div>
-			<div id="Community_list" >
+		<div id="CommuView">
+			<h3> groupName 넣고싶다!!</h3>
+				<div class="float-right" style="font-size: 1em;">
+					<a href="#" onclick="addCommunity_go(${pvo.nowPage},${groupID})"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
+				</div>
 				<table>
 					<tr>
-						<td>번호</td>
-						<td>제목</td>
-						<td>작성자</td>
-						<td>작성날짜</td>
+						<th>번호</th>
+						<th>제목</th>
+						<th width="130px">작성자</th>
+						<th width="130px">작성날짜</th>
 					</tr>
 					<c:forEach items="${list}" var="k" varStatus="i">
-						 <c:if test="${k.groupID == groupID}">
-							<tr>
-								<td>${pvo.totalRecord-((pvo.nowPage-1)*pvo.numPerPage+i.index)}</td>
-								<td id="importLev">
-								<a href="#" onclick="detailCommunity(${pvo.nowPage}, ${k.community_no})">${k.title}</a>
-								</td>
-								<td>${k.writer}</td>
-								<td>${k.writeDate.substring(0,10)}</td>
-							</tr>
-						</c:if>
+						<tr>
+							<td class="commuView_num">${pvo.totalRecord-((pvo.nowPage-1)*pvo.numPerPage+i.index)}</td>
+							<!-- <td>${k.community_no}</td> -->
+							<td id="importLev">
+							<a href="#" onclick="detailCommunity(${pvo.nowPage}, ${k.community_no})">${k.title}</a>
+							</td>
+							<td>${k.writer}</td>
+							<td>${k.writeDate.substring(0,10)}</td>
+						</tr>
 					</c:forEach>
 					<tfoot>
-						<tr>
-							<td colspan="3">
+						<tr id="paging_commu">
+							<td colspan="4">
 								<!-- 이전  -->
 								 <c:if test="${pvo.beginPage > pvo.pagePerBlock}">
 									<a href="list_community.do?cPage=${pvo.beginPage - pvo.pagePerBlock}"><<</a>
@@ -92,18 +75,11 @@
 								<a href="list_community.do?cPage=${pvo.beginPage + pvo.pagePerBlock }">>></a>
 								</c:if>
 							</td>
-							<td>
-								<a href=".do?cPage=${pvo.nowPage}">추가하기</a>
-							</td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
-			<div id="Community_detail">
-			</div>
 		</div>
-	</form>
 
 	
 </body>
-</html>

@@ -8,26 +8,33 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	tr {
-		padding: 4px 10px;
-		background-color: #F6F6F6;
-	}
-	a{
-		text-decoration: none;
-		color: #000;
-	}
-	table{
-		margin: auto;
-		width: 100%;
-	}
+
+	
 	#importLev.importLev{
-		background-color: yellow;
+		background-color: rgba(255, 154, 25, 0.64);
 	}
 	#importLev{
 		width: 350px;
 	}
-	tfoot{
-		text-align: center;
+	
+	#NoticList th {
+		background-color: #CFD8DC;
+	}
+	
+	#NoticList table {
+		margin: auto;
+		width: 100%;
+		
+		/* border: 1px solid #aaa;	 */
+	}
+	#NoticList table td {
+		margin: 0px;
+		padding: 0px;
+		border-bottom: 1px solid #aaa;
+		border-spacing: 0px;
+	}
+	#paging_Notic{
+		text-align:center;
 	}
 </style>
 <script
@@ -39,7 +46,7 @@
 	<form id="main_form">
 		<jsp:include page="../layout.jsp" />
 		<div id="main_board">
-			<div>
+			<div id="NoticList">
 				<h2>공지 게시판 </h2>
 				<div class="float-right" style="font-size: 1em;">
 					<c:if test="${empDeptID == 'PRMT' }">
@@ -68,7 +75,7 @@
 						</tr>
 					</c:forEach>
 					<tfoot>
-						<tr>
+						<tr id="paging_Notic">
 							<td colspan="4">
 								<!-- 이전  -->
 								 <c:if test="${pvo.beginPage > pvo.pagePerBlock}">

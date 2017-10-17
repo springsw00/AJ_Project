@@ -6,11 +6,11 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="resources/datepicker/datepicker.min.css" rel="stylesheet"
+<link href="resources/datepicker/datepicker.min.css?ver=01" rel="stylesheet"
 	type="text/css">
 	
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="resources/datepicker/datepicker.min.js"></script>
+<script src="resources/datepicker/datepicker.min.js?ver=01"></script>
 
 <!-- Include English language -->
 <script src="resources/datepicker/i18n/datepicker.en.js"></script>
@@ -19,7 +19,13 @@
 <link rel="stylesheet"
 	href="resources/css/layout.css?ver=03">
 <script type="text/javascript">
-	jQuery.noConflict(false);
+	 $(function(){
+		$.noConflict();
+		var j = jQuery;
+		j('.datepicker-here').datepicker({
+		    /* todayButton: new Date(), */
+		});
+	}); 
 </script>
 </head>
 <body>

@@ -57,7 +57,7 @@
 				<thead>
 					<tr>
 						<th>제목</th>
-						<td>${vo.title}
+						<td colspan="3">${vo.title}
 						<input type="hidden" name="title" value="${vo.title}" /></td>
 					</tr>
 					<tr>
@@ -68,28 +68,29 @@
 						<td>${vo.writeDate.substring(0,10)}
 						<input type="hidden" name="writeDate" value="${vo.writeDate}" /></td>
 					</tr>
-				</thead>
-				<tr>
-					<td colspan="2"><div>${vo.content}
-					<input type="hidden" name="content" value='${vo.content}' /></div></td>
-				</tr>
-				<c:if test="${empDeptID == 'PRMT' }">
+					</thead>
 					<tr>
-						<td colspan="2" style="text-align:center">
-							<input type="button" value="수정" onclick="modify_go(this.form)" /> 
-							<input type="button" value="삭제" onclick="delete_go(this.form)" />
-							<c:if test="${cPage == ''}">
-								<input type="button" value="뒤로" onclick="main_go(this.form)" />
-							</c:if>
-							<c:if test="${cPage != ''}">
-								<input type="button" value="목록" onclick="list_go(this.form)" />
-							</c:if>
-							<input type="hidden" name="cPage" value="${cPage}" />
-							<input type="hidden" name="importanceLevel" value="${vo.importanceLevel}" />
-							<input type="hidden" name="notice_no" value="${vo.notice_no}" /></td>
+						<td colspan="4"><div>${vo.content}
+						<input type="hidden" name="content" value='${vo.content}' /></div></td>
 					</tr>
-				</c:if>
-			</table>
+					<c:if test="${empDeptID == 'PRMT' }">
+						<tr>
+							<td colspan="4" style="text-align:center">
+								<input type="button" value="수정" onclick="modify_go(this.form)" /> 
+								<input type="button" value="삭제" onclick="delete_go(this.form)" />
+								<c:if test="${cPage == ''}">
+									<input type="button" value="뒤로" onclick="main_go(this.form)" />
+								</c:if>
+								<c:if test="${cPage != ''}">
+									<input type="button" value="목록" onclick="list_go(this.form)" />
+								</c:if>
+								<input type="hidden" name="cPage" value="${cPage}" />
+								<input type="hidden" name="importanceLevel" value="${vo.importanceLevel}" />
+								<input type="hidden" name="notice_no" value="${vo.notice_no}" /></td>
+						</tr>
+					</c:if>
+				</table>
+			</div>
 		</div>
 	</form>
 </body>

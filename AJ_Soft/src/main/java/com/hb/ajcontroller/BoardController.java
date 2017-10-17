@@ -67,17 +67,17 @@ public class BoardController {
 	}
 	//로드 시킬 리스트
 	@RequestMapping("/list_community.do")
-	public ModelAndView list_community(HttpServletRequest req) {
+	public ModelAndView list_community(HttpServletRequest req,
+			@RequestParam("groupID") int groupID) {
 		ModelAndView mv = new ModelAndView("/Boards/CommunityView");
 		String cPage = req.getParameter("cPage");
-		String groupID = req.getParameter("groupID");
 		//System.out.println(" cPage >>>>>"+ cPage);
 		
 		if (cPage != null)
 			pvo.setNowPage(Integer.parseInt(cPage));
 
 		// 전체 게시물의 수 구하기(DB처리)
-		int count = commudao.getCommuTotalCount();
+		int count = commudao.getCommuTotalCount(groupID);
 		pvo.setTotalRecord(count);
 		pvo.setTotalPage();
 
@@ -88,16 +88,13 @@ public class BoardController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("begin", pvo.getBegin());
 		map.put("end", pvo.getEnd());
+		map.put("groupID", groupID);
 		
 		// DB처리
 		List<CommunityVO> list = (List<CommunityVO>)commudao.getList(map);
 			System.out.println(list);
 			mv.addObject("list", list);
 			mv.addObject("groupID", groupID);
-//			if(list. == groupID){
-//				System.out.println(list);
-//				mv.addObject("list", list);
-//			}
 		
 
 		// 해당 블록의 시작 페이지번호와 끝 페이지번호
@@ -124,7 +121,7 @@ public class BoardController {
 	public ModelAndView detailCommunity(HttpServletRequest req, 
 			@RequestParam("cPage") String cPage,
 			@RequestParam("community_no") int community_no) {
-		System.out.println(community_no+","+ cPage);
+		//System.out.println(community_no+","+ cPage);
 		String empID = (String)req.getSession().getAttribute("empID");
 		
 		ModelAndView mv = new ModelAndView("/Boards/detailCommunity");
@@ -137,4 +134,73 @@ public class BoardController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("/addCommunity_go.do")
+	public ModelAndView addCommunity_go(@RequestParam("groupID") String groupID,
+			@RequestParam("cPage") String cPage) {
+		System.out.println("groupID : "+ groupID + " , cPage : " + cPage);
+		ModelAndView mv = new ModelAndView("/Boards/addCommunity");
+		mv.addObject("cPage", cPage);
+		mv.addObject("groupID", groupID);
+		return mv;
+	}
+	
+	@RequestMapping("/addCommunity.do")
+	public ModelAndView addCommunity(CommunityVO vo, 
+			@RequestParam("cPage") String cPage,
+			@RequestParam("groupID") int groupID,
+			HttpServletRequest req) {
+		System.out.println("groupID : "+ groupID + " , vo : " + vo);
+		vo.setGroupID(groupID);
+		vo.setWriter((String)req.getSession().getAttribute("empID"));
+		int result = commudao.insert(vo);
+		System.out.println("추가 성공 : " + result);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("cPage", cPage);
+		mv.setViewName("redirect:/go_community.do");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/del_Community.do")
+	public ModelAndView del_Community(CommunityVO vo,
+			@RequestParam("cPage") String cPage) {
+		int result = commudao.delete(vo);
+		System.out.println("삭제 성공 : "+ result);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("cPage",cPage);
+		mv.setViewName("redirect:/go_community.do");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/modi_Community_go.do")
+	public ModelAndView modi_Community_go(
+			@RequestParam("community_no") int community_no) {
+		System.out.println("community_no : "+ community_no );
+		ModelAndView mv = new ModelAndView("/Boards/modi_Community");
+		CommunityVO vo = (CommunityVO)commudao.listOne(community_no);
+		System.out.println(vo);
+		mv.addObject("vo", vo);
+		return mv;
+	}
+	
+	@RequestMapping("/modi_Community.do")
+	public ModelAndView modi_Community(CommunityVO vo) {
+		ModelAndView mv = new ModelAndView("redirect:/go_community.do");
+		int result = commudao.modify(vo);
+		System.out.println("수정 성공 : " + result);
+		System.out.println(vo);
+		return mv;
+	}
+	
+	
+	@RequestMapping("/CommuGroup_addGo.do")
+	public ModelAndView CommuGroup_addGo(HttpServletRequest req) {
+		String empID = (String) req.getSession().getAttribute("empID");
+		ModelAndView mv = new ModelAndView("/Boards/add_CommuGroup");
+		mv.addObject("empID", empID);
+		return mv;
+	}
+	
 }

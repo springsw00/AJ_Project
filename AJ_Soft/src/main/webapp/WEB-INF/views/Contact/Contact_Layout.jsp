@@ -156,10 +156,10 @@
 										class="fa fa-address-card-o" aria-hidden="true"></i>
 										${k.contact_group}</li>
 								</c:forEach>
-									<li class="t-grey btn" id="addContact">&nbsp;&nbsp;<i
+							</c:if>
+							<li class="t-grey btn" id="addContact">&nbsp;&nbsp;<i
 								class="fa fa-plus-square-o" aria-hidden="true"></i> 연락처 추가
 							</li>
-							</c:if>
 						</ul>
 					</li>
 					<!-- 팀별로 공유될 주소록 -->

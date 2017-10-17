@@ -32,22 +32,44 @@
 	height: inherit;
 }
 
-/*#ar_table {
-	width: 100%;
-	border: 1px solid #aaa;
-}
-#ar_table th {
-	height: 30px;
-}
-
-.display-none{
-	display: none;
-} */
 </style>
-<script type="text/javascript">
- function selectCommunity(groupID){
-	 //alert(groupID);
+<script type="text/javascript" charset="utf-8">
+/* function selectCommunity(groupID, groupName){
+	 alert(groupID+","+groupName);
+	$("#cmView").load("list_community.do?groupID="+groupID+"&groupName="+groupName);
+}; */
+
+function selectCommunity(groupID){
+	 alert(groupID);
 	$("#cmView").load("list_community.do?groupID="+groupID);
+};
+
+function detailCommunity(cPage, community_no){
+	 //alert(cPage+","+ community_no);
+	$("#cmView").load("detailCommu.do?cPage="+cPage+"&community_no="+community_no);
+
+	//$("#Community_list").addClass("display-none");
+};
+
+function addCommunity_go(cPage, groupID){
+	// alert(groupID);
+	$("#cmView").load("addCommunity_go.do?cPage="+cPage+"&groupID="+groupID);
+
+	//$("#Community_list").addClass("display-none");
+};
+
+function modi_Community_go(community_no){
+	 //alert(community_no);
+	$("#cmView").load("modi_Community_go.do?community_no="+community_no);
+};
+
+function CommuList_go(groupID){
+	 //alert(groupID);
+	 $("#cmView").load("list_community.do?groupID="+groupID);
+};
+
+function CommuGroup_addGo(){
+	 $("#cmView").load("CommuGroup_addGo.do");
 };
 
 </script>
@@ -58,15 +80,17 @@
 		<div id="main_board">
 			<div class="float_left_menu">
 				<c:forEach var="k" items="${list}" varStatus="i">
-					<a href="#" onclick="selectCommunity(${k.groupID})">${k.groupName}</a><br>
-				</c:forEach>
+					<%-- <h4><a href="#" onclick="selectCommunity(${k.groupID},${k.groupName})">${k.groupName}</a></h4><br> --%>
+					<h4><i class="fa fa-address-book-o" aria-hidden="true"></i><a href="#" onclick="selectCommunity(${k.groupID})"> ${k.groupName}</a></h4>
+				</c:forEach><br>
+				<a href="#" class="t-grey btn" onclick="CommuGroup_addGo()" ><i
+								class="fa fa-plus-square-o" aria-hidden="true"></i> 그룹 추가</a>
 			</div>
 			<div class="float_left use-scroll" >
 				<div id="cmView">
 					
 				</div>
 			</div>
-			
 		</div>
 	</form>
 </body>

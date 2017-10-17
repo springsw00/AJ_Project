@@ -7,6 +7,15 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link
+	href="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.js"
+	type="text/javascript"></script>
+<script
+	src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.ui.position.min.js"
+	type="text/javascript"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -73,7 +82,11 @@
 			$("#date_select_div_my").removeClass("display-none");
 		});
 		
-		
+		$('#findAR-input').keyup(function(){
+			var chkRadio = $(':radio[name="find-radio"]:checked').val();
+
+			//alert(chkRadio);
+		});
 	});
 	
 	function showMyAR(){
@@ -119,9 +132,27 @@
 		$("#arView").load('goDeptARView.do', {inputdate:$("#input-date").val()}, function(){});
 	}
 	
+	function go_findAR(frm){
+		
+		var findKey = $("#findAR-input").val();
+		var chkRadio = $(':radio[name="find-radio"]:checked').val();
+		// 검색어는 2글자 이상!
+		if(findKey.length <= 2){
+			alert("2글자 이상 검색가능");
+			return;
+		}else{
+			if(chkRadio == 'name' ){
+				
+			}else{	// id로 검색하는 경우
+				$("#arView").load('goARView2.do', {id:findKey, searchResult:'searchResult'}, function(){});
+			}			
+		}
+	}
+	
 </script>
 </head>
 <body>
+
 	<form id="main_form">
 		<jsp:include page="../layout.jsp" />
 		<div id="main_board">
@@ -140,11 +171,18 @@
 				<c:if test="${empDeptID == 'PRMT' }">
 				<!-- 인사관리팀이면 보여줄 페이지 -->
 					<a href="#" onclick="searchDeptAR()">근태 검색</a>
-					
+					<input id="findAR-input" name="findAR" type="text" size="12"/><a
+					onclick="go_findAR($(this).closest('form')[0])"> <img alt="find" src="resources/Image/find_person.png" width="15px" height="15px" class="btn"> </a>
+					<br>
+					<input type="radio" name="find-radio" value="id" checked="checked"> ID
+					<input type="radio" name="find-radio" value="name" > NAME
 				</c:if>
 			</div>
 			<div class="float_left use-scroll" >
 				<div class="align-center" id="date_select_div_my">
+					<!-- <input type="text" class="datepicker-here" data-language='en'
+						data-min-view="months" data-view="months"
+						data-date-format="yyyy/mm" />  -->
 					<select name="year" id="y_opt">
 						<option id="y_opt_2016" value="2016">2016</option>
 						<option id="y_opt_2017" value="2017">2017</option>
@@ -152,7 +190,7 @@
 						<c:forEach begin="1" end="12" var="k">
 							<option id="m_opt_${k}">${k }</option>
 						</c:forEach>
-					</select> 월 
+					</select> 월
 					<input type="button" onclick="showSelectdate()" value="이동">
 				</div>
 				<div class="align-center display-none" id="date_select_div_dept">

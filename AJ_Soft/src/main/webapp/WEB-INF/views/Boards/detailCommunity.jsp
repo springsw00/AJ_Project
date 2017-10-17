@@ -1,13 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
-	tr {
+	/* tr {
 		padding: 4px 10px;
 		background-color: #F6F6F6;
 	}
@@ -19,9 +14,7 @@
 		margin: auto;
 		width: 650px;
 	}
-	#importLev{
-		width: 350px;
-	}
+	
 	tfoot{
 		text-align: center;
 	}
@@ -33,19 +26,43 @@
 		padding: 4px 10px;
 		margin-right: 20px;
 	    width: 150px;
+	} */
+	#importLev{
+		width: 350px;
+	}
+	#Commu_detail th {
+		background-color: #CFD8DC;
+	}
+	
+	#Commu_detail table {
+		width: 100%;
+		
+		/* border: 1px solid #aaa;	 */
+	}
+	#Commu_detail table td {
+		margin: 0px;
+		padding: 0px;
+		border-bottom: 1px solid #aaa;
+		border-spacing: 0px;
 	}
 </style>
 <script type="text/javascript">
 
- function list_go(f) {
+ /* function list_go(f) {
 	 f.action ="go_community.do";
 	 f.submit();
+ } */
+ 
+ function delete_go(f) {
+	 f.action ="del_Community.do";
+	 f.submit();
+	
  }
+ 
 </script>
-</head>
 <body>
 	<form>
-			<div id="Community_detail">
+			<div id="Commu_detail"><br>
 				<table>
 				<tr>
 					<th>제목</th>
@@ -68,13 +85,15 @@
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align:center">
-						<input type="button" value="목록" onclick="list_go(this.form)" />
+						<!-- 목록으로 안가고 Community_Layout으로 가게 해놓음;; -->
+						<a href="#" onclick="CommuList_go(${vo.groupID})">목록</a>&nbsp;
 						<c:if test="${empID == vo.writer}">
-							<input type="button" value="수정" onclick="modify_go(this.form)" /> 
+							<input type="button" value="수정" onclick="modi_Community_go(${vo.community_no})" /> 
 							<input type="button" value="삭제" onclick="delete_go(this.form)" />
 						</c:if>
 						<input type="hidden" name="cPage" value="${cPage}" />
-						<input type="hidden" name="community_no" value="${vo.community_no}" /></td>
+						<input type="hidden" name="community_no" value="${vo.community_no}" />
+						<input type="hidden" name="groupID" value="${vo.groupID}" /></td>
 				</tr>
 				</table>
 			</div>
@@ -82,4 +101,3 @@
 
 	
 </body>
-</html>

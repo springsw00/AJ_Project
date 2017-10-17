@@ -206,7 +206,9 @@ public class ARController {
 	public ModelAndView goARView2(HttpServletRequest req, 
 			@RequestParam(value="year", required=false)Integer year,
 			@RequestParam(value="month", required=false)Integer month,
-			@RequestParam(value="id", required=false)String id
+			@RequestParam(value="id", required=false)String id,
+			@RequestParam(value="findKey", required=false)String name,
+			@RequestParam(value="searchResult", required=false)String searchResult
 			) {
 		
 		ModelAndView mv= new ModelAndView("Employee/AttendanceRecordView");
@@ -238,6 +240,9 @@ public class ARController {
 		mv.addObject("year", year);
 		mv.addObject("month", alignIntValue(month));
 		mv.addObject("lastDay", lastDay);
+		
+		if(searchResult != null)
+			mv.addObject("searchResult","true");
 		
 		return mv;
 	}
@@ -271,7 +276,7 @@ public class ARController {
 			allDateList.set(date-1, voTmp);
 		}
 		
-		
+		listTest(allDateList);
 		return allDateList;
 	}
 	

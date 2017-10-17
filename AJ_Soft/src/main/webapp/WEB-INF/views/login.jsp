@@ -50,8 +50,8 @@ body{
 
 .header{
 	position: absolute;
-	top: calc(50% - 35px);
-	left: calc(50% - 255px);
+	top: calc(50% - 65px);
+	left: calc(50% - 280px);
 	z-index: 2;
 }
 
@@ -59,7 +59,7 @@ body{
 	float: left;
 	color: #fff;
 	font-family: 'Exo', sans-serif;
-	font-size: 35px;
+	font-size: 70px;
 	font-weight: 200;
 }
 

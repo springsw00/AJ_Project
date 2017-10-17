@@ -33,8 +33,8 @@ public class CommunityDAO implements DAO {
 	}
 
 	// 전체 게시물의 수
-	public int getCommuTotalCount() {
-		return template.selectOne("board.commuTotalcount");
+	public int getCommuTotalCount(int groupID) {
+		return template.selectOne("board.commuTotalcount",groupID);
 	}
 	
 	@Override
@@ -55,20 +55,17 @@ public class CommunityDAO implements DAO {
 
 	@Override
 	public int insert(VO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.insert("board.insertCommu", vo);
 	}
 
 	@Override
 	public int modify(VO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.update("board.updateCommu", vo);
 	} 
   
 	@Override
 	public int delete(VO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.delete("board.deleteCommu", vo);
 	}
 	
 	public List<? extends VO> getCommunityMenu(String empID) {

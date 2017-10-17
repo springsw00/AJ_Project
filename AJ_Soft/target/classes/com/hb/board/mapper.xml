@@ -43,7 +43,7 @@
 	
 <!-- ///////////////////////////////////////////////////////////////////////// -->	
 	<select id="commuTotalcount" resultType="int">
-		select count(*) from COMMUNITY
+		select count(*) from COMMUNITY where groupID = #{groupID}
 	</select>
 	
 	<select id="selectCommuMenu" resultType="com.hb.board.CommunityVO" parameterType="String">
@@ -53,17 +53,34 @@
 	</select>
 	
 	<select id="listCommuMap" resultType="com.hb.board.CommunityVO" parameterType="Map">
-		select * from (
+		<!-- select * from (
    		 		select  rownum r_num, a.* from(
-   		 			select * from COMMUNITY order by community_no desc
-   		 			) a 
+   		 			select * from COMMUNITY where groupID = #{groupID} order by community_no desc
+   		 			) a
+   				) where r_num between #{begin} and #{end} -->
+   			select * from (
+   		 		select  rownum r_num, cg.groupName, a.* from(
+   		 			select * from COMMUNITY where groupID = #{groupID} order by community_no desc
+   		 			) a, COMMUNITYGROUP cg where a.groupID = cg.groupID
    				) where r_num between #{begin} and #{end}
-		
 	</select> 
 	
 	<select id="CommuSelectOne" resultType="com.hb.board.CommunityVO" parameterType="int">
 		select * from COMMUNITY where community_no = #{community_no} 
 	</select>
+	
+	<insert id="insertCommu" parameterType="com.hb.board.CommunityVO" >
+		insert into COMMUNITY values(community_seq.nextval, #{title}, #{content}, #{writer}, SYSDATE, #{groupID})
+	</insert>
+	
+	<delete id="deleteCommu" parameterType="com.hb.board.CommunityVO">
+		delete from COMMUNITY where community_no = #{community_no}
+	</delete>
+	
+	<update id="updateCommu" parameterType="com.hb.board.CommunityVO">
+		update COMMUNITY set title = #{title}, content =#{content}, writer = #{writer}, writeDate = SYSDATE
+		where community_no = #{community_no} and groupId = #{groupID} 
+	</update>
 </mapper>
 
 
