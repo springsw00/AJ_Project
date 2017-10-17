@@ -37,12 +37,10 @@
 	height: inherit;
 	border-radius: 5px;	
 }
-
 #arView{
 	width: 100%;
 	height: inherit;
 }
-
 #ar_table {
 	width: 100%;
 }
@@ -50,13 +48,16 @@
 	height: 30px;
 	background-color: #E8C77A
 }
-
 .display-none{
 	display: none;
 }
 </style>
 <script type="text/javascript">
 	$(function(){
+		
+		$('li a').removeClass('menu_active');
+		$('li[data-tab=tab1] a').addClass('menu_active');
+		
 		// 올해 이번달 기본선택
 		var date = new Date();
 		var year = date.getFullYear();
@@ -77,14 +78,12 @@
 			//alert($(this).attr("id"));
 			
 			$("#arView").load('goARView2.do', {id:$(this).attr("id")}, function(){});
-
 			$("#date_select_div_dept").addClass("display-none");
 			$("#date_select_div_my").removeClass("display-none");
 		});
 		
 		$('#findAR-input').keyup(function(){
 			var chkRadio = $(':radio[name="find-radio"]:checked').val();
-
 			//alert(chkRadio);
 		});
 	});

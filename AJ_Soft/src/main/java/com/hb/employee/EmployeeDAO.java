@@ -54,7 +54,22 @@ public class EmployeeDAO implements DAO {
 
 	@Override
 	public int insert(VO vo) {
-		return template.insert("employee.insertEmployee", vo);
+		int res = 0;
+		
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			res += template.insert("employee.insertEmployee", vo);
+			res += template.insert("board.empInsert", vo);
+			
+			transactionManager.commit(status);
+		} catch (Exception e) {
+			System.out.println(e);
+			transactionManager.rollback(status);
+		}finally {
+			
+		}
+		return res;
 	}
  
 	@Override
@@ -81,4 +96,6 @@ public class EmployeeDAO implements DAO {
 	public List<HashMap<String, String>> getList(String deptID){
 		return template.selectList("employee.selectForContact", deptID);
 	}
+	
+	
 }

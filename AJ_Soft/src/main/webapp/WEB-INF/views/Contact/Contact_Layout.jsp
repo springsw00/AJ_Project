@@ -65,7 +65,10 @@
 </style>
 <script type="text/javascript">
 	$(function() {
-
+		$('li a').removeClass('menu_active');
+		$('li[data-tab=tab2] a').addClass('menu_active');
+		
+		
 		$(".goDeptContact").click(function() {
 			var deptId = $(this).attr("id");
 			$('#contactList').empty();

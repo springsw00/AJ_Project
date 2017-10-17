@@ -6,26 +6,33 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="resources/datepicker/datepicker.min.css?ver=01" rel="stylesheet"
+<link href="resources/datepicker/datepicker.min.css" rel="stylesheet"
 	type="text/css">
 	
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="resources/datepicker/datepicker.min.js?ver=01"></script>
+<script src="resources/datepicker/datepicker.min.js"></script>
 
 <!-- Include English language -->
 <script src="resources/datepicker/i18n/datepicker.en.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="resources/css/layout.css?ver=03">
+	href="resources/css/layout.css?ver=05">
+<style> 
+	 
+	.tab>li>a:hover{
+		background: #4C5870;
+		color: #fff;
+	}
+</style>
 <script type="text/javascript">
-	 $(function(){
-		$.noConflict();
-		var j = jQuery;
-		j('.datepicker-here').datepicker({
-		    /* todayButton: new Date(), */
-		});
-	}); 
+
+/* 	$(".tab li").click(function(){
+		$(".tab li").addClass('menu_active');
+		$(this).removeClass('menu_active');
+	}); */
+
+	jQuery.noConflict(false);
 </script>
 </head>
 <body>
@@ -36,7 +43,7 @@
 				src='<c:url value="resources/personImage/${empImgPath}" />' />
 				<br>
 			${empID}(${empName}) <br> / ${empPosition}, ${empDeptName} / <br>
-			<a href="getOff.do">퇴근</a>
+			<a href="getOff.do">퇴근</a> 
 			<!-- <input id="logout" type="button" value="퇴근" /> -->
 		</div>
 		<div id="mini_calendar" class="datepicker-here" data-language='en'></div>

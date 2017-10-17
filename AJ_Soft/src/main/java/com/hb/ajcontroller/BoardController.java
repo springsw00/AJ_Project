@@ -91,10 +91,15 @@ public class BoardController {
 		map.put("groupID", groupID);
 		
 		// DB처리
-		List<CommunityVO> list = (List<CommunityVO>)commudao.getList(map);
-			System.out.println(list);
-			mv.addObject("list", list);
-			mv.addObject("groupID", groupID);
+		List<CommunityVO> list = (List<CommunityVO>) commudao.getList(map);
+		System.out.println(list);
+		mv.addObject("list", list);
+		mv.addObject("groupID", groupID);
+		
+		// Community Group 테이블에서 groupID로 쿼리 한 후 결과는 GroupName
+		// GroupName을 mv에 저장
+		String groupName = commudao.getGroupName(groupID);
+		mv.addObject("groupName", groupName);
 		
 
 		// 해당 블록의 시작 페이지번호와 끝 페이지번호

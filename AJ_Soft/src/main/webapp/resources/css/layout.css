@@ -137,3 +137,8 @@ a {
 	margin: 8px 45px 8px 45px;
 	border: 1px solid black;
 }
+
+.menu_active {
+	background-color: #4C5870 !important;
+	color: #fff !important;
+} 

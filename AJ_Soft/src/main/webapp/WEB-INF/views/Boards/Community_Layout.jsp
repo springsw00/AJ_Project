@@ -15,21 +15,39 @@
 	margin: 0px;
 	float: left;
 	border: 1px solid #aaa;
-	width: 180px;
+	width: 150px;
 	height: inherit;	
+	border-radius: 5px;
 }
 .float_left {
-	padding: 0px;
+	padding: 10px 0px 0 0px;
 	margin: 0 0 0 10px;
 	float: left;
 	border: 1px solid #aaa;
-	width: 680px;
-	height: inherit;	
+	width: 710px;
+	height: inherit;
+	border-radius: 5px;	
 }
 
  #cmView{
 	width: inherit-15;
 	height: inherit;
+}
+
+#community-ul,#community-ul ul {
+	list-style: none;
+	padding: 0;
+}
+
+#community-ul li {
+	margin-left: 2px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#community-ul li li {
+	margin-left: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 </style>
@@ -39,8 +57,8 @@
 	$("#cmView").load("list_community.do?groupID="+groupID+"&groupName="+groupName);
 }; */
 
-function selectCommunity(groupID){
-	 alert(groupID);
+function selectCommunity(groupID){ 
+	// alert(groupID);
 	$("#cmView").load("list_community.do?groupID="+groupID);
 };
 
@@ -72,6 +90,11 @@ function CommuGroup_addGo(){
 	 $("#cmView").load("CommuGroup_addGo.do");
 };
 
+
+$(function(){
+	$('li a').removeClass('menu_active');
+	$('li[data-tab=tab4] a').addClass('menu_active');
+});
 </script>
 </head>
 <body>
@@ -81,10 +104,16 @@ function CommuGroup_addGo(){
 			<div class="float_left_menu">
 				<c:forEach var="k" items="${list}" varStatus="i">
 					<%-- <h4><a href="#" onclick="selectCommunity(${k.groupID},${k.groupName})">${k.groupName}</a></h4><br> --%>
-					<h4><i class="fa fa-address-book-o" aria-hidden="true"></i><a href="#" onclick="selectCommunity(${k.groupID})"> ${k.groupName}</a></h4>
+					<h4><i class="fa fa-user-circle-o" aria-hidden="true"></i><a href="#" onclick="selectCommunity(${k.groupID})"> ${k.groupName}</a></h4>
 				</c:forEach><br>
-				<a href="#" class="t-grey btn" onclick="CommuGroup_addGo()" ><i
-								class="fa fa-plus-square-o" aria-hidden="true"></i> 그룹 추가</a>
+				
+				<ul id="community-ul">
+					<li><a href="#" class="t-grey btn" onclick="CommuGroup_addGo()" ><i
+								class="fa fa-plus-square-o" aria-hidden="true"></i> 그룹 추가</a></li>
+					<li><a href="#" class="t-grey btn" onclick="CommuGroup_addGo()" ><i class="fa fa-search" aria-hidden="true"></i> 그룹 보기</a></li>
+				</ul>
+				
+				
 			</div>
 			<div class="float_left use-scroll" >
 				<div id="cmView">

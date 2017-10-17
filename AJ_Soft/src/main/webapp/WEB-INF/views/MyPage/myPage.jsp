@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head> 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -33,6 +35,11 @@
 		f.action = "/myPage_modi.do";
 		f.submit();
 	}
+	
+	$(function(){
+		$('li a').removeClass('menu_active');
+		$('li[data-tab=tab6] a').addClass('menu_active');
+	});
 </script>
 </head>
 <body>

@@ -95,6 +95,10 @@
 		f.submit(); */
 	}
 	
+	$(function(){
+		$('li a').removeClass('menu_active');
+		$('li[data-tab=tab7] a').addClass('menu_active');
+	});
 </script>
 </head>
 <body>

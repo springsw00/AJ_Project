@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.hb.board.CommunityDAO;
 import com.hb.employee.AttendanceRecordDAO;
 import com.hb.employee.AttendanceRecordVO;
 import com.hb.employee.EmpViewVO;
@@ -43,9 +44,19 @@ public class EmployeeController {
 	private EmployeeDAO empdao;
 	@Autowired
 	private AttendanceRecordDAO arDao;
+	@Autowired
+	private CommunityDAO commudao;
 	
 	@Resource(name="uploadPath")
 	String uploadPath;
+ 
+	public CommunityDAO getCommudao() {
+		return commudao;
+	}
+
+	public void setCommudao(CommunityDAO commudao) {
+		this.commudao = commudao;
+	}
 
 	public EmployeeDAO getEmpdao() {
 		return empdao;
@@ -183,11 +194,13 @@ public class EmployeeController {
 		ModelAndView mv = new ModelAndView();
 
 		System.out.println(empvo.toString());
+//		int dptresult = commudao.empInsert(empvo); 
+//		System.out.println("CommunityMember추가 성공 :" + dptresult);
 
 		int result = empdao.insert(empvo);
-		System.out.println(result);
+		System.out.println("추가 성공 :" + result);
 
-		if (result == 1) {
+		if (result == 2) {
 			mv.setViewName("redirect:/emp_admin.do");
 		}
 		return mv;

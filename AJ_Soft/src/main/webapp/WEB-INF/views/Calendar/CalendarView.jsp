@@ -75,7 +75,8 @@
 			}
 			return copy;
 		}
-
+		$('li a').removeClass('menu_active');
+		$('li[data-tab=tab3] a').addClass('menu_active');
 		
 	$('#calendar').fullCalendar({
 			// put your options and callbacks here

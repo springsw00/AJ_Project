@@ -29,13 +29,13 @@
 </script>
 <body>
 		<div id="CommuView">
-			<h3> groupName 넣고싶다!!</h3>
+			<h3> ${groupName }</h3>
 				<div class="float-right" style="font-size: 1em;">
 					<a href="#" onclick="addCommunity_go(${pvo.nowPage},${groupID})"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
 				</div>
 				<table>
 					<tr>
-						<th>번호</th>
+						<th width="50px">번호</th>
 						<th>제목</th>
 						<th width="130px">작성자</th>
 						<th width="130px">작성날짜</th>

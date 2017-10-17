@@ -75,4 +75,13 @@ public class CommunityDAO implements DAO {
 	public VO listOne(int community_no) {
 		return template.selectOne("board.CommuSelectOne", community_no);
 	}
+	
+	public String getGroupName(int groupID){
+		return template.selectOne("board.selectGroupName", groupID);
+	}
+	
+	public int empInsert(VO vo) {
+		return template.insert("board.empInsert", vo);
+	}
+
 }

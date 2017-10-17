@@ -53,16 +53,16 @@
 	</select>
 	
 	<select id="listCommuMap" resultType="com.hb.board.CommunityVO" parameterType="Map">
-		<!-- select * from (
+		select * from (
    		 		select  rownum r_num, a.* from(
    		 			select * from COMMUNITY where groupID = #{groupID} order by community_no desc
    		 			) a
-   				) where r_num between #{begin} and #{end} -->
-   			select * from (
+   				) where r_num between #{begin} and #{end}
+   			<!-- select * from (
    		 		select  rownum r_num, cg.groupName, a.* from(
    		 			select * from COMMUNITY where groupID = #{groupID} order by community_no desc
    		 			) a, COMMUNITYGROUP cg where a.groupID = cg.groupID
-   				) where r_num between #{begin} and #{end}
+   				) where r_num between #{begin} and #{end} -->
 	</select> 
 	
 	<select id="CommuSelectOne" resultType="com.hb.board.CommunityVO" parameterType="int">
@@ -81,6 +81,20 @@
 		update COMMUNITY set title = #{title}, content =#{content}, writer = #{writer}, writeDate = SYSDATE
 		where community_no = #{community_no} and groupId = #{groupID} 
 	</update>
+	
+	<!-- groupName만 가져오기 -->
+	<select id="selectGroupName" resultType="String">
+		select groupName from COMMUNITYGROUP where groupID = #{groupID}
+	</select>
+	
+	
+	
+	<insert id="empInsert" parameterType="com.hb.employee.EmployeeVO">
+		insert into COMMUNITYGROUPMEMBER values(
+		
+		(select groupID from COMMUNITYGROUP where groupName =
+			(select departmentName from DEPARTMENT where departmentID= #{departmentID})), #{id})
+	</insert>
 </mapper>
 
 
