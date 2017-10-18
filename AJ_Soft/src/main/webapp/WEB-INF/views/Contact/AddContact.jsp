@@ -67,6 +67,7 @@
 			
 			if($('#groupSelect').val()=='그룹추가'){
 				$('#groupSelect').focus();
+				alert("그룹지정 필수");
 				return;
 			}
 			

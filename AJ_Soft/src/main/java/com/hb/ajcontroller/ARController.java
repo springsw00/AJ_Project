@@ -72,12 +72,14 @@ public class ARController {
 			
 			
 			arVo = (AttendanceRecordVO) arDao.getOneItem(arVo);
-			arVo.setEndTime(new SimpleDateFormat("HH:mm:ss").format(System.currentTimeMillis()));
-			
-			// StartTime과 EndTime으로 총 근무시간 구하자
-			arVo.setWorkTime(getWorkTime(arVo.getStartTime(), arVo.getEndTime()));
-			
-			arDao.modify(arVo);
+			if(arVo != null) {
+				arVo.setEndTime(new SimpleDateFormat("HH:mm:ss").format(System.currentTimeMillis()));
+				
+				// StartTime과 EndTime으로 총 근무시간 구하자
+				arVo.setWorkTime(getWorkTime(arVo.getStartTime(), arVo.getEndTime()));
+				
+				arDao.modify(arVo);
+			}
 		}
 		// session 비우기
 		req.getSession().invalidate();
@@ -241,8 +243,21 @@ public class ARController {
 		mv.addObject("month", alignIntValue(month));
 		mv.addObject("lastDay", lastDay);
 		
-		if(searchResult != null)
+		if(searchResult != null) {
 			mv.addObject("searchResult","true");
+			mv.addObject("searchID",id);
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("goDeleteAR.do")
+	public ModelAndView deleteAR(String arNO, String id) {
+		ModelAndView mv = new ModelAndView("redirect:/goARView2.do?searchResult=OK&searchID=id");
+		
+		
+		arDao.delete(arNO);
+		
 		
 		return mv;
 	}
@@ -275,8 +290,6 @@ public class ARController {
 			int date = Integer.parseInt(voTmp.getAr_Date().split("/")[2]);
 			allDateList.set(date-1, voTmp);
 		}
-		
-		listTest(allDateList);
 		return allDateList;
 	}
 	

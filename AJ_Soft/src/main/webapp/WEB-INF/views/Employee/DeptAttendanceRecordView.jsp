@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.float_left_menu {
+/* .float_left_menu {
 	padding: 0px;
 	margin: 0px;
 	float: left;
@@ -25,7 +25,7 @@
 	border: 1px solid #aaa;
 	width: 650px;
 	height: inherit;	
-}
+} */
 
 #ar_table {
 	width: 100%;
@@ -37,53 +37,52 @@
 </style>
 </head>
 <body>
-
-				<table id="ar_table">
-					<thead>
-						<tr>
-							<th>이름</th>
-							<th>출근</th>
-							<th>퇴근</th>
-							<th>IP</th>
-							<th>근무시간</th>
-						</tr>
-					</thead>
-					<tbody>
-						
-						<c:forEach var="vo" items="${list }">
-							<tr>
-								<td>
-									${vo.name}
-								</td>
-								<td>
-									<c:choose>
-										<c:when test="${empty vo.startTime }">-</c:when>
-										<c:otherwise> ${vo.startTime }</c:otherwise>
-									</c:choose>
-								</td>
-								<td>
-									<c:choose>
-											<c:when test="${empty vo.endTime }">-</c:when>
-											<c:otherwise> ${vo.endTime }</c:otherwise>
-									</c:choose>
-								</td>
-								<td>
-									<c:choose>
-											<c:when test="${empty vo.ip }">-</c:when>
-											<c:otherwise> ${vo.ip }</c:otherwise>
-									</c:choose>
-								</td>
-								<td>
-									<c:choose>
-											<c:when test="${empty vo.workTime }">-</c:when>
-											<c:otherwise> ${vo.workTime }</c:otherwise>
-									</c:choose>
-								</td>
-							</tr>
-						</c:forEach> 
-					</tbody>
-					<tfoot></tfoot>
-				</table>
+	<table id="ar_table">
+		<thead>
+			<tr>
+				<th>이름</th>
+				<th>출근</th>
+				<th>퇴근</th>
+				<th>IP</th>
+				<th>근무시간</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<c:forEach var="vo" items="${list }">
+				<tr>
+					<td>
+						${vo.name}
+					</td>
+					<td>
+						<c:choose>
+							<c:when test="${empty vo.startTime }">-</c:when>
+							<c:otherwise> ${vo.startTime }</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+								<c:when test="${empty vo.endTime }">-</c:when>
+								<c:otherwise> ${vo.endTime }</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+								<c:when test="${empty vo.ip }">-</c:when>
+								<c:otherwise> ${vo.ip }</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+								<c:when test="${empty vo.workTime }">-</c:when>
+								<c:otherwise> ${vo.workTime }</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
+			</c:forEach> 
+		</tbody>
+		<tfoot></tfoot>
+	</table>
 
 </body>
 </html>

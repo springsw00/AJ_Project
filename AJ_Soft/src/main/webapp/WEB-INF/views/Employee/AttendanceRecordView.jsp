@@ -2,12 +2,7 @@
 	pageEncoding="UTF-8"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
-<!DOCTYPE html>
-<html>
-<head>
 <script type="text/javascript" src="resources/fullcalendar/moment.min.js"></script>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
 
 
@@ -35,6 +30,22 @@
 		var month = '${month}';
 		var startTime, endTime, ip, workTime;
 		var editSelected;
+		
+		///
+		// 올해 이번달 기본선택
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var day = date.getDate();
+		
+		$("#y_opt").val(year).prop("selected", true);
+		$("#m_opt").val(month).prop("selected", true);
+		
+		function getLastDay(year, month){
+			var date = new Date(year, month, 0);
+			return date.getDate();
+		}
+		/////////////////////////////////////////////
 		
 		
 		if(id != ""){
@@ -81,67 +92,6 @@
 		
 		
 		
-
-		$.contextMenu({
-			selector : '.right-click-menu',
-			callback : function(key, options) {
-				//var m = "clicked: " + key;
-				// window.console && console.log(m) || alert(m); 
-				var id;
-				if (key == 'edit') {
-					//id = $(this).children("td.date").attr('id');
-					id = $(this).attr('id');
-					if(editSelected != null){
-						// 이미 수정하던 element가 있었다면
-						editCancel(editSelected);
-						$("#editArBtn").remove();
-					}
-					editSelected = $(this);
-					
-					// id가 0이면 수정했을 때 insert필요하다
-					// id가 0이 아니면 해당 아이디가 key값
-					//alert(id);
-					/* $(this).children("td[class!=date]").each(function(index){
-						var tmpText = $(this).text().trim();
-						if(tmpText != "-"){
-							
-							$(this).append("<input class='arEdit' type='text' value="+tmpText+">");
-							$(this).parent().find("#go_modify").html("<i class='fa fa-check btn' aria-hidden='true'></i>");
-						}else{
-							
-						}
-					}); */
-					startTime = getText($(this),"startTime");
-					endTime = getText($(this),"endTime");
-					ip = getText($(this),"ip");
-					//workTime = getText($(this),"workTime");
-					
-					setInputText($(this),"startTime",startTime);
-					setInputText($(this),"endTime", endTime);
-					setInputText($(this),"ip",ip);
-					//setInputText($(this),"workTime",workTime);
-					var editBtn = "<i class='fa fa-check btn editArBtn' aria-hidden='true'></i>";
-					$(this).find("#go_modify").html(editBtn);
-					
-				} else if (key == 'delete') {
-					
-				}
-			},
-			items : {
-				"edit" : {
-					name : "Edit",
-					icon : "edit"
-				},
-
-				"delete" : {
-					name : "Delete",
-					icon : "delete"
-				}
-
-			}
-		});
-		
-		
 		$(document).on("click",".editArBtn",function(){
 			alert("dd");
 			
@@ -155,13 +105,33 @@
 	
 	
 </script>
-</head>
-<body>
 	<input type="hidden" id="receiveID">
+	
+	<c:if test="${!empty searchID }">
+		<div class="left">검색 ID :: ${searchID}
+			<input type="hidden" id="searchID" value="${searchID}">
+		</div>
+	</c:if>
+
+	<div class="float-right align-center" id="date_select_div_my">
+		<!-- <input type="text" class="datepicker-here" data-language='en'
+						data-min-view="months" data-view="months"
+						data-date-format="yyyy/mm" />  -->
+		<select name="year" id="y_opt">
+			<option id="y_opt_2016" value="2016">2016</option>
+			<option id="y_opt_2017" value="2017">2017</option>
+		</select> 년 <select name="month" id="m_opt">
+			<c:forEach begin="1" end="12" var="k">
+				<option id="m_opt_${k}">${k }</option>
+			</c:forEach>
+		</select> 월 <input type="button" onclick="showSelectdate()" value="이동">
+	</div>
+
+
 	<table id="ar_table">
 		<thead>
 			<tr>
-				<th>날짜</th>
+				<th width="100px">날짜</th>
 				<th>출근</th>
 				<th>퇴근</th>
 				<th>IP</th>
@@ -214,5 +184,3 @@
 		<tfoot></tfoot>
 	</table>
 			
-</body>
-</html>

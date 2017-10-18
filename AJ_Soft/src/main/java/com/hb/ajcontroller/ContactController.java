@@ -94,7 +94,7 @@ public class ContactController {
 		
 		if(empID != null && gName !=null) {
 			
-			map = new HashMap<>();
+			map = new HashMap();
 			map.put("id", empID);
 			map.put("contact_group", gName);
 			List<ContactListVO> clist = (List<ContactListVO>) contactlistDao.getList(map);

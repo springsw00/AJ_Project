@@ -12,12 +12,6 @@
 		
 		/* border: 1px solid #aaa;	 */
 	}
-	#ContactView table td {
-		margin: 0px;
-		padding: 0px;
-		border-bottom: 1px solid #aaa;
-		border-spacing: 0px;
-	}
 	
 	
 </style>

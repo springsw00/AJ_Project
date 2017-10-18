@@ -12,18 +12,13 @@
 		
 		/* border: 1px solid #aaa;	 */
 	}
-	#ContactView table td {
-		margin: 0px;
-		padding: 0px;
-		border-bottom: 1px solid #aaa;
-		border-spacing: 0px;
-	}
+	
 </style>
 <div id="ContactView">
 	<table>
 		<thead>
 			<tr>
-				<th>이름</th>
+				<th width="60px">이름</th>
 				<th>직급</th>
 				<th>휴대폰</th>
 				<th>이메일</th>
@@ -43,7 +38,6 @@
 					<td>AJ-SOFT</td>
 					<td>${k.PHONE }</td>
 					<td>${k.DEPARTMENTNAME }</td>
-
 				</tr>
 					</c:forEach>
 			</c:if>

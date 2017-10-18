@@ -17,7 +17,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="resources/css/layout.css?ver=05">
+	href="resources/css/layout.css?ver=003">
 <style> 
 	 
 	.tab>li>a:hover{
@@ -26,11 +26,32 @@
 	}
 </style>
 <script type="text/javascript">
-
-/* 	$(".tab li").click(function(){
-		$(".tab li").addClass('menu_active');
-		$(this).removeClass('menu_active');
-	}); */
+	$(function(){
+		
+	});
+	
+	function msgWindow(){
+		
+		var url = 'msgWindow.do?id=${empID}';
+		var title = '메세지함';
+		var w = 400;
+		var h = 435;
+		
+		var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+	    var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+	 
+	    var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+	    var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+	 
+	    var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+	    var top = ((height / 2) - (h / 2)) + dualScreenTop;
+	    var newWindow = window.open(url, title, 'location=no, scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+	 
+	    // Puts focus on the newWindow
+	    if (window.focus) {
+	        newWindow.focus();
+	    }
+	}
 
 	jQuery.noConflict(false);
 </script>
@@ -43,7 +64,7 @@
 				src='<c:url value="resources/personImage/${empImgPath}" />' />
 				<br>
 			${empID}(${empName}) <br> / ${empPosition}, ${empDeptName} / <br>
-			<a href="getOff.do">퇴근</a> 
+			<a href="getOff.do" class="myButton"><i class="fa fa-sign-out" aria-hidden="true"></i></a> 
 			<!-- <input id="logout" type="button" value="퇴근" /> -->
 		</div>
 		<div id="mini_calendar" class="datepicker-here" data-language='en'></div>
@@ -59,6 +80,7 @@
 			<c:if test="${empDeptID == 'PRMT' }">
 				<li data-tab="tab7"><a href="emp_admin.do">사원관리</a></li>
 			</c:if>
+			<li data-tab="tab8"><a href="#" onclick="msgWindow()"><i class="fa fa-commenting-o fa-lg" aria-hidden="true"></i></a></li>
 			<!-- <li data-tab="tab8"><a href="go_test.do">testPage</a></li> -->
 		</ul>
 	</div>

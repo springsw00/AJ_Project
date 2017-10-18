@@ -62,6 +62,10 @@
 		insert into AttendanceRecord values(AR_SEQ.nextval, #{id}, #{ar_Date}, to_char(SYSDATE, 'HH24:MI:SS'), '00:00:00',null, #{ip})
 	</insert>
 	
+	<delete id="deleteAR" parameterType="String">
+		delete from AttendanceRecord where ar_No = #{ar_No}
+	</delete>
+	
 	<update id="updateAR" parameterType="com.hb.employee.AttendanceRecordVO">
 		update AttendanceRecord
 		set startTime = #{startTime}, endTime = #{endTime}, workTime = #{workTime}, ip = #{ip}

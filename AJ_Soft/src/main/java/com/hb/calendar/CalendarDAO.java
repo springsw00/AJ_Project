@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.hb.interfaces.DAO;
 import com.hb.interfaces.VO;
 
+@Repository
 public class CalendarDAO implements DAO{
 	
 	private SqlSessionTemplate template;

@@ -86,6 +86,70 @@
 			var chkRadio = $(':radio[name="find-radio"]:checked').val();
 			//alert(chkRadio);
 		});
+		
+
+		
+		
+
+		$.contextMenu({
+			selector : '.right-click-menu',
+			callback : function(key, options) {
+				//var m = "clicked: " + key;
+				// window.console && console.log(m) || alert(m); 
+				var id;
+				
+				id = $(this).attr('id');
+				if (key == 'edit') {
+					//id = $(this).children("td.date").attr('id');
+					
+					if(editSelected != null){
+						// 이미 수정하던 element가 있었다면
+						editCancel(editSelected);
+						$("#editArBtn").remove();
+					}
+					editSelected = $(this);
+					
+					// id가 0이면 수정했을 때 insert필요하다
+					// id가 0이 아니면 해당 아이디가 key값
+					//alert(id);
+					
+					startTime = getText($(this),"startTime");
+					endTime = getText($(this),"endTime");
+					ip = getText($(this),"ip");
+					//workTime = getText($(this),"workTime");
+					
+					setInputText($(this),"startTime",startTime);
+					setInputText($(this),"endTime", endTime);
+					setInputText($(this),"ip",ip);
+					//setInputText($(this),"workTime",workTime);
+					var editBtn = "<i class='fa fa-check btn editArBtn' aria-hidden='true'></i>";
+					$(this).find("#go_modify").html(editBtn);
+					
+				} else if (key == 'delete') {
+					var searchID = $("#searchID").val();
+					if(id == 0){
+						return;
+					}
+					alert("id>>>"+id);
+					$("#arView").load('goDeleteAR.do', {arNO:id,id:searchID}, function(){
+						alert("삭제완료!");						
+					});
+				}
+			},
+			items : {
+				"edit" : {
+					name : "Edit",
+					icon : "edit"
+				},
+
+				"delete" : {
+					name : "Delete",
+					icon : "delete"
+				}
+
+			}
+		});
+		
 	});
 	
 	function showMyAR(){
@@ -121,9 +185,12 @@
 	
 	function showSelectdate(){		
 		//alert($("#y_opt").val()+'/'+$("#m_opt").val());
-		//var id = ;
-		
-		$("#arView").load('goARView2.do', {year:$("#y_opt").val(), month:$("#m_opt").val(), id:$("#receiveID").val()}, function(){});
+		var id = $("#searchID").val();
+		if(id != null){
+			$("#arView").load('goARView2.do', {year:$("#y_opt").val(), month:$("#m_opt").val(), id:id, searchResult:'searchResult'}, function(){});
+		}else{
+			$("#arView").load('goARView2.do', {year:$("#y_opt").val(), month:$("#m_opt").val(), id:$("#receiveID").val()}, function(){});
+		}
 	}
 	
 	function showSelectdateDept(){
@@ -156,6 +223,10 @@
 		<jsp:include page="../layout.jsp" />
 		<div id="main_board">
 			<div class="float_left_menu">
+			
+			
+				
+			
 				<a href="#" onclick="showMyAR()">내 근태 현황</a>
 				<hr>
 				<c:if test="${!empty deptSuper }">
@@ -178,7 +249,9 @@
 				</c:if>
 			</div>
 			<div class="float_left use-scroll" >
-				<div class="align-center" id="date_select_div_my">
+				<%-- <div class="left">${searchID}</div>
+			
+				<div class="float-right align-center" id="date_select_div_my">
 					<!-- <input type="text" class="datepicker-here" data-language='en'
 						data-min-view="months" data-view="months"
 						data-date-format="yyyy/mm" />  -->
@@ -191,7 +264,8 @@
 						</c:forEach>
 					</select> 월
 					<input type="button" onclick="showSelectdate()" value="이동">
-				</div>
+				</div> --%>
+				
 				<div class="align-center display-none" id="date_select_div_dept">
 					<input type="date" name="date" id="input-date">
 					<input type="button" onclick="showSelectdateDept()" value="이동">

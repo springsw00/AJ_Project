@@ -60,8 +60,13 @@
 		<property name="template" ref="template" />
 		<property name="transactionManager"  ref="transactionManager"/>
 	</bean>
+	<bean id="msgDao" class="com.hb.message.MessageDAO">
+		<property name="template" ref="template" />
+		<property name="transactionManager"  ref="transactionManager"/>
+	</bean>
 	
 	<!-- Pageing -->
 	<bean id="page" class="com.hb.board.Pageing" />
 		
+	
 </beans>

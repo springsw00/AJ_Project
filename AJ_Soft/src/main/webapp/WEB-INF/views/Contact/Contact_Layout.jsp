@@ -42,6 +42,9 @@
 	height: inherit;
 	width: 100%;
 }
+#ContactView{
+	font-size: 12px;
+}
 
 #contact-ul,#contact-ul ul {
 	list-style: none;
@@ -62,6 +65,17 @@
 .font-bold{
 	font-weight: bold;
 }
+
+#ContactView table td {
+		margin: 0px;
+		padding: 3px 1px;
+		border-bottom: 1px solid #aaa;
+		border-spacing: 0px;
+}
+#ContactView tr:hover {
+	background-color: #BA9C9B;
+}
+
 </style>
 <script type="text/javascript">
 	$(function() {

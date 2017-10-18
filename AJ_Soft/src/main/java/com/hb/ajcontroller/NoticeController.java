@@ -24,7 +24,6 @@ import com.hb.interfaces.VO;
 @Controller
 public class NoticeController {
 	
-
 	
 	@Autowired
 	 private NoticeDAO notidao;

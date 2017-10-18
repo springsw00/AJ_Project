@@ -75,6 +75,10 @@ public class AttendanceRecordDAO implements DAO {
 		return 0;
 	}
 	
+	public int delete(String id) {
+		return template.delete("deleteAR",id);
+	}
+	
 	public VO getOneItem(VO vo) {
 		return template.selectOne("checkTodayRecord", vo);
 	}

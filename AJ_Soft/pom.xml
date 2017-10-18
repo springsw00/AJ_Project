@@ -41,6 +41,14 @@
 			- commons-fileupload 
 			- json
 		-->
+		<!-- Spring websocket -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+		<dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-websocket</artifactId>
+           <version>${org.springframework-version}</version>
+		</dependency>
+
 		<!-- json-simple -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>

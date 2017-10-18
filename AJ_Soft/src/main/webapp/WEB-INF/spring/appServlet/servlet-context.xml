@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -35,4 +37,10 @@
 	
 	<!-- <resources location="/WEB-INF/views/Employee/" mapping="/Employee/**" /> -->
 	
+	<!-- 웹 소켓 사용 -->
+	<websocket:handlers>
+		<websocket:mapping handler="msgHandler" path="/msgCount"/>
+	</websocket:handlers>
+	
+	<beans:bean id="msgHandler" class="com.hb.message.WebsocketHandler"/>
 </beans:beans>
