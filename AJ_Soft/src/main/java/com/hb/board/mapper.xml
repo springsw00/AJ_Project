@@ -87,13 +87,32 @@
 		select groupName from COMMUNITYGROUP where groupID = #{groupID}
 	</select>
 	
-	
+	<update id="empUpdate" parameterType="com.hb.employee.EmployeeVO">
+		update COMMUNITYGROUPMEMBER	set groupID = 
+			(select groupID from COMMUNITYGROUP where groupName =
+				(select departmentName from DEPARTMENT where departmentID= #{departmentID}))
+				where memberID = #{id}
+	</update>
 	
 	<insert id="empInsert" parameterType="com.hb.employee.EmployeeVO">
 		insert into COMMUNITYGROUPMEMBER values(
-		
 		(select groupID from COMMUNITYGROUP where groupName =
 			(select departmentName from DEPARTMENT where departmentID= #{departmentID})), #{id})
+	</insert>
+	
+	<select id="selectAllGroup" resultType="com.hb.board.CommunityVO">
+		select * from COMMUNITYGROUP
+	</select>
+	
+	<select id="select_listGroupID" resultType="int">
+		select groupID from COMMUNITYGROUPMEMBER where memberID = #{empID}
+	</select>
+	
+	<insert id="groupNameInsert" parameterType="map">
+		insert all
+		into COMMUNITYGROUP values(cgroup_seq.val,#{groupName})
+		into COMMUNITYGROUPMEMBER values(
+			(select groupID from COMMUNITYGROUP where groupName = #{groupName}),#{empID})
 	</insert>
 </mapper>
 

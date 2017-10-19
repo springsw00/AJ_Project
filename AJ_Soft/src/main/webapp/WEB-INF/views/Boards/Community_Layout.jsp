@@ -15,39 +15,21 @@
 	margin: 0px;
 	float: left;
 	border: 1px solid #aaa;
-	width: 150px;
+	width: 180px;
 	height: inherit;	
-	border-radius: 5px;
 }
 .float_left {
-	padding: 10px 0px 0 0px;
+	padding: 0px;
 	margin: 0 0 0 10px;
 	float: left;
 	border: 1px solid #aaa;
-	width: 710px;
-	height: inherit;
-	border-radius: 5px;	
+	width: 680px;
+	height: inherit;	
 }
 
  #cmView{
 	width: inherit-15;
 	height: inherit;
-}
-
-#community-ul,#community-ul ul {
-	list-style: none;
-	padding: 0;
-}
-
-#community-ul li {
-	margin-left: 2px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-#community-ul li li {
-	margin-left: 10px;
-	margin-top: 5px;
-	margin-bottom: 5px;
 }
 
 </style>
@@ -86,8 +68,8 @@ function CommuList_go(groupID){
 	 $("#cmView").load("list_community.do?groupID="+groupID);
 };
 
-function CommuGroup_addGo(){
-	 $("#cmView").load("CommuGroup_addGo.do");
+function Commu_AllGroup(){
+	 $("#cmView").load("Commu_AllGroup.do");
 };
 
 
@@ -106,14 +88,8 @@ $(function(){
 					<%-- <h4><a href="#" onclick="selectCommunity(${k.groupID},${k.groupName})">${k.groupName}</a></h4><br> --%>
 					<h4><i class="fa fa-user-circle-o" aria-hidden="true"></i><a href="#" onclick="selectCommunity(${k.groupID})"> ${k.groupName}</a></h4>
 				</c:forEach><br>
-				
-				<ul id="community-ul">
-					<li><a href="#" class="t-grey btn" onclick="CommuGroup_addGo()" ><i
-								class="fa fa-plus-square-o" aria-hidden="true"></i> 그룹 추가</a></li>
-					<li><a href="#" class="t-grey btn" onclick="CommuGroup_addGo()" ><i class="fa fa-search" aria-hidden="true"></i> 그룹 보기</a></li>
-				</ul>
-				
-				
+				<a href="#" class="t-grey btn" onclick="Commu_AllGroup()" ><i
+				 class="fa fa-search" aria-hidden="true"></i> 모든 그룹</a>
 			</div>
 			<div class="float_left use-scroll" >
 				<div id="cmView">

@@ -43,7 +43,6 @@ public class BoardController {
 		this.pvo = pvo;
 	} 
 
-
 	/*@RequestMapping("go_poll.do")
 	public ModelAndView goPoll() {
 		
@@ -110,7 +109,7 @@ public class BoardController {
 		if (pvo.getEndPage() > pvo.getTotalPage()) {
 			pvo.setEndPage(pvo.getTotalPage());
 		}
-		mv.addObject("pvo", pvo);
+		mv.addObject("pvo", pvo); 
 
 		return mv;
 	}
@@ -189,7 +188,7 @@ public class BoardController {
 		mv.addObject("vo", vo);
 		return mv;
 	}
-	
+	  
 	@RequestMapping("/modi_Community.do")
 	public ModelAndView modi_Community(CommunityVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/go_community.do");
@@ -198,14 +197,48 @@ public class BoardController {
 		System.out.println(vo);
 		return mv;
 	}
-	
-	
-	@RequestMapping("/CommuGroup_addGo.do")
-	public ModelAndView CommuGroup_addGo(HttpServletRequest req) {
+	 
+	//모든 그룹
+	@RequestMapping("/Commu_AllGroup.do")
+	public ModelAndView Commu_AllGroup(HttpServletRequest req) {
 		String empID = (String) req.getSession().getAttribute("empID");
-		ModelAndView mv = new ModelAndView("/Boards/add_CommuGroup");
-		mv.addObject("empID", empID);
+		ModelAndView mv = new ModelAndView("/Boards/Community_AllGroup");
+		
+		List<CommunityVO> list = (List<CommunityVO>)commudao.getAllGroup();
+		System.out.println(list);
+		
+		String mygStr = "/";
+		
+		List<String> Glist = (List<String>) commudao.getGroupID(empID);
+		
+		Iterator<String> iter = Glist.iterator();
+		while(iter.hasNext()) {
+			mygStr += String.valueOf(iter.next())+"/";
+		}
+		
+		
+		System.out.println(mygStr);
+		
+		mv.addObject("empID", empID); 
+		mv.addObject("list", list); 
+		mv.addObject("mygStr", mygStr); 
 		return mv;
 	}
+	
+	 @RequestMapping("/add_groupName.do")
+	 public ModelAndView add_groupName(HttpServletRequest req) {
+		String groupName = req.getParameter("groupName");
+		String empID = (String) req.getSession().getAttribute("empID");
+		System.out.println(groupName);
+		 
+		Map<String, Object> map = new HashMap<>(); 
+		map.put("groupName", groupName);
+		map.put("empID", empID);
+		
+		int result = commudao.groupNameInsert(map);
+		System.out.println("그룹이름 삽입성공 : "+result);
+		
+		return new ModelAndView("redirect:/go_community.do");
+	 }
 	
 }

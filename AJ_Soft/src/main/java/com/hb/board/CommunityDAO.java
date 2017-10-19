@@ -5,13 +5,11 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.hb.interfaces.DAO;
 import com.hb.interfaces.VO;
 
-@Repository
 public class CommunityDAO implements DAO {
 	
 	private SqlSessionTemplate template;
@@ -86,4 +84,15 @@ public class CommunityDAO implements DAO {
 		return template.insert("board.empInsert", vo);
 	}
 
+	public List<? extends VO> getAllGroup() {
+		return template.selectList("board.selectAllGroup");
+	}
+	
+	public List<?> getGroupID(String empID) {
+		return template.selectList("board.select_listGroupID", empID);
+	}
+	
+	public int groupNameInsert(Map<String, Object> map) {
+		return template.insert("board.groupNameInsert", map);
+	}
 }
