@@ -52,5 +52,11 @@ public class MessageVO implements VO{
 	public void setReadChk(String readChk) {
 		this.readChk = readChk;
 	}
+
+	@Override
+	public String toString() {
+		return "MessageVO [message_no=" + message_no + ", senderID=" + senderID + ", receiveID=" + receiveID
+				+ ", content=" + content + ", msgDate=" + msgDate + ", readChk=" + readChk + "]";
+	}
 	
 }

@@ -41,23 +41,42 @@ public class MessageDAO implements DAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @return 내가 받은 메세지 리스트
+	 */
+	public List<? extends VO> getReceiveList(String id) {
+		// TODO Auto-generated method stub
+		return template.selectList("getMyMsg", id);
+	}
+	/**
+	 * 
+	 * @param id
+	 * @return 내가 보낸 메세지 리스트
+	 */
+	public List<? extends VO> getSendList(String id) {
+		// TODO Auto-generated method stub
+		return template.selectList("getSendMsg", id);
+	}
 
 	@Override
 	public VO getOneItem(int idx) {
 		// TODO Auto-generated method stub
-		return null;
+		return template.selectOne("getOneMsg", idx);
 	}
 
 	@Override
 	public int insert(VO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.insert("sendMsg", vo);
 	}
 
 	@Override
 	public int modify(VO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.update("readChk",vo);
 	}
 
 	@Override

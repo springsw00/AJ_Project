@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -138,8 +140,13 @@ ul.tabs {
 
 #msgWrite-div table {
 	width: 100%;
-	
 }
+
+.tab_content small {
+	float: right;
+}
+
+	
 
 </style>
 
@@ -176,8 +183,71 @@ ul.tabs {
 			});
 			$('#content').keyup();
 		});
+		
+		$("#msgSendBtn").click(function(){
+			
+			var f = $("#msgSendForm");
+			
+			f.submit();
+			
+			alert("전송완료");
+		});
+		
+		$(".msg-append").click(function(){
+			var t = $(this);
+			var viewEle = $(this).next();
+			if(viewEle.is(":visible")){
+				viewEle.slideUp();
+			}
+			else{
+				$(".hidden-item").slideUp();
+				if(t.next().html().trim() != ""){
+					viewEle.slideDown();
+				}else{
+					viewEle.slideDown(function() {
+						if (t.attr('title') == 'receive') {
+							showMsg(t.attr("id"), t, 'receive');
+						} else {
+							showMsg(t.attr("id"), t, 'send');
+						}
+					});
+					
+				}
+			}
+		});
+
+		$(".hidden-item").hide();
 
 	});
+
+	function showMsg(msgNo, t, type) {
+		//alert(msgNo);
+		$.ajax({
+			url : "getMessage.do",
+			data : {
+				msgNo : msgNo,
+				type : type
+			},
+			dataType : 'json',
+			success : function(data) {
+				//t.next().empty();
+				
+				t.next().append("<table></table>");
+				var table = t.next().find('table');
+				if (type == 'receive') {
+					table.append("<tr><th>보낸사람</th><td>" + data.senderID
+							+ "</td></tr>");
+				} else {
+					table.append("<tr><th>받을사람</th><td>" + data.receiveID
+							+ "</td></tr>");
+				}
+				table.append("<tr><th>날짜</th><td>" + data.msgDate
+						+ "</td></tr>");
+				table.append("<tr><td colspan='2'><pre>" + data.content
+						+ "</pre></td></tr>");
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -192,38 +262,69 @@ ul.tabs {
          <!-- 수신함 -->
         <div id="content_1" class="tab_content">
             <ul>
-                <li><a href="">HTML Techniques <small>4 Posts</small></a></li>
-                <li><a href="">CSS Styling <small>32 Posts</small></a></li>
-                <li><a href="">Flash Tutorials <small>2 Posts</small></a></li>
-                <li><a href="">Web Miscellanea <small>19 Posts</small></a></li>
-                <li><a href="">Site News <small>6 Posts</small></a></li>
-                <li><a href="">Web Development <small>8 Posts</small></a></li>
+            	<c:if test="${!empty msgList}">
+	            	<c:forEach items="${msgList }" var="k">
+	            		<li id="${k.message_no}" class="msg-append" title="receive">
+	            		<a href="#"> 
+	            			<c:choose>
+	            				<c:when test="${fn:length(k.content) > 13}">
+		            				<c:out value="${fn:substring(k.content, 0, 13) }..." />
+	            				</c:when>
+	            				<c:otherwise>
+				            		${k.content } 
+	            				</c:otherwise>
+	            			</c:choose>
+	            			<small>${k.senderID }&nbsp;|&nbsp;${fn:substring(k.msgDate,0,10) }</small>
+	            		</a></li>
+	            		<li class="hidden-item">
+	            		</li>
+	            	</c:forEach>
+            	</c:if>
+                <c:if test="${empty msgList}">
+                	<li><a href=""> 수신한 메세지가 없습니다. </a></li>
+                </c:if>
             </ul>
         </div>
         <!-- 발신함 -->
         <div id="content_2" class="tab_content">
             <ul>
-                <li><a href="">December 2008 <small>6 Posts</small></a></li>
-                <li><a href="">November 2008 <small>4 Posts</small></a></li>
-                <li><a href="">October 2008 <small>22 Posts</small></a></li>
-                <li><a href="">September 2008 <small>12 Posts</small></a></li>
-                <li><a href="">August 2008 <small>3 Posts</small></a></li>
-                <li><a href="">July 2008 <small>1 Posts</small></a></li>
+            	<c:if test="${!empty sendList}">
+	            	<c:forEach items="${sendList }" var="k">
+	            		<li id="${k.message_no }" class="msg-append" title="send"><a href="#"> 
+	            			<c:choose>
+	            				<c:when test="${fn:length(k.content) > 13}">
+		            				<c:out value="${fn:substring(k.content, 0, 13) }..." />
+	            				</c:when>
+	            				<c:otherwise>
+				            		${k.content } 
+	            				</c:otherwise>
+	            			</c:choose>
+	            		<small>${k.receiveID }&nbsp;|&nbsp;${fn:substring(k.msgDate,0,10) }</small></a>
+	            		</li>
+	            		<li class="hidden-item">
+	            		</li>
+	            	</c:forEach>
+            	</c:if>
+            	<c:if test="${empty sendList}">
+                	<li><a href=""> 보낸 메세지가 없습니다. </a></li>
+                </c:if>
             </ul>
         </div>
         <!-- 쪽지보내기 -->
         <div id="content_3" class="tab_content">
             <div id="msgWrite-div">
+            <form action="msgSend.do" method="post" id="msgSendForm">
             	<table>
             		<thead>
             			<tr>
             				<th>받을사람</th>
             				<td><input type="text" name="receiveID"></td>
+            				<td><input type="button" value="전송" id="msgSendBtn"></td>
             			</tr>
             		</thead>
             		<tbody>
             			<tr>
-            				<td colspan="2">
+            				<td colspan="3">
             					<div class="wrap">
             					<textarea name="content" id="content"></textarea>
             					<span id="counter">###</span>
@@ -233,7 +334,7 @@ ul.tabs {
             		</tbody>
             		
             	</table>
-            	<input type="button" value="전송">
+            </form>
             </div>
         </div>
      

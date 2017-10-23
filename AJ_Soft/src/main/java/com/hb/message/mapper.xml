@@ -5,7 +5,26 @@
 <!-- 쿼리작성해서 db에 보내고 결과 까지 받는 장소 -->
 <mapper namespace="message">
 
-
+	<insert id="sendMsg" parameterType="com.hb.message.MessageVO">
+		insert into Message values(message_seq.nextval, #{senderID}, #{receiveID}, #{content}, SYSDATE, 0)	
+	
+	</insert>
+	
+	<select id="getMyMsg" resultType="com.hb.message.MessageVO" parameterType="String">
+		select * from Message where receiveID = #{id} order by msgdate desc
+	</select>
+	<select id="getSendMsg" resultType="com.hb.message.MessageVO" parameterType="String">
+		select * from Message where senderID = #{id} order by msgdate desc
+	</select>
+	
+	<select id="getOneMsg" resultType="com.hb.message.MessageVO" parameterType="int">
+		select * from message where message_no = #{msgNo}
+	</select>
+	
+	<update id="readChk" parameterType="com.hb.message.MessageVO">
+		update Message set readChk = 1
+		where message_no = #{message_no}
+	</update>
 </mapper>
 
 
