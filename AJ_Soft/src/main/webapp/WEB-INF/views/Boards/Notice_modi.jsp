@@ -55,11 +55,9 @@ function list_go(f) {
 		//alert(editor_data);
 		$('#content').val(editor_data);
 		
-		$("#main_form").attr('action', "noticeWrite.do");
+		$("#main_form").attr('action', "Noti_modi_ok.do");
 		$("#main_form").submit();
 		
-		f.action = "Noti_modi_ok.do";
-		f.submit();
 	}
 </script>
 

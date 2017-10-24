@@ -42,6 +42,7 @@
 	</select> 
 	
 <!-- ///////////////////////////////////////////////////////////////////////// -->	
+	
 	<select id="commuTotalcount" resultType="int">
 		select count(*) from COMMUNITY where groupID = #{groupID}
 	</select>
@@ -101,7 +102,7 @@
 	</insert>
 	
 	<select id="selectAllGroup" resultType="com.hb.board.CommunityVO">
-		select * from COMMUNITYGROUP
+		select * from COMMUNITYGROUP 
 	</select>
 	
 	<select id="select_listGroupID" resultType="int">
@@ -109,12 +110,43 @@
 	</select>
 	
 	<insert id="groupNameInsert" parameterType="map">
-		insert all
-		into COMMUNITYGROUP values(cgroup_seq.val,#{groupName})
-		into COMMUNITYGROUPMEMBER values(
-			(select groupID from COMMUNITYGROUP where groupName = #{groupName}),#{empID})
+		insert into COMMUNITYGROUP values(cgroup_seq.nextval, #{groupName}, SYSDATE)
 	</insert>
+	
+	<insert id="gN_IDInsert" parameterType="map">
+		insert into COMMUNITYGROUPMEMBER values(
+			(select groupID from COMMUNITYGROUP where groupName = #{groupName}), #{empID})
+	</insert>
+	
+	<insert id="insertGMember" parameterType="map">
+		insert into COMMUNITYGROUPMEMBER values(#{groupID}, #{empID})
+	</insert>
+	
+	<delete id="deleteGMember" parameterType="map">
+		delete from COMMUNITYGROUPMEMBER where groupID = #{groupID} and memberID = #{empID}
+	</delete>
+	
+	<delete id="noGroupMember">
+		delete from COMMUNITYGROUP
+		where groupName = 
+			(SELECT cg.groupName 
+				FROM COMMUNITYGROUP cg LEFT OUTER JOIN COMMUNITYGROUPMEMBER cgm ON (cg.groupID = cgm.groupID)
+				WHERE cgm.groupID IS NULL)
+	</delete>
+	
+<!-- ///////////////////////////////////////////////////////////////////////// -->
+	
+	<insert id="reply_insert" parameterType="map">
+		insert into REPLY values(reply_seq.nextval, #{empID}, #{groupID}, #{community_no},
+								SYSDATE, #{re_content})
+	</insert>
+	
+	<select id="reply_list" resultType="com.hb.board.ReplyVO" parameterType="map" >
+		select * from REPLY where board_Category = #{groupID} and board_no = #{community_no}
+	</select>
 </mapper>
+
+
 
 
 

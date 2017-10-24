@@ -15,16 +15,17 @@
 	margin: 0px;
 	float: left;
 	border: 1px solid #aaa;
-	width: 180px;
-	height: inherit;	
+	width: 150px;
+	height: inherit;
 }
+
 .float_left {
-	padding: 0px;
+	padding: 10px 0px 0 0px;
 	margin: 0 0 0 10px;
 	float: left;
 	border: 1px solid #aaa;
-	width: 680px;
-	height: inherit;	
+	width: 710px;
+	height: inherit;
 }
 
  #cmView{
@@ -44,9 +45,11 @@ function selectCommunity(groupID){
 	$("#cmView").load("list_community.do?groupID="+groupID);
 };
 
-function detailCommunity(cPage, community_no){
+function detailCommunity(cPage, community_no, groupID){
 	 //alert(cPage+","+ community_no);
-	$("#cmView").load("detailCommu.do?cPage="+cPage+"&community_no="+community_no);
+	 //alert(groupID);
+	$("#cmView").load("detailCommu.do?cPage="+cPage+"&community_no="+community_no
+			+"&groupID="+groupID);
 
 	//$("#Community_list").addClass("display-none");
 };

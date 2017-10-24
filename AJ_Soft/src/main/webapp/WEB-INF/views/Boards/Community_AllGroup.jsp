@@ -12,7 +12,8 @@
 	}
 	
 	#Commu_GroupView table {
-		width: 100%;
+		width: 90%;
+		margin: auto;
 		
 		/* border: 1px solid #aaa;	 */
 	}
@@ -26,28 +27,37 @@
 		text-align:center;
 	}
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	$(".hide_addGroup").hide();
-	
-	$("#show_input").click(function(){
-		$(".hide_addGroup").show();
+	$(document).ready(function(){
+		$(".hide_addGroup").hide();
+		
+		$("#show_input").click(function(){
+			$(".hide_addGroup").show();
+		});
 	});
-});
-	function add_groupName(f){
-		//alert("ddd");
-		f.action="add_groupName.do";
-		f.submit();
-	}
+
+	$(function(){
+		$("#groupName_add").click(function(){
+			
+			$("#commu_groupNameAdd").attr('action', "add_groupName.do");
+			$("#commu_groupNameAdd").submit();
+			
+		});
+	});
+	
 </script>
 <body>
-	<form>
+	<form id="commu_groupNameAdd">
 		<div id="Commu_GroupView">
 			<h3> 모든 그룹</h3>
-				<table>
-				<th>그룹 이름</th>
-				<th>그룹 생성일</th>
-				<th>가능한 선택</th>
+			<table>
+				<tr>
+					<th>그룹 이름</th>
+					<th width="150px">그룹 생성일</th>
+					<th width="100px">가능한 선택</th>
+				</tr>
 				<c:set var="tmp" value="0"/>
 				<c:forEach items="${list}" var="k" varStatus="i">
 					<tr>
@@ -57,10 +67,10 @@ $(document).ready(function(){
 							<c:set var="gID" value="/${k.groupID}/" />
 						 	<c:choose>
 						 		<c:when test="${fn:contains(mygStr, gID)}">
-									<a href="#" onclick="deleteGroupMember(${k.groupName})">탈퇴</a>							
+									<a href="deleteGroupMember.do?groupID=${k.groupID}" >탈퇴</a>							
 						 		</c:when>
 								<c:otherwise>
-									<a href="#" onclick="insertGroupMember(${k.groupName})">가입</a>
+									<a href="insertGroupMember.do?groupID=${k.groupID}" >가입</a>
 								</c:otherwise>
 							</c:choose> 
 						</td>
@@ -68,12 +78,12 @@ $(document).ready(function(){
 					</tr>
 				</c:forEach>
 				<tr>
-					<td colspan="3"><a id="show_input" href="#"><i class="fa fa-plus" aria-hidden="true"></i> 그룹 추가</a>
-						<a class="hide_addGroup" href="#"><input type="text" name="groupName"><i onclick="add_groupName(this.form)" class="fa fa-plus-square" aria-hidden="true"></i></a>
+					<td colspan="3" style="text-align:right">
+						<a id="show_input" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> 그룹 추가</a>
+						<input class="hide_addGroup" type="text" name="groupName"><a onclick="add_groupName(this.form)" class="hide_addGroup" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					</td>
 				</tr>
-				</table>
-			</div>
+			</table>
 		</div>
 	</form>
 </body>

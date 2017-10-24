@@ -40,6 +40,9 @@
 	<!-- 웹 소켓 사용 -->
 	<websocket:handlers>
 		<websocket:mapping handler="msgHandler" path="/msgCount"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="com.hb.message.HandshakeInterceptor" />
+		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	
 	<beans:bean id="msgHandler" class="com.hb.message.WebsocketHandler"/>

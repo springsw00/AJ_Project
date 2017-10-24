@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.hb.board.CommunityDAO;
 import com.hb.board.CommunityVO;
 import com.hb.board.Pageing;
+import com.hb.board.ReplyVO;
+import com.hb.interfaces.VO;
 
 
 @Controller
@@ -120,25 +123,44 @@ public class BoardController {
 			System.out.println(iterTest.next().toString());
 		}
 	}
-	
+	//커뮤니티 자세한 내용보기
 	@RequestMapping("/detailCommu.do")
 	public ModelAndView detailCommunity(HttpServletRequest req, 
 			@RequestParam("cPage") String cPage,
-			@RequestParam("community_no") int community_no) {
+			@RequestParam("community_no") int community_no
+			,@RequestParam("groupID") int groupID) {
 		//System.out.println(community_no+","+ cPage);
 		String empID = (String)req.getSession().getAttribute("empID");
 		
 		ModelAndView mv = new ModelAndView("/Boards/detailCommunity");
 		CommunityVO vo = (CommunityVO)commudao.listOne(community_no);
-		System.out.println(vo);
+		//System.out.println(vo);
 		
 		mv.addObject("vo", vo);
 		mv.addObject("cPage", cPage);
 		mv.addObject("empID", empID);
 		
+		String groupName = commudao.getGroupName(groupID);
+		mv.addObject("groupName", groupName);
+		
+		//댓글 리스트
+		Map<String, Object> map = new HashMap<>();
+//			map.put("begin", pvo.getBegin());
+//			map.put("end", pvo.getEnd());
+			map.put("groupID", groupID);
+			map.put("community_no", community_no);
+		
+//		System.out.println(map);
+			
+		List<ReplyVO> list = (List<ReplyVO>) commudao.replyList(map);
+		//System.out.println("list :" + list);
+		listTest(list);
+		
+		mv.addObject("reply_list", list);
+		
 		return mv;
 	}
-	
+	//커뮤니티 삽입화면으로
 	@RequestMapping("/addCommunity_go.do")
 	public ModelAndView addCommunity_go(@RequestParam("groupID") String groupID,
 			@RequestParam("cPage") String cPage) {
@@ -148,7 +170,7 @@ public class BoardController {
 		mv.addObject("groupID", groupID);
 		return mv;
 	}
-	
+	//커뮤니티 삽입
 	@RequestMapping("/addCommunity.do")
 	public ModelAndView addCommunity(CommunityVO vo, 
 			@RequestParam("cPage") String cPage,
@@ -165,7 +187,7 @@ public class BoardController {
 		
 		return mv;
 	}
-	
+	//커뮤니티 삭제
 	@RequestMapping("/del_Community.do")
 	public ModelAndView del_Community(CommunityVO vo,
 			@RequestParam("cPage") String cPage) {
@@ -177,7 +199,7 @@ public class BoardController {
 		
 		return mv;
 	}
-	
+	//커뮤니티 수정화면으로
 	@RequestMapping("/modi_Community_go.do")
 	public ModelAndView modi_Community_go(
 			@RequestParam("community_no") int community_no) {
@@ -188,7 +210,7 @@ public class BoardController {
 		mv.addObject("vo", vo);
 		return mv;
 	}
-	  
+	//커뮤니티 수정
 	@RequestMapping("/modi_Community.do")
 	public ModelAndView modi_Community(CommunityVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/go_community.do");
@@ -197,8 +219,8 @@ public class BoardController {
 		System.out.println(vo);
 		return mv;
 	}
-	 
-	//모든 그룹
+	  
+	//모든 그룹이름 보기
 	@RequestMapping("/Commu_AllGroup.do")
 	public ModelAndView Commu_AllGroup(HttpServletRequest req) {
 		String empID = (String) req.getSession().getAttribute("empID");
@@ -216,7 +238,6 @@ public class BoardController {
 			mygStr += String.valueOf(iter.next())+"/";
 		}
 		
-		
 		System.out.println(mygStr);
 		
 		mv.addObject("empID", empID); 
@@ -224,12 +245,12 @@ public class BoardController {
 		mv.addObject("mygStr", mygStr); 
 		return mv;
 	}
-	
+	//커뮤니티 그룹 생성
 	 @RequestMapping("/add_groupName.do")
 	 public ModelAndView add_groupName(HttpServletRequest req) {
 		String groupName = req.getParameter("groupName");
 		String empID = (String) req.getSession().getAttribute("empID");
-		System.out.println(groupName);
+		//System.out.println(groupName);
 		 
 		Map<String, Object> map = new HashMap<>(); 
 		map.put("groupName", groupName);
@@ -240,5 +261,84 @@ public class BoardController {
 		
 		return new ModelAndView("redirect:/go_community.do");
 	 }
+	 //커뮤니티 가입
+	 @RequestMapping("/insertGroupMember.do")
+	 public ModelAndView insertGroupMember(HttpServletRequest req,
+			 @RequestParam("groupID") int groupID) {
+		 String empID = (String) req.getSession().getAttribute("empID");
+		 
+		 Map<String, Object> map = new HashMap<>(); 
+			map.put("groupID", groupID);
+			map.put("empID", empID);
+		 
+		 int result = commudao.insertGMember(map);
+		 System.out.println("그룹멤버 삽입성공 : "+result);
+		 
+		 return new ModelAndView("redirect:/go_community.do");
+	 }
+	 //커뮤니티 탈퇴
+	 @RequestMapping("/deleteGroupMember.do")
+	 public ModelAndView deleteGroupMember(HttpServletRequest req,
+			 @RequestParam("groupID") int groupID) {
+		 String empID = (String) req.getSession().getAttribute("empID");
+		 
+		 Map<String, Object> map = new HashMap<>(); 
+			map.put("groupID", groupID);
+			map.put("empID", empID);
+		 
+		 int result = commudao.deleteGMember(map);
+		 try {
+			 if(result == 1) {
+				 System.out.println("그룹탈퇴 성공 : 1");
+			 }else if(result == 2){
+				 System.out.println("그룹탈퇴 성공 : 1");
+				 System.out.println("없는 그룹이름 삭제성공 : 2");
+			 }
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		 
+		 return new ModelAndView("redirect:/go_community.do");
+	 }
 	
+	 //댓글 삽입
+	 @RequestMapping("/reply_insert.do")
+	 public ModelAndView reply_insert(HttpServletRequest req,
+			 @RequestParam("cPage") int cPage,
+			 @RequestParam("community_no") int community_no,
+			 @RequestParam("groupID") int groupID,
+			 @RequestParam("re_content") String re_content) {
+		 String empID = (String) req.getSession().getAttribute("empID");
+		
+		 ModelAndView mv = new ModelAndView("redirect:/go_community.do");
+		 
+		 Map<String, Object> map = new HashMap<>(); 
+			map.put("groupID", groupID);
+			map.put("community_no", community_no);
+			map.put("re_content", re_content);
+			map.put("empID", empID);
+		 System.out.println(map);
+		 
+		 int result = commudao.replyInsert(map);
+		 System.out.println("댓글 삽입 성공 : " + result);
+		 
+		 mv.addObject("cPage", cPage);
+		 mv.addObject("community_no", community_no);
+		 mv.addObject("empID", empID);
+		 mv.addObject("groupID", groupID);
+		 
+		 return mv;
+	 }
+	
+	 
+	 
+	 
 }
+
+
+
+
+
+
+
+

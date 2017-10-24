@@ -25,6 +25,10 @@
 		update Message set readChk = 1
 		where message_no = #{message_no}
 	</update>
+	
+	<select id="getUnreadMsgCount" parameterType="String" resultType="int">
+		select count(*) from message where receiveId = #{receiveID} and READCHK = 0
+	</select>
 </mapper>
 
 

@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.hb.interfaces.DAO;
 import com.hb.interfaces.VO;
@@ -93,6 +96,42 @@ public class CommunityDAO implements DAO {
 	}
 	
 	public int groupNameInsert(Map<String, Object> map) {
-		return template.insert("board.groupNameInsert", map);
+		int res = 0;
+		
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			res += template.insert("board.groupNameInsert", map);
+			res += template.insert("board.gN_IDInsert", map);
+			
+			transactionManager.commit(status);
+		} catch (Exception e) {
+			System.out.println(e);
+			transactionManager.rollback(status);
+		}finally {
+			
+		}
+		return res;
 	}
+	
+	public int insertGMember(Map<String, Object> map) {
+		return template.insert("board.insertGMember", map);
+	}
+
+	public int deleteGMember(Map<String, Object> map) {
+		int res = 0;
+		res += template.delete("board.deleteGMember", map);
+		res += template.delete("board.noGroupMember", map);
+		return res;
+	}
+	
+	public int replyInsert(Map<String, Object> map) {
+		return template.insert("board.reply_insert", map);
+	}
+	
+	public List<? extends VO> replyList(Map<String, Object> map) {
+		System.out.println("DAO에서 map:"+map);
+		return template.selectList("board.reply_list", map);
+	}
+	
 }

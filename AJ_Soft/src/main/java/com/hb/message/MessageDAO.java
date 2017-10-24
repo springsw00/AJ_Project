@@ -85,4 +85,9 @@ public class MessageDAO implements DAO {
 		return 0;
 	}
 
+	public int getUnreadMsg(String receiveID) {
+		// TODO Auto-generated method stub
+		return template.selectOne("getUnreadMsgCount",receiveID);
+	}
+
 }

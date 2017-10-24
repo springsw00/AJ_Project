@@ -8,7 +8,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="resources/datepicker/datepicker.min.css" rel="stylesheet"
 	type="text/css">
-	
+
+	<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="resources/datepicker/datepicker.min.js"></script>
 
@@ -24,10 +25,47 @@
 		background: #4C5870;
 		color: #fff;
 	}
+	
+	#msg-count {
+		font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+		font-size: 0.8em;
+	}
+	
+	
 </style>
 <script type="text/javascript">
 	$(function(){
+		var websocket;
+		//alert(sessionStorage.ws);
+		if("WebSocket" in window ){
+			var loc = window.location;
+			websocket = new WebSocket("ws://"+loc.host+"/"+loc.pathname.split('/')[1]+"/msgCount");
+			
+			websocket.onopen = function(evt){
+				//onOpen(evt);
+				websocket.send("${empID}");
+			};
+			websocket.onmessage = function(evt){
+				onMessage(evt);
+			};
+			websocket.onerror = function(evt){
+				onError(evt);
+			};
+			
+			sessionStorage.setItem("ws", websocket);
+			//sessionStorage.ws = websocket;
+			//alert("socket저장");
+			
+			
+		}
 		
+		function onMessage(evt){
+			//alert(evt.data);
+			$('#msg-count').text(evt.data);
+		}
+		function onError(evt){
+			alert("error");
+		}
 	});
 	
 	function msgWindow(){
@@ -54,6 +92,12 @@
 	}
 
 	jQuery.noConflict(false);
+	
+	////////////////////////////////////// websocket
+	
+	
+	
+	
 </script>
 </head>
 <body>
@@ -80,7 +124,9 @@
 			<c:if test="${empDeptID == 'PRMT' }">
 				<li data-tab="tab7"><a href="emp_admin.do">사원관리</a></li>
 			</c:if>
-			<li data-tab="tab8"><a href="#" onclick="msgWindow()"><i class="fa fa-commenting-o fa-lg" aria-hidden="true"></i></a></li>
+			<li data-tab="tab8"><a href="#" onclick="msgWindow()">
+			<i class="fa fa-commenting-o fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<span id="msg-count" class="w3-badge w3-green"></span></a></li>
+			
 			<!-- <li data-tab="tab8"><a href="go_test.do">testPage</a></li> -->
 		</ul>
 	</div>

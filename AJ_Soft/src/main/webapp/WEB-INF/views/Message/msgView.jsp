@@ -151,8 +151,13 @@ ul.tabs {
 </style>
 
 <script type="text/javascript">
-	$(document).ready(function() {
 
+	$(document).ready(function() {
+		
+		var websocket;
+		//connectSocket();
+
+		
 		// When a link is clicked
 		$("a.tab").click(function() {
 
@@ -188,6 +193,8 @@ ul.tabs {
 			
 			var f = $("#msgSendForm");
 			
+			sendMsg(f.find('[name=receiveID]').val());
+			
 			f.submit();
 			
 			alert("전송완료");
@@ -219,6 +226,40 @@ ul.tabs {
 		$(".hidden-item").hide();
 
 	});
+	
+	function connectSocket(){
+		/* var loc = window.location;
+		websocket = new WebSocket("ws://"+loc.host+"/"+loc.pathname.split('/')[1]+"/msgCount");
+		websocket.onopen; */
+	}
+
+	function sendMsg(receiveID) {
+		//웹소캣
+
+		 var loc = window.location;
+		websocket = new WebSocket("ws://"+loc.host+"/"+loc.pathname.split('/')[1]+"/msgCount");
+		websocket.onopen = function(evt){
+			websocket.send(receiveID);
+		};  
+
+		/* websocket.onmessage = function(evt) {
+			onMessage(evt);
+		}; */
+		/* websocket.onerror = function(evt) {
+			onError(evt);
+		}; */
+	}
+
+	function onOpen(evt) {
+		websocket.send("test");
+	}
+
+	/* function onMessage(evt) {
+		alert(evt.data);
+	} */
+	function onError(evt) {
+		alert("error");
+	}
 
 	function showMsg(msgNo, t, type) {
 		//alert(msgNo);
@@ -231,7 +272,7 @@ ul.tabs {
 			dataType : 'json',
 			success : function(data) {
 				//t.next().empty();
-				
+
 				t.next().append("<table></table>");
 				var table = t.next().find('table');
 				if (type == 'receive') {

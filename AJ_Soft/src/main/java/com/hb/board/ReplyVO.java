@@ -43,6 +43,11 @@ public class ReplyVO implements VO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	@Override
+	public String toString() {
+		return "ReplyVO [reply_No=" + reply_No + ", board_Category=" + board_Category + ", board_no=" + board_no
+				+ ", id=" + id + ", reply_date=" + reply_date + ", content=" + content + "]";
+	}
 	
 	
 	
