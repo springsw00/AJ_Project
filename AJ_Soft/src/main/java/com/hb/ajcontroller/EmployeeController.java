@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggerFactory;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -353,6 +356,38 @@ public class EmployeeController {
 		int result = empdao.modify(vo);
 		System.out.println(">>>>수정 성공 : "+result);
 		return mv;
+	}
+	
+	
+	@RequestMapping("search.do")
+	public void seachID(HttpServletResponse res,String searchVal) {
+		
+		// DB에서 ID검색결과로 이름, ID가져오자
+		List<EmployeeVO> list =  (List<EmployeeVO>) empdao.getIDList(searchVal);
+		
+		System.out.println(list.size());
+		System.out.println("검색값:" +searchVal);
+		
+		JSONArray jArray = new JSONArray();
+		JSONObject jObj = null;
+		
+		// DB조회 결과를 JSON으로
+		for(EmployeeVO vo:list) {
+			jObj = new JSONObject();
+			jObj.put("id", vo.getId());
+			jObj.put("id-name", vo.getId()+"("+vo.getName()+")");
+			jArray.add(jObj);
+		}
+		System.out.println(jArray);
+		try {
+			res.getWriter().print(jArray);
+			res.getWriter().flush();
+			res.getWriter().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

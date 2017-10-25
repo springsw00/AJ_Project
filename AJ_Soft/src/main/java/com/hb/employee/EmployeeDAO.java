@@ -96,6 +96,11 @@ public class EmployeeDAO implements DAO {
 	public List<HashMap<String, String>> getList(String deptID){
 		return template.selectList("employee.selectForContact", deptID);
 	}
+
+	public List<? extends VO> getIDList(String searchVal) {
+		// TODO Auto-generated method stub
+		return template.selectList("searchID", "%"+searchVal+"%");
+	}
 	
 	
 }

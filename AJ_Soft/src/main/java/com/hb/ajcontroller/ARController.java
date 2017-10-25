@@ -113,8 +113,8 @@ public class ARController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return hour+":"+min+":"+second;
+		;
+		return alignIntValue(hour.intValue())+":"+alignIntValue(min.intValue())+":"+alignIntValue(second.intValue());
 		
 	}
 	

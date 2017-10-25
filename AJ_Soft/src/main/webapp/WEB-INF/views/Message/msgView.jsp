@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="resources/css/jquery-ui.min.css">
+<script src="resources/js/jquery-ui.min.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>메세지함</title>
@@ -187,7 +189,6 @@ ul.tabs {
 					$(this).val(content);
 				}
 				
-				//$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
 				$('#counter').html(content.length + '/'+maxlength);
 			});
 			$('#content').keyup();
@@ -195,14 +196,22 @@ ul.tabs {
 		
 		$("#msgSendBtn").click(function(){
 			
-			var f = $("#msgSendForm");
+			var formData = $("#msgSendForm").serialize();
 			
-			f.submit();
-			
-			sendMsg(f.find('[name=receiveID]').val());
-			
-			
-			alert("전송완료");
+			$.ajax({
+				type:'POST',
+				url: 'msgSend.do',
+				cache: false,
+				data: formData,
+				success : function(){
+					sendMsg($("#msgSendForm").find('[name=receiveID]').val());
+					alert("전송완료");
+					location.reload();
+				},
+				error : function(){
+					alert("메세지 전송 실패");
+				}
+			});
 		});
 		
 		$(".msg-append").click(function(){
@@ -293,6 +302,37 @@ ul.tabs {
 					}
 				});
 			}
+		
+			/* autoComplete */
+			$(".autoCompleteID").autocomplete({
+				source: function(request, response){
+					$.ajax({
+						url:"search.do",
+						dataType:"json",
+						data:{
+							searchVal:request.term
+						},
+						success:function(result){
+							response(
+								$.each(result,function(index, item){
+									/* $.each(this, function(item){
+										alert(item.id);	
+										return {
+											//label : 화면에 보여지는 텍스트 
+											//value : 실제 text태그에 들어갈 값
+	
+										}
+									}); */
+								})
+							);
+						}
+					});
+				},
+				minLength: 2,
+				select:function(event,ui){
+					
+				}
+			});
 
 		});
 </script>
@@ -375,7 +415,7 @@ ul.tabs {
             		<thead>
             			<tr>
             				<th>받을사람</th>
-            				<td><input type="text" name="receiveID"></td>
+            				<td><input type="text" name="receiveID" class="autoCompleteID"></td>
             				<td><input type="button" value="전송" id="msgSendBtn"></td>
             			</tr>
             		</thead>

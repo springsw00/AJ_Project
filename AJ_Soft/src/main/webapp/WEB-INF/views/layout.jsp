@@ -15,8 +15,13 @@
 
 <!-- Include English language -->
 <script src="resources/datepicker/i18n/datepicker.en.js"></script>
+
+<!-- jquery ui -->
+<link rel="stylesheet" href="resources/css/jquery-ui.min.css">
+<script src="resources/js/jquery-ui.min.js"></script>
+
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>AJ SOFT</title>
 <link rel="stylesheet"
 	href="resources/css/layout.css?ver=003">
 <style>

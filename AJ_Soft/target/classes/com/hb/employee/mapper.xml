@@ -54,6 +54,11 @@
 		 where emp.departmentid = #{deptID} and emp.departmentid=dept.departmentid  
 		 order by name asc
 	</select>
+	
+	<select id="searchID" parameterType="String" resultType="com.hb.employee.EmployeeVO">
+		select name, id from employee where id like #{id}
+	</select>
+	
 	<!-- 
 		//////////////////////////////////////////////////////////////////////////////////
 	 -->
@@ -92,6 +97,8 @@
 		        and ar_date = #{date}
 		order by emp.name asc
 	</select>
+	
+	
 
 </mapper>
 

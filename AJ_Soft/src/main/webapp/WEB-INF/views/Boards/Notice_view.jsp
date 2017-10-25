@@ -28,6 +28,9 @@
 	margin-right: 20px;
     width: 100px;
 }
+#notice-vtable thead tr:last-child{
+	border-bottom: 1px dashed #aaa;
+}
 </style>
 <script type="text/javascript">
 
