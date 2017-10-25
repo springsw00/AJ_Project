@@ -1,10 +1,7 @@
 package com.hb.message;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -17,6 +14,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class WebsocketHandler extends TextWebSocketHandler {
 	
 	 private final Logger logger = LogManager.getLogger(getClass());
+	 private Map<String, WebSocketSession> sessionMap = new HashMap<String, WebSocketSession>();
 
 	@Autowired
 	private MessageDAO msgDao;
@@ -28,16 +26,17 @@ public class WebsocketHandler extends TextWebSocketHandler {
 		this.msgDao = msgDao;
 	}
 	
-//	private Set<WebSocketSession> sessionSet = new HashSet<>();
-	private Map<String, WebSocketSession> sessionMap = new HashMap<String, WebSocketSession>();
 
 	// 웹 소켓 연결이 종료되고 나서 서버단에서 실행해야 할 일들을 정의
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// TODO Auto-generated method stub
 		super.afterConnectionClosed(session, status);
-		sessionMap.remove((String)session.getAttributes().get("empID"));
-		this.logger.info("remove session!");
+		String id = (String)session.getAttributes().get("empID");
+		if(sessionMap.get(id).equals(session)) {
+			sessionMap.remove(id);
+			this.logger.info("remove session!");
+		}
 	}
 	
 	// 연결이 성사되고 나서 해야할 일들
@@ -45,10 +44,12 @@ public class WebsocketHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
 		super.afterConnectionEstablished(session);
-		
-		sessionMap.put((String)session.getAttributes().get("empID"), session);
-		
-		this.logger.info("add Session! >> Session id:"+(String)session.getAttributes().get("empID"));
+		String id = (String)session.getAttributes().get("empID");
+		if(id != null && !sessionMap.containsKey(id)) {
+			sessionMap.put(id, session);
+			//session.getAttributes().clear();
+			this.logger.info("add Session to Map! >> Session id:"+session.getId()+"// Map ID: "+id);
+		}
 	}
 	
 	// 웹소켓 서버단으로 메세지가 도착했을 때 해주어야 할 일들을 정의

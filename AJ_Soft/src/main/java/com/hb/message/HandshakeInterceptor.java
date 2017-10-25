@@ -17,10 +17,16 @@ public class HandshakeInterceptor extends HttpSessionHandshakeInterceptor{
 		// 위의 파라미터 중, attributes 에 값을 저장하면 웹소켓 핸들러 클래스의 WebSocketSession에 전달된다
 		
 		ServletServerHttpRequest ssreq = (ServletServerHttpRequest) req;
-		String id = (String) ssreq.getServletRequest().getSession().getAttribute("empID");
+		//String id = (String) ssreq.getServletRequest().getSession().getAttribute("empID");
+		String id = ssreq.getServletRequest().getParameter("empID");
+		if(id !=null) {
+			attributes.put("empID", id);
+			System.out.println("beforeHandshake add attribute>>>>");
+		}else {
+			attributes.put("empID", null);
+			System.out.println("beforeHandshake clear attribute>>>>");
+		}
 		
-		attributes.put("empID", id);
-		System.out.println("beforeHandshake>>>>");
 		
 		return super.beforeHandshake(req, res, handler, attributes);
 	}

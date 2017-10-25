@@ -146,6 +146,10 @@ ul.tabs {
 	float: right;
 }
 
+.msg-unRead {
+	font-weight: bold;
+}
+
 	
 
 </style>
@@ -155,7 +159,7 @@ ul.tabs {
 	$(document).ready(function() {
 		
 		var websocket;
-		//connectSocket();
+		connectSocket();
 
 		
 		// When a link is clicked
@@ -193,15 +197,20 @@ ul.tabs {
 			
 			var f = $("#msgSendForm");
 			
+			f.submit();
+			
 			sendMsg(f.find('[name=receiveID]').val());
 			
-			f.submit();
 			
 			alert("전송완료");
 		});
 		
 		$(".msg-append").click(function(){
 			var t = $(this);
+			
+			/* class msg-unRead 제거 */
+			t.removeClass("msg-unRead");
+			
 			var viewEle = $(this).next();
 			if(viewEle.is(":visible")){
 				viewEle.slideUp();
@@ -224,71 +233,68 @@ ul.tabs {
 		});
 
 		$(".hidden-item").hide();
-
-	});
+		
+		function connectSocket(){
+			var loc = window.location;
+			websocket = new WebSocket("ws://"+loc.host+"/"+loc.pathname.split('/')[1]+"/msgCount");
+			websocket.onopen = function(evt){
+			}; 
+		}
+		
 	
-	function connectSocket(){
-		/* var loc = window.location;
-		websocket = new WebSocket("ws://"+loc.host+"/"+loc.pathname.split('/')[1]+"/msgCount");
-		websocket.onopen; */
-	}
+		function sendMsg(receiveID) {
+			//웹소캣
 
-	function sendMsg(receiveID) {
-		//웹소캣
-
-		 var loc = window.location;
-		websocket = new WebSocket("ws://"+loc.host+"/"+loc.pathname.split('/')[1]+"/msgCount");
-		websocket.onopen = function(evt){
+			// var loc = window.location;
+			//websocket = new WebSocket("ws://"+loc.host+"/"+loc.pathname.split('/')[1]+"/msgCount");
+			//websocket.onopen = function(evt){
 			websocket.send(receiveID);
-		};  
+			//};  
 
-		/* websocket.onmessage = function(evt) {
-			onMessage(evt);
-		}; */
-		/* websocket.onerror = function(evt) {
-			onError(evt);
-		}; */
-	}
+			/* websocket.onmessage = function(evt) {
+				onMessage(evt);
+			}; */
+			/* websocket.onerror = function(evt) {
+				onError(evt);
+			}; */
+		}
 
-	function onOpen(evt) {
-		websocket.send("test");
-	}
+		function onError(evt) {
+			alert("error");
+		}
+		function showMsg(msgNo, t, type) {
+					//alert(msgNo);
+				$.ajax({
+					url : "getMessage.do",
+					data : {
+						msgNo : msgNo,
+						type : type
+					},
+					dataType : 'json',
+					success : function(data) {
+						//t.next().empty();
 
-	/* function onMessage(evt) {
-		alert(evt.data);
-	} */
-	function onError(evt) {
-		alert("error");
-	}
+						t.next().append("<table></table>");
+						var table = t.next().find('table');
+						if (type == 'receive') {
+							table.append("<tr><th>보낸사람</th><td>"
+									+ data.senderID + "</td></tr>");
+						} else {
+							table.append("<tr><th>받을사람</th><td>"
+									+ data.receiveID + "</td></tr>");
+						}
+						table.append("<tr><th>날짜</th><td>" + data.msgDate
+								+ "</td></tr>");
+						table.append("<tr><td colspan='2'><pre>"
+								+ data.content + "</pre></td></tr>");
 
-	function showMsg(msgNo, t, type) {
-		//alert(msgNo);
-		$.ajax({
-			url : "getMessage.do",
-			data : {
-				msgNo : msgNo,
-				type : type
-			},
-			dataType : 'json',
-			success : function(data) {
-				//t.next().empty();
-
-				t.next().append("<table></table>");
-				var table = t.next().find('table');
-				if (type == 'receive') {
-					table.append("<tr><th>보낸사람</th><td>" + data.senderID
-							+ "</td></tr>");
-				} else {
-					table.append("<tr><th>받을사람</th><td>" + data.receiveID
-							+ "</td></tr>");
-				}
-				table.append("<tr><th>날짜</th><td>" + data.msgDate
-						+ "</td></tr>");
-				table.append("<tr><td colspan='2'><pre>" + data.content
-						+ "</pre></td></tr>");
+						// 안읽은 메세지 개수 새로표시
+						sendMsg("${empID}");
+					}
+				});
 			}
+
 		});
-	}
 </script>
 </head>
 <body>
@@ -305,7 +311,16 @@ ul.tabs {
             <ul>
             	<c:if test="${!empty msgList}">
 	            	<c:forEach items="${msgList }" var="k">
-	            		<li id="${k.message_no}" class="msg-append" title="receive">
+	            		<c:choose>
+	            			<c:when test="${k.readChk ==0 }">	<!-- 안읽은메세지 일 경우 -->
+			            		<li id="${k.message_no}" class="msg-append msg-unRead" title="receive">
+	            			</c:when>
+	            			<c:otherwise>
+			            		<li id="${k.message_no}" class="msg-append" title="receive">
+	            			</c:otherwise>
+	            		</c:choose>
+	            		
+	            		
 	            		<a href="#"> 
 	            			<c:choose>
 	            				<c:when test="${fn:length(k.content) > 13}">
@@ -316,7 +331,8 @@ ul.tabs {
 	            				</c:otherwise>
 	            			</c:choose>
 	            			<small>${k.senderID }&nbsp;|&nbsp;${fn:substring(k.msgDate,0,10) }</small>
-	            		</a></li>
+	            		</a>
+	            		</li>
 	            		<li class="hidden-item">
 	            		</li>
 	            	</c:forEach>

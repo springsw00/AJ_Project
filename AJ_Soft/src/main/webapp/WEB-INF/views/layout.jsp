@@ -19,19 +19,44 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="resources/css/layout.css?ver=003">
-<style> 
-	 
-	.tab>li>a:hover{
-		background: #4C5870;
-		color: #fff;
-	}
-	
-	#msg-count {
-		font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-		font-size: 0.8em;
-	}
-	
-	
+<style>
+.tab>li>a:hover {
+	background: #4C5870;
+	color: #fff;
+}
+
+#msg-count {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 0.8em;
+}
+
+.badge {
+	background-color:#4CAF50;
+	color: #fff;
+	display: inline-block;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	text-align: center;
+	border-radius: 50%;
+}
+
+@keyframes blink {
+ 0% {background-color: red;}
+ 50% {background-color: #4CAF50;}
+}
+ 
+/* for Chrome, Safari */
+@-webkit-keyframes blink {
+ 0% {background-color: red;}
+ 50% {background-color: #4CAF50;}
+}
+
+.blink {
+	animation: blink 1s step-end infinite;
+ 	-webkit-animation: blink 1s step-end infinite;
+}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -39,7 +64,7 @@
 		//alert(sessionStorage.ws);
 		if("WebSocket" in window ){
 			var loc = window.location;
-			websocket = new WebSocket("ws://"+loc.host+"/"+loc.pathname.split('/')[1]+"/msgCount");
+			websocket = new WebSocket("ws://"+loc.host+"/"+loc.pathname.split('/')[1]+"/msgCount?empID=${empID}");
 			
 			websocket.onopen = function(evt){
 				//onOpen(evt);
@@ -62,6 +87,11 @@
 		function onMessage(evt){
 			//alert(evt.data);
 			$('#msg-count').text(evt.data);
+			if(evt.data > 0){
+				$('#msg-count').addClass("blink");
+			}else{
+				$('#msg-count').removeClass("blink");
+			}
 		}
 		function onError(evt){
 			alert("error");
@@ -125,7 +155,7 @@
 				<li data-tab="tab7"><a href="emp_admin.do">사원관리</a></li>
 			</c:if>
 			<li data-tab="tab8"><a href="#" onclick="msgWindow()">
-			<i class="fa fa-commenting-o fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<span id="msg-count" class="w3-badge w3-green"></span></a></li>
+			<i class="fa fa-commenting-o fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<span id="msg-count" class="badge"></span></a></li>
 			
 			<!-- <li data-tab="tab8"><a href="go_test.do">testPage</a></li> -->
 		</ul>
