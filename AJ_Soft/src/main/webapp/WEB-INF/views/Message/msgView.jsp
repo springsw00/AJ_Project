@@ -253,19 +253,7 @@ ul.tabs {
 	
 		function sendMsg(receiveID) {
 			//웹소캣
-
-			// var loc = window.location;
-			//websocket = new WebSocket("ws://"+loc.host+"/"+loc.pathname.split('/')[1]+"/msgCount");
-			//websocket.onopen = function(evt){
 			websocket.send(receiveID);
-			//};  
-
-			/* websocket.onmessage = function(evt) {
-				onMessage(evt);
-			}; */
-			/* websocket.onerror = function(evt) {
-				onError(evt);
-			}; */
 		}
 
 		function onError(evt) {
@@ -273,38 +261,64 @@ ul.tabs {
 		}
 		function showMsg(msgNo, t, type) {
 					//alert(msgNo);
-				$.ajax({
-					url : "getMessage.do",
-					data : {
-						msgNo : msgNo,
-						type : type
-					},
-					dataType : 'json',
-					success : function(data) {
-						//t.next().empty();
+			$.ajax({
+				url : "getMessage.do",
+				data : {
+					msgNo : msgNo,
+					type : type
+				},
+				dataType : 'json',
+				success : function(data) {
+					//t.next().empty();
 
-						t.next().append("<table></table>");
-						var table = t.next().find('table');
-						if (type == 'receive') {
-							table.append("<tr><th>보낸사람</th><td>"
-									+ data.senderID + "</td></tr>");
-						} else {
-							table.append("<tr><th>받을사람</th><td>"
-									+ data.receiveID + "</td></tr>");
-						}
-						table.append("<tr><th>날짜</th><td>" + data.msgDate
-								+ "</td></tr>");
-						table.append("<tr><td colspan='2'><pre>"
-								+ data.content + "</pre></td></tr>");
-
-						// 안읽은 메세지 개수 새로표시
-						sendMsg("${empID}");
+					t.next().append("<table></table>");
+					var table = t.next().find('table');
+					if (type == 'receive') {
+						table.append("<tr><th>보낸사람</th><td>"
+								+ data.senderID + "</td></tr>");
+					} else {
+						table.append("<tr><th>받을사람</th><td>"
+								+ data.receiveID + "</td></tr>");
 					}
-				});
-			}
+					table.append("<tr><th>날짜</th><td>" + data.msgDate
+							+ "</td></tr>");
+					table.append("<tr><td colspan='2'><pre>"
+							+ data.content + "</pre></td></tr>");
+
+					// 안읽은 메세지 개수 새로표시
+					sendMsg("${empID}");
+				}
+			});
+		}
+		
+		/* var availableTags = [
+		      "ActionScript",
+		      "AppleScript",
+		      "Asp",
+		      "BASIC",
+		      "C",
+		      "C++",
+		      "Clojure",
+		      "COBOL",
+		      "ColdFusion",
+		      "Erlang",
+		      "Fortran",
+		      "Groovy",
+		      "Haskell",
+		      "Java",
+		      "JavaScript",
+		      "Lisp",
+		      "Perl",
+		      "PHP",
+		      "Python",
+		      "Ruby",
+		      "Scala",
+		      "Scheme"
+		    ]; */
 		
 			/* autoComplete */
 			$(".autoCompleteID").autocomplete({
+				/* source: availableTags */
 				source: function(request, response){
 					$.ajax({
 						url:"search.do",
@@ -315,14 +329,10 @@ ul.tabs {
 						success:function(result){
 							response(
 								$.each(result,function(index, item){
-									/* $.each(this, function(item){
-										alert(item.id);	
-										return {
-											//label : 화면에 보여지는 텍스트 
-											//value : 실제 text태그에 들어갈 값
-	
-										}
-									}); */
+									return {
+										label : item.id-name,
+										value: item.id
+									}
 								})
 							);
 						}
