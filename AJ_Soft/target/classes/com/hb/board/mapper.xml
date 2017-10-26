@@ -41,7 +41,7 @@
 		select * from NOTICE order by notice_no desc
 	</select> 
 	
-<!-- ///////////////////////////////////////////////////////////////////////// -->	
+	<!-- ///////////////////////////////////////////////////////////////////////// -->	
 	
 	<select id="commuTotalcount" resultType="int">
 		select count(*) from COMMUNITY where groupID = #{groupID}
@@ -134,7 +134,7 @@
 				WHERE cgm.groupID IS NULL)
 	</delete>
 	
-<!-- ///////////////////////////////////////////////////////////////////////// -->
+	<!-- ///////////////////////////////////////////////////////////////////////// -->
 	
 	<insert id="reply_insert" parameterType="map">
 		insert into REPLY values(reply_seq.nextval, #{empID}, #{groupID}, #{community_no},
@@ -143,7 +143,12 @@
 	
 	<select id="reply_list" resultType="com.hb.board.ReplyVO" parameterType="map" >
 		select * from REPLY where board_Category = #{groupID} and board_no = #{community_no}
+				 order by reply_no desc
 	</select>
+	
+	<delete id="deleteReply" parameterType="int">
+		delete from REPLY where reply_No = #{reply_No}
+	</delete>
 </mapper>
 
 

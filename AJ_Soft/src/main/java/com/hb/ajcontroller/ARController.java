@@ -1,5 +1,6 @@
 package com.hb.ajcontroller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -253,13 +254,30 @@ public class ARController {
 	
 	@RequestMapping("goDeleteAR.do")
 	public ModelAndView deleteAR(String arNO, String id) {
-		ModelAndView mv = new ModelAndView("redirect:/goARView2.do?searchResult=OK&searchID=id");
+		ModelAndView mv = new ModelAndView("redirect:/goARView2.do?searchResult=OK&id="+id);
 		
 		
 		arDao.delete(arNO);
 		
 		
 		return mv;
+	}
+	@RequestMapping("goEditAR.do")
+	public void editAR(AttendanceRecordVO vo, HttpServletResponse res) {
+		//String url = "goARView2.do?searchResult=OK&searchID="+vo.getId();
+		
+		vo.setAr_Date(vo.getAr_Date().substring(2, vo.getAr_Date().length()));
+		
+		if(!vo.getStartTime().isEmpty() && !vo.getEndTime().isEmpty()) {
+			vo.setWorkTime(getWorkTime(vo.getStartTime(), vo.getEndTime()));
+		}
+		System.out.println(vo.toString());
+		
+		if(vo.getAr_No() == 0) {
+			arDao.insert(vo);
+		}else {
+			arDao.modify(vo);
+		}
 	}
 	
 	public List<AttendanceRecordVO> getARlist(int year, int month, String id){
@@ -328,7 +346,7 @@ public class ARController {
 		return map;
 	}
 	
-
+	
 	
 
 }

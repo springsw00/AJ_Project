@@ -51,6 +51,9 @@
 .display-none{
 	display: none;
 }
+.arEditNow {
+	width: 100px;
+}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -87,10 +90,8 @@
 			//alert(chkRadio);
 		});
 		
-
+		var editSelected =null;
 		
-		
-
 		$.contextMenu({
 			selector : '.right-click-menu',
 			callback : function(key, options) {
@@ -148,6 +149,61 @@
 				}
 
 			}
+		});
+		
+		function getText(parent, cName){
+			return parent.children("td[class="+cName+"]").text().trim();
+		}
+		function setInputText(parent, cName, textVal){
+			var element = parent.children("td[class="+cName+"]");
+			element.empty();
+			element.append("<input class='arEditNow'  type='text' value="+textVal+">");
+		}
+		function editCancel(tr){
+			tr.find("#go_modify").empty();
+			tr.children("td[class=startTime]").empty();
+			tr.children("td[class=startTime]").append(startTime);
+			tr.children("td[class=endTime]").empty();
+			tr.children("td[class=endTime]").append(endTime);
+			tr.children("td[class=ip]").empty();
+			tr.children("td[class=ip]").append(ip);
+			//tr.children("td[class=workTime]").empty();
+			//tr.children("td[class=workTime]").append(workTime);
+		}
+		
+		
+		
+		
+		$(document).on("click",".editArBtn",function(){
+			var selectedDate = $(this).parent().siblings(".date").text();
+			alert($("#searchID").val());
+			/* $(".arEditNow").each(function(){
+				transVal+=$(this).val()+"/";
+				//alert($(this).val());
+			}); */
+			
+			$.ajax({
+				type:'POST',
+				url : 'goEditAR.do',
+				data:{
+					startTime : $(".arEditNow:eq(0)").val(),
+					endTime : $(".arEditNow:eq(1)").val(),
+					ip : $(".arEditNow:eq(2)").val(),
+					ar_No : $(this).parent().parent().attr('id'),
+					id: $("#searchID").val(),
+					ar_Date: selectedDate
+				},
+				dataType: 'text',
+				success : function(data){
+					$("#arView").load('goARView2.do', {id:$("#searchID").val(), searchResult:'searchResult'}, function(){});
+				}
+			}); 
+			
+			/* var editID = $(this).parent().parent().attr('id');
+			var startVal = $(this).find("input[class=startTime]").val();
+			alert(startVal); */
+			
+			//$("#arView").load('goEditAR.do', {id:editID,startTime:}, function(){});
 		});
 		
 	});
@@ -241,11 +297,11 @@
 				<c:if test="${empDeptID == 'PRMT' }">
 				<!-- 인사관리팀이면 보여줄 페이지 -->
 					<a href="#" onclick="searchDeptAR()">근태 검색</a>
-					<input id="findAR-input" name="findAR" type="text" size="12"/><a
+					<input id="findAR-input" name="findAR" type="text" size="12" class="autoCompleteID"/><a
 					onclick="go_findAR($(this).closest('form')[0])"> <img alt="find" src="resources/Image/find_person.png" width="15px" height="15px" class="btn"> </a>
 					<br>
 					<input type="radio" name="find-radio" value="id" checked="checked"> ID
-					<input type="radio" name="find-radio" value="name" > NAME
+					<!-- <input type="radio" name="find-radio" value="name" > NAME -->
 				</c:if>
 			</div>
 			<div class="float_left use-scroll" >

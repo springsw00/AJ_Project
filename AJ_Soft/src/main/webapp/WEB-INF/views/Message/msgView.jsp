@@ -7,6 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/jquery-ui.min.css">
 <script src="resources/js/jquery-ui.min.js"></script>
+<script src="resources/js/autoCompleteID.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>메세지함</title>
@@ -149,7 +150,7 @@ ul.tabs {
 }
 
 .msg-unRead {
-	font-weight: bold;
+	font-weight: 900;
 }
 
 	
@@ -291,59 +292,8 @@ ul.tabs {
 			});
 		}
 		
-		/* var availableTags = [
-		      "ActionScript",
-		      "AppleScript",
-		      "Asp",
-		      "BASIC",
-		      "C",
-		      "C++",
-		      "Clojure",
-		      "COBOL",
-		      "ColdFusion",
-		      "Erlang",
-		      "Fortran",
-		      "Groovy",
-		      "Haskell",
-		      "Java",
-		      "JavaScript",
-		      "Lisp",
-		      "Perl",
-		      "PHP",
-		      "Python",
-		      "Ruby",
-		      "Scala",
-		      "Scheme"
-		    ]; */
 		
-			/* autoComplete */
-			$(".autoCompleteID").autocomplete({
-				/* source: availableTags */
-				source: function(request, response){
-					$.ajax({
-						url:"search.do",
-						dataType:"json",
-						data:{
-							searchVal:request.term
-						},
-						success:function(result){
-							response(
-								$.each(result,function(index, item){
-									return {
-										label : item.id-name,
-										value: item.id
-									}
-								})
-							);
-						}
-					});
-				},
-				minLength: 2,
-				select:function(event,ui){
-					
-				}
-			});
-
+		
 		});
 </script>
 </head>

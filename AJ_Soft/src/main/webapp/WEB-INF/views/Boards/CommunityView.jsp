@@ -46,8 +46,8 @@
 						<tr>
 							<td class="commuView_num">${pvo.totalRecord-((pvo.nowPage-1)*pvo.numPerPage+i.index)}</td>
 							<!-- <td>${k.community_no}</td> -->
-							<td id="importLev">
-							<a href="#" onclick="detailCommunity(${pvo.nowPage}, ${k.community_no}, ${groupID})">${k.title}</a>
+							<td>
+							<a href="#" id="detail_commu" onclick="detailCommunity(${pvo.nowPage}, ${k.community_no}, ${groupID})">${k.title}</a>
 							</td>
 							<td>${k.writer}</td>
 							<td>${k.writeDate.substring(0,10)}</td>

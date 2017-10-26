@@ -64,7 +64,32 @@
 	 -->
 	
 	<insert id="insertAR" parameterType="com.hb.employee.AttendanceRecordVO">
-		insert into AttendanceRecord values(AR_SEQ.nextval, #{id}, #{ar_Date}, to_char(SYSDATE, 'HH24:MI:SS'), '00:00:00',null, #{ip})
+		insert into AttendanceRecord values(AR_SEQ.nextval, #{id}, #{ar_Date},
+		<choose>
+			<when test="startTime != null">
+				#{startTime},
+			</when>
+			<otherwise>
+				to_char(SYSDATE, 'HH24:MI:SS'),
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="endTime != null">
+				#{endTime},
+			</when>
+			<otherwise>
+				null,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="workTime != null">
+				#{workTime},
+			</when>
+			<otherwise>
+				null,
+			</otherwise>
+		</choose>
+		 #{ip})
 	</insert>
 	
 	<delete id="deleteAR" parameterType="String">

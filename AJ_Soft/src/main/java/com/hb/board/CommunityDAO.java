@@ -134,4 +134,9 @@ public class CommunityDAO implements DAO {
 		return template.selectList("board.reply_list", map);
 	}
 	
+	public int deleteReply(int reply_No) {
+		return template.delete("board.deleteReply", reply_No);
+	}
+	
 }
+

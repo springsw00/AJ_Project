@@ -69,38 +69,7 @@
 			}
 		});
 		
-		function getText(parent, cName){
-			return parent.children("td[class="+cName+"]").text().trim();
-		}
-		function setInputText(parent, cName, textVal){
-			var element = parent.children("td[class="+cName+"]");
-			element.empty();
-			element.append("<input class='arEdit "+cName+"'  type='text' value="+textVal+">");
-		}
-		function editCancel(tr){
-			tr.find("#go_modify").empty();
-			tr.children("td[class=startTime]").empty();
-			tr.children("td[class=startTime]").append(startTime);
-			tr.children("td[class=endTime]").empty();
-			tr.children("td[class=endTime]").append(endTime);
-			tr.children("td[class=ip]").empty();
-			tr.children("td[class=ip]").append(ip);
-			//tr.children("td[class=workTime]").empty();
-			//tr.children("td[class=workTime]").append(workTime);
-		}
 		
-		
-		
-		
-		$(document).on("click",".editArBtn",function(){
-			alert("dd");
-			
-			/* var editID = $(this).parent().parent().attr('id');
-			var startVal = $(this).find("input[class=startTime]").val();
-			alert(startVal); */
-			
-			//$("#arView").load('goEditAR.do', {id:editID,startTime:}, function(){});
-		});
 	});
 	
 	
@@ -132,10 +101,10 @@
 		<thead>
 			<tr>
 				<th width="100px">날짜</th>
-				<th>출근</th>
-				<th>퇴근</th>
-				<th>IP</th>
-				<th>근무시간</th>
+				<th width="150px">출근</th>
+				<th width="150px">퇴근</th>
+				<th width="200px">IP</th>
+				<th width="150px">근무시간</th>
 			</tr>
 		</thead>
 		<tbody>

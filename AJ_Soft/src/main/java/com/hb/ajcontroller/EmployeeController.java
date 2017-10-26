@@ -374,12 +374,13 @@ public class EmployeeController {
 		// DB조회 결과를 JSON으로
 		for(EmployeeVO vo:list) {
 			jObj = new JSONObject();
-			jObj.put("id", vo.getId());
-			jObj.put("id-name", vo.getId()+"("+vo.getName()+")");
+			jObj.put("value", vo.getId());
+			jObj.put("label", vo.getId()+"("+vo.getName()+")");
 			jArray.add(jObj);
 		}
 		System.out.println(jArray);
 		try {
+			res.setCharacterEncoding("utf-8");
 			res.getWriter().print(jArray);
 			res.getWriter().flush();
 			res.getWriter().close();

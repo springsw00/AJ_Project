@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-
+/* 
 #notice-vtable {
 	margin: auto;
 	width: 100%;
@@ -27,10 +27,24 @@
 	padding: 4px 10px;
 	margin-right: 20px;
     width: 100px;
-}
-#notice-vtable thead tr:last-child{
-	border-bottom: 1px dashed #aaa;
-}
+} */
+	#notice-vtable th {
+		background-color: #CFD8DC;
+		width : 120px;
+	}
+	
+	#notice-vtable {
+		width: 90%;
+		margin: auto;
+		
+		/* border: 1px solid #aaa;	 */
+	}
+	#notice-vtable td {
+		margin: 0px;
+		padding: 0px;
+		border-bottom: 1px solid #aaa;
+		border-spacing: 0px;
+	}
 </style>
 <script type="text/javascript">
 
@@ -79,14 +93,14 @@
 					<c:if test="${empDeptID == 'PRMT' }">
 						<tr>
 							<td colspan="4" style="text-align:center">
-								<input type="button" value="수정" onclick="modify_go(this.form)" /> 
-								<input type="button" value="삭제" onclick="delete_go(this.form)" />
 								<c:if test="${cPage == ''}">
 									<input type="button" value="뒤로" onclick="main_go(this.form)" />
 								</c:if>
 								<c:if test="${cPage != ''}">
 									<input type="button" value="목록" onclick="list_go(this.form)" />
 								</c:if>
+								<input type="button" value="수정" onclick="modify_go(this.form)" /> 
+								<input type="button" value="삭제" onclick="delete_go(this.form)" />
 								<input type="hidden" name="cPage" value="${cPage}" />
 								<input type="hidden" name="importanceLevel" value="${vo.importanceLevel}" />
 								<input type="hidden" name="notice_no" value="${vo.notice_no}" /></td>

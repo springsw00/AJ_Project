@@ -6,6 +6,8 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	
 <link href="resources/datepicker/datepicker.min.css" rel="stylesheet"
 	type="text/css">
 
@@ -16,9 +18,7 @@
 <!-- Include English language -->
 <script src="resources/datepicker/i18n/datepicker.en.js"></script>
 
-<!-- jquery ui -->
-<link rel="stylesheet" href="resources/css/jquery-ui.min.css">
-<script src="resources/js/jquery-ui.min.js"></script>
+
 
 <meta charset="UTF-8">
 <title>AJ SOFT</title>
@@ -101,6 +101,9 @@
 		function onError(evt){
 			alert("error");
 		}
+		
+		
+		
 	});
 	
 	function msgWindow(){

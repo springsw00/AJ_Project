@@ -51,8 +51,10 @@ function detailCommunity(cPage, community_no, groupID){
 	$("#cmView").load("detailCommu.do?cPage="+cPage+"&community_no="+community_no
 			+"&groupID="+groupID);
 
-	//$("#Community_list").addClass("display-none");
+	
 };
+
+
 
 function addCommunity_go(cPage, groupID){
 	// alert(groupID);
@@ -71,6 +73,8 @@ function CommuList_go(groupID){
 	 $("#cmView").load("list_community.do?groupID="+groupID);
 };
 
+
+
 function Commu_AllGroup(){
 	 $("#cmView").load("Commu_AllGroup.do");
 };
@@ -80,6 +84,28 @@ $(function(){
 	$('li a').removeClass('menu_active');
 	$('li[data-tab=tab4] a').addClass('menu_active');
 });
+
+/* 
+$(document).ready(function(){
+	//var community_no = req.getParameter("community_no")
+	//var cPage = req.getParameter("cPage")
+	//var groupID = req.getParameter("groupID")
+	$("#commu_view").click(function(){
+		$("#cmView").load("list_community.do?groupID="+groupID);
+	});
+	
+	$("#detail_commu").click(function(){
+		$("#cmView").load("detailCommu.do?cPage="+cPage+"&community_no="+community_no
+				+"&groupID="+groupID);
+	});
+	
+	if(${community_no != null} & ${groupID != null} & ${cPage != null}){
+		$("#commu_view").trigger("click");
+		$("#detail_commu").trigger("click");
+	}
+	
+});
+ */
 </script>
 </head>
 <body>
@@ -89,7 +115,7 @@ $(function(){
 			<div class="float_left_menu">
 				<c:forEach var="k" items="${list}" varStatus="i">
 					<%-- <h4><a href="#" onclick="selectCommunity(${k.groupID},${k.groupName})">${k.groupName}</a></h4><br> --%>
-					<h4><i class="fa fa-user-circle-o" aria-hidden="true"></i><a href="#" onclick="selectCommunity(${k.groupID})"> ${k.groupName}</a></h4>
+					<h4><i class="fa fa-user-circle-o" aria-hidden="true"></i><a href="#" id="commu_view" onclick="selectCommunity(${k.groupID})"> ${k.groupName}</a></h4>
 				</c:forEach><br>
 				<a href="#" class="t-grey btn" onclick="Commu_AllGroup()" ><i
 				 class="fa fa-search" aria-hidden="true"></i> 모든 그룹</a>
