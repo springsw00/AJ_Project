@@ -238,6 +238,7 @@ public class ARController {
 		}
 		
 		lastDay = getLastDay(year, month);
+		System.out.println(lastDay);
 		
 		// 설정된 날짜를 가지고 DB에서 데이터 가져오자
 		mv.addObject("year", year);
@@ -294,7 +295,7 @@ public class ARController {
 		list = (List<AttendanceRecordVO>) arDao.getList(map);
 		AttendanceRecordVO arVO;
 		List<AttendanceRecordVO> allDateList = new ArrayList<>();
-		for(int i =1; i<getLastDay(year, month); i++) {
+		for(int i =1; i<=getLastDay(year, month); i++) {
 			String date = subYear+"/"+alignIntValue(month)+"/"+alignIntValue(i);
 			arVO = new AttendanceRecordVO();
 			arVO.setAr_Date(date);

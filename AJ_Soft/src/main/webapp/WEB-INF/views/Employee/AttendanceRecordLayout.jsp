@@ -56,21 +56,6 @@
 }
 
 
-#ar-ul,#ar-ul ul {
-	list-style: none;
-	padding: 0;
-}
-
-#ar-ul li {
-	margin-left: 2px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-#ar-ul li li {
-	margin-left: 10px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
 .font-bold{
 	font-weight: bold;
 }
