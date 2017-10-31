@@ -54,6 +54,26 @@
 .arEditNow {
 	width: 100px;
 }
+
+
+#ar-ul,#ar-ul ul {
+	list-style: none;
+	padding: 0;
+}
+
+#ar-ul li {
+	margin-left: 2px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#ar-ul li li {
+	margin-left: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.font-bold{
+	font-weight: bold;
+}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -131,7 +151,7 @@
 					if(id == 0){
 						return;
 					}
-					alert("id>>>"+id);
+					//alert("id>>>"+id);
 					$("#arView").load('goDeleteAR.do', {arNO:id,id:searchID}, function(){
 						alert("삭제완료!");						
 					});
@@ -176,7 +196,7 @@
 		
 		$(document).on("click",".editArBtn",function(){
 			var selectedDate = $(this).parent().siblings(".date").text();
-			alert($("#searchID").val());
+			//alert($("#searchID").val());
 			/* $(".arEditNow").each(function(){
 				transVal+=$(this).val()+"/";
 				//alert($(this).val());
@@ -196,6 +216,9 @@
 				dataType: 'text',
 				success : function(data){
 					$("#arView").load('goARView2.do', {id:$("#searchID").val(), searchResult:'searchResult'}, function(){});
+				},
+				error: function(){
+					alert("수정실패");
 				}
 			}); 
 			
@@ -280,13 +303,24 @@
 		<div id="main_board">
 			<div class="float_left_menu">
 			
+				<%-- <ul id="ar-ul">
+					<li class="font-bold btn" onclick="showMyAR()"> 내 근태 현황</li>
+					<c:if test="${!empty deptSuper }">
+					<li class="font-bold btn" onclick="showDeptAR()">부서 근태 현황</li>
+						<ul>
+							<c:forEach var="k" items="${empList}">
+							<li  id="${k.id}" class="btn inDept"> &nbsp;&nbsp;&nbsp; - ${k.name}</li>
+							</c:forEach>
+						</ul>
+					</c:if>
+				</ul>
+						<input type="hidden" name="" id="selectedID">
+				 --%>
 			
-				
-			
-				<a href="#" onclick="showMyAR()">내 근태 현황</a>
+				<a href="#" onclick="showMyAR()" class="font-bold">내 근태 현황</a>
 				<hr>
 				<c:if test="${!empty deptSuper }">
-					<a href="#" onclick="showDeptAR()">부서 근태 현황</a>
+					<a href="#" onclick="showDeptAR()" class="font-bold">부서 근태 현황</a>
 					<br>	
 					<c:forEach var="k" items="${empList}">
 						&nbsp;&nbsp;&nbsp;<a href="#" class="inDept" id="${k.id}"> - ${k.name}</a><br>										

@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="resources/css/colorPick.min.css?ver=0" />
 
 
-<script type="text/javascript" src="resources/fullcalendar/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="resources/fullcalendar/jquery.min.js"></script> -->
 <script type="text/javascript" src="resources/fullcalendar/moment.min.js"></script>
 <script type="text/javascript" src="resources/fullcalendar/fullcalendar.min.js" charset="euc-kr"></script>
 <script type="text/javascript" src="resources/fullcalendar/locale-all.js"></script>

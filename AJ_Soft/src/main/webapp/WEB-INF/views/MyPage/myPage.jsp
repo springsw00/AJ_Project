@@ -32,7 +32,7 @@
 </style>
 <script type="text/javascript">
 	function modify_go(f) {
-		f.action = "/myPage_modi.do";
+		f.action = "myPage_modi.do";
 		f.submit();
 	}
 	

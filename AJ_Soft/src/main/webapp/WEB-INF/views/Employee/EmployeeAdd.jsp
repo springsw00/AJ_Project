@@ -76,7 +76,7 @@
 		if (chk) {
 			return;
 		}
-		alert(chk);
+		//alert(chk);
 		
 		$("#empAddfrm").attr('action', "addEmployee.do");
 		$('#empAddfrm').submit();

@@ -80,7 +80,7 @@
 				<tr>
 					<td colspan="3" style="text-align:right">
 						<a id="show_input" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i> 그룹 추가</a>
-						<input class="hide_addGroup" type="text" name="groupName"><a onclick="add_groupName(this.form)" class="hide_addGroup" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
+						<input class="hide_addGroup" type="text" name="groupName"><a class="hide_addGroup" href="#"><i id="groupName_add" class="fa fa-plus" aria-hidden="true"></i></a>
 					</td>
 				</tr>
 			</table>
